@@ -26,6 +26,18 @@
 - [x] Créer service d'envoi d'emails avec templates HTML
 - [x] Intégrer CV dans le dossier public
 
+## Features Complétées (Mise à jour CV)
+- [x] Ajouter projet Jeu Vidéo (Unity C#)
+- [x] Ajouter projet Data Visualization
+- [x] Ajouter projet Gestion de Contenu (Back-Office)
+- [x] Ajouter projet Station Numixs
+- [x] Créer page À propos avec CV détaillé
+- [x] Mettre à jour les compétences et points forts
+- [x] Ajouter informations de contact
+- [x] Ajouter langues (Anglais avancé)
+- [x] Mettre à jour la navigation avec lien À propos
+- [x] Ajouter route /about à App.tsx
+
 ## Features Futures
 - [ ] Système de filtrage des compétences
 - [ ] Blog ou articles techniques

@@ -86,7 +86,8 @@ export default function Home() {
           <div className="text-2xl font-bold text-primary">Falou Badiane</div>
           <ul className="hidden md:flex gap-8">
             <li><a href="#competences" className="hover:text-primary transition-colors">Compétences</a></li>
-            <li><a href="#projets" className="hover:text-primary transition-colors">Projets</a></li>
+            <li><a href="/projects" className="hover:text-primary transition-colors">Projets</a></li>
+            <li><a href="/about" className="hover:text-primary transition-colors">À propos</a></li>
             <li><a href="#contact" className="hover:text-primary transition-colors">Contact</a></li>
           </ul>
         </div>

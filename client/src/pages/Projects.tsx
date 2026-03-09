@@ -36,6 +36,50 @@ const projects = [
     technologies: ["Klynt", "DaVinci Resolve", "HTML/CSS", "JavaScript"],
     date: "2024",
     link: "#"
+  },
+  {
+    id: 4,
+    title: "Création d'un Jeu Vidéo",
+    description: "Développement complet d'un jeu vidéo avec Unity et C#. Le projet inclut la programmation de la logique de jeu, des mécaniques de mouvement avancées et des systèmes de collision optimisés.",
+    longDescription: "Ce projet de jeu vidéo démontre ma maîtrise de l'architecture de jeu et de l'optimisation des performances. J'ai implémenté un système complet de gestion des états de jeu (Game States), des mécaniques de mouvement fluides et des systèmes de collision précis. Le code a été optimisé pour assurer une performance optimale sur différentes plateformes.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/projects-visual-32nb734QPQjZo6S5HmpdqR.webp",
+    tags: ["Jeu Vidéo", "Programmation", "Architecture", "Performance"],
+    technologies: ["Unity", "C#", "Game Design", "Physics Engine"],
+    date: "2025",
+    link: "#"
+  },
+  {
+    id: 5,
+    title: "Data Visualization & Géolocalisation",
+    description: "Développement d'une application interactive de géolocalisation utilisant des APIs de cartographie pour l'exploration de données cinématographiques. Un projet qui combine data visualization et géographie.",
+    longDescription: "Cette application interactive démontre ma capacité à intégrer des APIs de cartographie avancées pour créer des visualisations de données engageantes. J'ai implémenté des fonctionnalités de filtrage dynamique, de clustering de données et de visualisation interactive pour permettre une exploration intuitive des données cinématographiques à travers le monde.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/projects-visual-32nb734QPQjZo6S5HmpdqR.webp",
+    tags: ["Data Visualization", "Géolocalisation", "API", "Données"],
+    technologies: ["JavaScript", "Google Maps API", "D3.js", "React", "Node.js"],
+    date: "2025",
+    link: "#"
+  },
+  {
+    id: 6,
+    title: "Back-Office de Gestion de Contenu",
+    description: "Réalisation d'un Back-Office sur mesure pour la gestion dynamique des flux d'informations universitaires. Un système complet de gestion de contenu pour l'IUT.",
+    longDescription: "Ce Back-Office a été développé pour répondre aux besoins spécifiques de gestion de contenu universitaire. Le système offre une interface intuitive pour la gestion des utilisateurs, des contenus et des flux d'informations. J'ai implémenté une architecture sécurisée avec contrôle d'accès basé sur les rôles et une base de données SQL optimisée pour supporter 100+ utilisateurs mensuels.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/projects-visual-32nb734QPQjZo6S5HmpdqR.webp",
+    tags: ["Back-Office", "Gestion de Contenu", "Base de Données", "Sécurité"],
+    technologies: ["PHP", "MySQL", "HTML/CSS", "JavaScript", "Bootstrap"],
+    date: "2024",
+    link: "#"
+  },
+  {
+    id: 7,
+    title: "Station Numixs - Workflows Automatisation IA",
+    description: "Conception et déploiement de 5 workflows automatisés via IA chez Unitee, réduisant de 20% le temps opérationnel. Un projet d'automatisation d'entreprise à grande échelle.",
+    longDescription: "Ce projet représente mon expertise en automatisation et intelligence artificielle appliquée aux processus métiers. J'ai conçu et déployé 5 workflows automatisés qui ont réduit significativement le temps opérationnel de 20%. Ces workflows intègrent des technologies IA avancées pour l'optimisation des processus, l'analyse de données et la prise de décision automatisée. Le projet démontre ma capacité à transformer des processus manuels en solutions intelligentes et scalables.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/projects-visual-32nb734QPQjZo6S5HmpdqR.webp",
+    tags: ["Automatisation", "IA", "Workflows", "Optimisation"],
+    technologies: ["Python", "IA/ML", "Web Scraping", "APIs", "Automation"],
+    date: "2025",
+    link: "#"
   }
 ];
 
@@ -52,6 +96,7 @@ export default function Projects() {
             <ul className="hidden md:flex gap-8">
               <li><a href="/#competences" className="hover:text-primary transition-colors">Compétences</a></li>
               <li><a href="/#projets" className="hover:text-primary transition-colors">Projets</a></li>
+              <li><a href="/about" className="hover:text-primary transition-colors">À propos</a></li>
               <li><a href="/#contact" className="hover:text-primary transition-colors">Contact</a></li>
             </ul>
             <Button 
@@ -70,7 +115,7 @@ export default function Projects() {
         <div className="container space-y-4">
           <h1 className="text-5xl md:text-6xl font-bold">Mes Projets</h1>
           <p className="text-xl text-white/80 max-w-2xl">
-            Découvrez en détail les projets qui démontrent mes compétences en développement web, production vidéo et design interactif.
+            Découvrez en détail les 7 projets qui démontrent mes compétences en développement web, jeux vidéo, data visualization et automatisation IA.
           </p>
         </div>
       </section>
