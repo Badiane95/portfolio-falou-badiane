@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Code, Zap, Globe, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Code, Zap, Globe, Github, Linkedin, Mail, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
 /**
  * DESIGN PHILOSOPHY: Minimalisme Moderne Technologique
@@ -13,7 +15,36 @@ import { useState } from "react";
  */
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<"competences" | "projets" | "contact">("competences");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+
+  const sendContactMutation = trpc.contact.send.useMutation({
+    onSuccess: () => {
+      toast.success("Message envoyé avec succès ! Je vous répondrai bientôt.");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    },
+    onError: (error: any) => {
+      toast.error(error?.message || "Erreur lors de l'envoi du message");
+    }
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      toast.error("Veuillez remplir tous les champs");
+      return;
+    }
+    sendContactMutation.mutate(formData);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   return (
     <div className="min-h-screen bg-white text-foreground">
@@ -192,44 +223,118 @@ export default function Home() {
 
       {/* Section Contact */}
       <section id="contact" className="py-20 md:py-32 bg-gradient-to-br from-primary to-primary/80 text-white">
-        <div className="container max-w-2xl text-center space-y-8">
-          <div className="space-y-4">
+        <div className="container max-w-2xl space-y-8">
+          <div className="text-center space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold">Parlons de votre projet</h2>
             <p className="text-lg text-white/80">
-              Vous cherchez un développeur passionné pour votre équipe ? Contactez-moi pour discuter de vos besoins.
+              Vous cherchez un développeur passionné pour votre équipe ? Remplissez le formulaire ci-dessous et je vous répondrai rapidement.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button 
-              className="bg-white text-primary hover:bg-white/90 gap-2"
-              onClick={() => window.location.href = 'mailto:contact@example.com'}
-            >
-              <Mail size={18} /> Me contacter
-            </Button>
-            <Button 
-              variant="outline" 
-              className="border-white text-white hover:bg-white/10"
-              onClick={() => window.open('https://github.com', '_blank')}
-            >
-              <Github size={18} className="mr-2" /> GitHub
-            </Button>
-          </div>
+          {/* Formulaire de contact */}
+          <Card className="p-8 bg-white/95 text-foreground">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="block text-sm font-medium">
+                    Nom complet
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Votre nom"
+                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="block text-sm font-medium">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="votre@email.com"
+                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="subject" className="block text-sm font-medium">
+                  Sujet
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  placeholder="Sujet de votre message"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="message" className="block text-sm font-medium">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Votre message..."
+                  rows={5}
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                  required
+                />
+              </div>
+
+              <Button
+                type="submit"
+                disabled={sendContactMutation.isPending}
+                className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 flex items-center justify-center gap-2"
+              >
+                {sendContactMutation.isPending ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    Envoi en cours...
+                  </>
+                ) : (
+                  <>
+                    Envoyer le message <ArrowRight size={18} />
+                  </>
+                )}
+              </Button>
+            </form>
+          </Card>
 
           {/* Réseaux sociaux */}
-          <div className="flex gap-6 justify-center pt-8">
-            <a href="https://github.com/badiane95" target="_blank" rel="noopener noreferrer" 
-               className="hover:opacity-80 transition-opacity">
-              <Github size={24} />
-            </a>
-            <a href="https://www.linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer"
-               className="hover:opacity-80 transition-opacity">
-              <Linkedin size={24} />
-            </a>
-            <a href="mailto:falou.badiane@example.com"
-               className="hover:opacity-80 transition-opacity">
-              <Mail size={24} />
-            </a>
+          <div className="text-center space-y-4">
+            <p className="text-white/80">Ou contactez-moi directement :</p>
+            <div className="flex gap-6 justify-center">
+              <a href="https://github.com/badiane95" target="_blank" rel="noopener noreferrer" 
+                 className="hover:opacity-80 transition-opacity">
+                <Github size={24} />
+              </a>
+              <a href="https://www.linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer"
+                 className="hover:opacity-80 transition-opacity">
+                <Linkedin size={24} />
+              </a>
+              <a href="mailto:falou.badiane@example.com"
+                 className="hover:opacity-80 transition-opacity">
+                <Mail size={24} />
+              </a>
+            </div>
           </div>
         </div>
       </section>
