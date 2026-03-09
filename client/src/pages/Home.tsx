@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Code, Zap, Globe, Github, Linkedin, Mail, Loader2 } from "lucide-react";
+import { ArrowRight, Code, Zap, Globe, Github, Linkedin, Mail, Loader2, Download } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import { useLocation } from "wouter";
 
 /**
  * DESIGN PHILOSOPHY: Minimalisme Moderne Technologique
@@ -108,11 +109,25 @@ export default function Home() {
               À la recherche d'une alternance pour mettre en pratique mes compétences en développement web, design et automatisation. Prêt à apporter mon enthousiasme et mon savoir-faire à votre équipe.
             </p>
             <div className="flex gap-4 pt-4">
-              <Button className="bg-primary hover:bg-primary/90 text-white gap-2">
+              <Button 
+                onClick={() => window.location.href = '/projects'}
+                className="bg-primary hover:bg-primary/90 text-white gap-2"
+              >
                 Découvrir mon travail <ArrowRight size={18} />
               </Button>
-              <Button variant="outline" className="border-primary text-primary hover:bg-primary/5">
-                Télécharger CV
+              <Button 
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = '/Falou-Badiane-CV.pdf';
+                  link.download = 'Falou-Badiane-CV.pdf';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+                variant="outline" 
+                className="border-primary text-primary hover:bg-primary/5 gap-2"
+              >
+                <Download size={18} /> Télécharger CV
               </Button>
             </div>
           </div>

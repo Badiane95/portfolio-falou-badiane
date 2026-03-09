@@ -4,6 +4,8 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { notifyOwner } from "./_core/notification";
+import { sendEmail, generateConfirmationEmailHTML, generateOwnerEmailHTML } from "./_core/emailService";
+import { ENV } from "./_core/env";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -37,6 +39,37 @@ export const appRouter = router({
 
           if (!notificationSent) {
             console.warn("[Contact] Notification service unavailable, but message was received");
+          }
+
+          // Envoyer un email de confirmation au visiteur
+          if (input.email) {
+            const confirmationHTML = generateConfirmationEmailHTML(input.name, input.subject);
+            const confirmationSent = await sendEmail({
+              to: input.email,
+              subject: "Confirmation de réception - Portfolio Falou Badiane",
+              html: confirmationHTML
+            });
+            if (!confirmationSent) {
+              console.warn("[Contact] Failed to send confirmation email to visitor");
+            }
+          }
+
+          // Envoyer un email au propriétaire
+          if (ENV.ownerEmail) {
+            const ownerHTML = generateOwnerEmailHTML(
+              input.name,
+              input.email,
+              input.subject,
+              input.message
+            );
+            const ownerEmailSent = await sendEmail({
+              to: ENV.ownerEmail,
+              subject: `Nouveau message de contact: ${input.subject}`,
+              html: ownerHTML
+            });
+            if (!ownerEmailSent) {
+              console.warn("[Contact] Failed to send email to owner");
+            }
           }
 
           return {

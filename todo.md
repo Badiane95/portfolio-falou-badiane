@@ -17,8 +17,16 @@
 - [x] Compteur de caractères en temps réel pour le message
 - [x] Affichage des contraintes de validation dans les labels
 
+## Features Complétées (Continuation 2)
+- [x] Configurer l'envoi d'emails à l'adresse du propriétaire
+- [x] Ajouter email de confirmation automatique aux visiteurs
+- [x] Ajouter fonctionnalité télécharger CV
+- [x] Créer page de projets détaillés
+- [x] Rediriger bouton "Découvrir mon travail" vers page projets
+- [x] Créer service d'envoi d'emails avec templates HTML
+- [x] Intégrer CV dans le dossier public
+
 ## Features Futures
-- [ ] Pages détaillées pour chaque projet
 - [ ] Système de filtrage des compétences
 - [ ] Blog ou articles techniques
 - [ ] Intégration avec GitHub API
