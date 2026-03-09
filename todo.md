@@ -38,6 +38,12 @@
 - [x] Mettre à jour la navigation avec lien À propos
 - [x] Ajouter route /about à App.tsx
 
+## Features en Cours (Pages spécialisées)
+- [ ] Créer page Contact spécialisée
+- [ ] Créer page Compétences spécialisée
+- [ ] Mettre à jour navigation avec liens vers pages
+- [ ] Exporter sur GitHub
+
 ## Features Futures
 - [ ] Système de filtrage des compétences
 - [ ] Blog ou articles techniques
