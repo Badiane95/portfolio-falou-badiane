@@ -34,10 +34,41 @@ export default function Home() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-      toast.error("Veuillez remplir tous les champs");
+    
+    // Validation côté client
+    if (!formData.name.trim()) {
+      toast.error("Le nom est obligatoire");
       return;
     }
+    if (formData.name.trim().length < 2) {
+      toast.error("Le nom doit contenir au moins 2 caractères");
+      return;
+    }
+    if (!formData.email.trim()) {
+      toast.error("L'email est obligatoire");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      toast.error("Veuillez entrer un email valide");
+      return;
+    }
+    if (!formData.subject.trim()) {
+      toast.error("Le sujet est obligatoire");
+      return;
+    }
+    if (formData.subject.trim().length < 5) {
+      toast.error("Le sujet doit contenir au moins 5 caractères");
+      return;
+    }
+    if (!formData.message.trim()) {
+      toast.error("Le message est obligatoire");
+      return;
+    }
+    if (formData.message.trim().length < 10) {
+      toast.error("Le message doit contenir au moins 10 caractères");
+      return;
+    }
+    
     sendContactMutation.mutate(formData);
   };
 
@@ -235,41 +266,42 @@ export default function Home() {
           <Card className="p-8 bg-white/95 text-foreground">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="block text-sm font-medium">
-                    Nom complet
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Votre nom"
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="email" className="block text-sm font-medium">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="votre@email.com"
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                    required
-                  />
-                </div>
+              <div className="space-y-2">
+                <label htmlFor="name" className="block text-sm font-medium">
+                  Nom complet <span className="text-xs text-muted-foreground">(min. 2 caractères)</span>
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Votre nom"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                  minLength={2}
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="email" className="block text-sm font-medium">
+                  Email <span className="text-xs text-muted-foreground">(valide)</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="votre@email.com"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                />
+              </div>
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="subject" className="block text-sm font-medium">
-                  Sujet
+                  Sujet <span className="text-xs text-muted-foreground">(min. 5 caractères)</span>
                 </label>
                 <input
                   type="text"
@@ -280,12 +312,13 @@ export default function Home() {
                   placeholder="Sujet de votre message"
                   className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   required
+                  minLength={5}
                 />
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="message" className="block text-sm font-medium">
-                  Message
+                  Message <span className="text-xs text-muted-foreground">(min. 10 caractères)</span>
                 </label>
                 <textarea
                   id="message"
@@ -296,7 +329,9 @@ export default function Home() {
                   rows={5}
                   className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none"
                   required
+                  minLength={10}
                 />
+                <p className="text-xs text-muted-foreground">{formData.message.length} caractères</p>
               </div>
 
               <Button

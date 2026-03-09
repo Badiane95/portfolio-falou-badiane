@@ -13,6 +13,9 @@
 - [x] Procédure tRPC contact.send avec validation
 - [x] Tests vitest pour la procédure de contact
 - [x] Notifications au propriétaire via Manus API
+- [x] Validation côté client avec messages d'erreur clairs
+- [x] Compteur de caractères en temps réel pour le message
+- [x] Affichage des contraintes de validation dans les labels
 
 ## Features Futures
 - [ ] Pages détaillées pour chaque projet
