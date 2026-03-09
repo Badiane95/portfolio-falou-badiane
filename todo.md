@@ -38,11 +38,11 @@
 - [x] Mettre à jour la navigation avec lien À propos
 - [x] Ajouter route /about à App.tsx
 
-## Features en Cours (Pages spécialisées)
-- [ ] Créer page Contact spécialisée
-- [ ] Créer page Compétences spécialisée
-- [ ] Mettre à jour navigation avec liens vers pages
-- [ ] Exporter sur GitHub
+## Features Complétées (Pages spécialisées)
+- [x] Créer page Contact spécialisée
+- [x] Créer page Compétences spécialisée
+- [x] Mettre à jour navigation avec liens vers pages
+- [x] Exporter sur GitHub (https://github.com/Badiane95/portfolio-falou-badiane)
 
 ## Features Futures
 - [ ] Système de filtrage des compétences
