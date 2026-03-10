@@ -1007,7 +1007,7 @@ function vitePluginManusDebugCollector() {
 }
 var plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
 var vite_config_default = defineConfig({
-  base: process.env.NODE_ENV === "production" ? "/portfolio-falou-badiane/" : "/",
+  base: "/",
   plugins,
   resolve: {
     alias: {
