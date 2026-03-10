@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Code, Zap, Globe, Github, Linkedin, Mail, Loader2, Download } from "lucide-react";
+import { ArrowRight, Code, Zap, Globe, Github, Linkedin, Mail, Loader2, Download, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
@@ -16,6 +15,7 @@ import { useLocation } from "wouter";
  */
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -78,58 +78,84 @@ export default function Home() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const navLinks = [
+    { label: "Compétences", href: "/skills" },
+    { label: "Projets", href: "/projects" },
+    { label: "À propos", href: "/about" },
+    { label: "Contact", href: "/contact" }
+  ];
+
   return (
     <div className="min-h-screen bg-white text-foreground">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white border-b border-border">
-        <div className="container flex items-center justify-between h-16">
-          <div className="text-2xl font-bold text-primary">Falou Badiane</div>
+        <div className="container flex items-center justify-between h-16 px-4 md:px-0">
+          <div className="text-xl md:text-2xl font-bold text-primary">Falou Badiane</div>
+          
+          {/* Desktop Menu */}
           <ul className="hidden md:flex gap-8">
-            <li><a href="/skills" className="hover:text-primary transition-colors">Compétences</a></li>
-            <li><a href="/projects" className="hover:text-primary transition-colors">Projets</a></li>
-            <li><a href="/about" className="hover:text-primary transition-colors">À propos</a></li>
-            <li><a href="/contact" className="hover:text-primary transition-colors">Contact</a></li>
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} className="hover:text-primary transition-colors text-sm md:text-base">
+                  {link.label}
+                </a>
+              </li>
+            ))}
           </ul>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden p-2 hover:bg-secondary rounded-lg transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border bg-white">
+            <ul className="flex flex-col gap-0">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a 
+                    href={link.href} 
+                    className="block px-4 py-3 hover:bg-secondary transition-colors border-b border-border last:border-b-0"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="container py-20 md:py-32 grid md:grid-cols-2 gap-12 items-center">
+        <div className="container px-4 md:px-0 py-12 md:py-32 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Texte Hero - Asymétrie à gauche */}
           <div className="space-y-6">
             <div className="space-y-2">
-              <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                 Développeur Web & <span className="text-primary">Automation</span>
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-lg md:text-xl text-muted-foreground">
                 Étudiant en BUT MMI passionné par la création de solutions web modernes et l'automatisation de processus.
               </p>
             </div>
             <p className="text-base text-muted-foreground leading-relaxed max-w-md">
               À la recherche d'une alternance pour mettre en pratique mes compétences en développement web, design et automatisation. Prêt à apporter mon enthousiasme et mon savoir-faire à votre équipe.
             </p>
-            <div className="flex gap-4 pt-4">
-              <Button 
-                onClick={() => window.location.href = '/projects'}
-                className="bg-primary hover:bg-primary/90 text-white gap-2"
-              >
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <a href="/projects" className="bg-primary hover:bg-primary/90 text-white gap-2 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center">
                 Découvrir mon travail <ArrowRight size={18} />
-              </Button>
-              <Button 
-                onClick={() => {
-                  const link = document.createElement('a');
-                  link.href = '/Falou-Badiane-CV.pdf';
-                  link.download = 'Falou-Badiane-CV.pdf';
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                }}
-                variant="outline" 
-                className="border-primary text-primary hover:bg-primary/5 gap-2"
-              >
+              </a>
+              <a href="/Falou-Badiane-CV.pdf" download className="border border-primary text-primary hover:bg-primary/5 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2">
                 <Download size={18} /> Télécharger CV
-              </Button>
+              </a>
             </div>
           </div>
 
@@ -149,11 +175,11 @@ export default function Home() {
       </section>
 
       {/* Section Compétences */}
-      <section id="competences" className="py-20 md:py-32 bg-secondary/30">
-        <div className="container space-y-12">
+      <section id="competences" className="py-12 md:py-32 bg-secondary/30">
+        <div className="container px-4 md:px-0 space-y-12">
           <div className="space-y-4 max-w-2xl">
-            <h2 className="text-4xl md:text-5xl font-bold">Mes Compétences</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="text-3xl md:text-5xl font-bold">Mes Compétences</h2>
+            <p className="text-base md:text-lg text-muted-foreground">
               La boîte à outils d'un développeur, alliant maîtrise technique et créativité pour donner vie à vos projets web.
             </p>
           </div>
@@ -197,163 +223,90 @@ export default function Home() {
               { label: "Satisfaction Client", value: "100%" }
             ].map((stat, idx) => (
               <div key={idx} className="space-y-2">
-                <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{stat.label}</p>
-                <p className="text-3xl font-bold text-primary">{stat.value}</p>
+                <p className="text-muted-foreground">{stat.label}</p>
+                <p className="text-3xl md:text-4xl font-bold text-primary">{stat.value}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Section Projets */}
-      <section id="projets" className="py-20 md:py-32">
-        <div className="container space-y-12">
-          <div className="space-y-4 max-w-2xl">
-            <h2 className="text-4xl md:text-5xl font-bold">Mes Projets</h2>
-            <p className="text-lg text-muted-foreground">
-              Découvrez mes projets qui regroupent mes passions, où chaque ligne de code raconte mon parcours de développeur créatif et innovant.
-            </p>
-          </div>
-
-          {/* Projets en grille asymétrique */}
-          <div className="space-y-8">
-            {[
-              {
-                title: "Festival Les Talents de l'IUT",
-                description: "Réalisation de vidéos promotionnelles pour le festival de l'IUT de Cergy-Pontoise. Production vidéo, montage et promotion digitale.",
-                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/projects-visual-32nb734QPQjZo6S5HmpdqR.webp",
-                tags: ["Vidéo", "Production", "Promotion"]
-              },
-              {
-                title: "Site Web Institutionnel",
-                description: "Développement d'un site pour présenter la formation MMI de l'IUT. Intégration de bases de données et gestion de contenu dynamique.",
-                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/projects-visual-32nb734QPQjZo6S5HmpdqR.webp",
-                tags: ["Web", "PHP", "MySQL"]
-              },
-              {
-                title: "Webdocumentaire Interactif",
-                description: "Création d'une expérience immersive combinant Klynt et DaVinci Resolve. Présentation d'un court-métrage avec navigation interactive.",
-                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/projects-visual-32nb734QPQjZo6S5HmpdqR.webp",
-                tags: ["Interactif", "Vidéo", "Design"]
-              }
-            ].map((project, idx) => (
-              <Card 
-                key={idx}
-                className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0"
-              >
-                <div className="grid md:grid-cols-2 gap-0">
-                  <img 
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-64 md:h-auto object-cover"
-                  />
-                  <div className="p-8 flex flex-col justify-center">
-                    <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
-                    <p className="text-muted-foreground mb-4">{project.description}</p>
-                    <div className="flex gap-2 flex-wrap mb-6">
-                      {project.tags.map((tag, i) => (
-                        <span key={i} className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <Button className="w-fit bg-primary hover:bg-primary/90 text-white">
-                      Voir le projet <ArrowRight size={16} className="ml-2" />
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            ))}
+          <div className="pt-8">
+            <a href="/skills" className="text-primary hover:text-primary/80 font-medium inline-flex items-center gap-2 transition-colors">
+              Voir toutes les compétences <ArrowRight size={18} />
+            </a>
           </div>
         </div>
       </section>
 
       {/* Section Contact */}
-      <section id="contact" className="py-20 md:py-32 bg-gradient-to-br from-primary to-primary/80 text-white">
-        <div className="container max-w-2xl space-y-8">
-          <div className="text-center space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold">Parlons de votre projet</h2>
-            <p className="text-lg text-white/80">
-              Vous cherchez un développeur passionné pour votre équipe ? Remplissez le formulaire ci-dessous et je vous répondrai rapidement.
+      <section id="contact" className="py-12 md:py-32 bg-primary text-white">
+        <div className="container px-4 md:px-0 space-y-12">
+          <div className="space-y-4 max-w-2xl">
+            <h2 className="text-3xl md:text-5xl font-bold">Vous avez un projet ?</h2>
+            <p className="text-base md:text-lg text-white/80">
+              N'hésitez pas à me contacter pour discuter de vos besoins en développement web ou automatisation.
             </p>
           </div>
 
-          {/* Formulaire de contact */}
-          <Card className="p-8 bg-white/95 text-foreground">
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Formulaire */}
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label htmlFor="name" className="block text-sm font-medium">
-                  Nom complet <span className="text-xs text-muted-foreground">(min. 2 caractères)</span>
-                </label>
+              <div>
+                <label className="block text-sm font-medium mb-2">Nom (min. 2 caractères)</label>
                 <input
                   type="text"
-                  id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Votre nom"
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  required
                   minLength={2}
+                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
+                  placeholder="Votre nom"
                 />
               </div>
-              <div className="space-y-2">
-                <label htmlFor="email" className="block text-sm font-medium">
-                  Email <span className="text-xs text-muted-foreground">(valide)</span>
-                </label>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">Email</label>
                 <input
                   type="email"
-                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
                   placeholder="votre@email.com"
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  required
                 />
               </div>
-              </div>
 
-              <div className="space-y-2">
-                <label htmlFor="subject" className="block text-sm font-medium">
-                  Sujet <span className="text-xs text-muted-foreground">(min. 5 caractères)</span>
-                </label>
+              <div>
+                <label className="block text-sm font-medium mb-2">Sujet (min. 5 caractères)</label>
                 <input
                   type="text"
-                  id="subject"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  placeholder="Sujet de votre message"
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  required
                   minLength={5}
+                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
+                  placeholder="Sujet de votre message"
                 />
               </div>
 
-              <div className="space-y-2">
-                <label htmlFor="message" className="block text-sm font-medium">
-                  Message <span className="text-xs text-muted-foreground">(min. 10 caractères)</span>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Message (min. 10 caractères) - {formData.message.length}/10
                 </label>
                 <textarea
-                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Votre message..."
-                  rows={5}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                  required
                   minLength={10}
+                  rows={5}
+                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors resize-none"
+                  placeholder="Votre message..."
                 />
-                <p className="text-xs text-muted-foreground">{formData.message.length} caractères</p>
               </div>
 
-              <Button
+              <button
                 type="submit"
                 disabled={sendContactMutation.isPending}
-                className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 flex items-center justify-center gap-2"
+                className="w-full bg-white text-primary hover:bg-white/90 disabled:opacity-50 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2"
               >
                 {sendContactMutation.isPending ? (
                   <>
@@ -361,40 +314,46 @@ export default function Home() {
                     Envoi en cours...
                   </>
                 ) : (
-                  <>
-                    Envoyer le message <ArrowRight size={18} />
-                  </>
+                  "Envoyer le message"
                 )}
-              </Button>
+              </button>
             </form>
-          </Card>
 
-          {/* Réseaux sociaux */}
-          <div className="text-center space-y-4">
-            <p className="text-white/80">Ou contactez-moi directement :</p>
-            <div className="flex gap-6 justify-center">
-              <a href="https://github.com/badiane95" target="_blank" rel="noopener noreferrer" 
-                 className="hover:opacity-80 transition-opacity">
-                <Github size={24} />
-              </a>
-              <a href="https://www.linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer"
-                 className="hover:opacity-80 transition-opacity">
-                <Linkedin size={24} />
-              </a>
-              <a href="mailto:falou.badiane@example.com"
-                 className="hover:opacity-80 transition-opacity">
-                <Mail size={24} />
-              </a>
+            {/* Informations de contact */}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-xl font-bold mb-4">Moyens de contact</h3>
+                <div className="space-y-4">
+                  <a href="mailto:falou.badiane@example.com" className="flex items-center gap-3 hover:text-white/80 transition-colors">
+                    <Mail size={24} />
+                    <span>falou.badiane@example.com</span>
+                  </a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white/80 transition-colors">
+                    <Linkedin size={24} />
+                    <span>LinkedIn</span>
+                  </a>
+                  <a href="https://github.com/Badiane95" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white/80 transition-colors">
+                    <Github size={24} />
+                    <span>GitHub</span>
+                  </a>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold mb-4">Temps de réponse</h3>
+                <p className="text-white/80">
+                  Je m'efforce de répondre à tous les messages dans les 24 heures. Pour les demandes urgentes, n'hésitez pas à me contacter directement.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-border py-8">
-        <div className="container text-center text-muted-foreground text-sm">
-          <p>&copy; 2025 Falou Badiane. Tous droits réservés.</p>
-          <p className="mt-2">Développeur Web & Automation | Portfolio Minimaliste Moderne</p>
+      <footer className="bg-secondary/50 border-t border-border py-8 md:py-12">
+        <div className="container px-4 md:px-0 text-center text-muted-foreground">
+          <p>&copy; 2026 Falou Badiane. Tous les droits réservés.</p>
         </div>
       </footer>
     </div>

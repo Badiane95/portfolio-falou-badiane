@@ -44,6 +44,13 @@
 - [x] Mettre à jour navigation avec liens vers pages
 - [x] Exporter sur GitHub (https://github.com/Badiane95/portfolio-falou-badiane)
 
+## Features Complétées (Responsive & Mobile)
+- [x] Améliorer le responsive design pour mobile
+- [x] Ajouter menu hamburger mobile
+- [x] Optimiser les espacements et tailles de police pour mobile
+- [x] Générer 7 images haute qualité pour les projets
+- [x] Remplacer les URLs des images par les nouvelles versions CDN
+
 ## Features Futures
 - [ ] Système de filtrage des compétences
 - [ ] Blog ou articles techniques
