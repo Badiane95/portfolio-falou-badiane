@@ -13,7 +13,7 @@ const projects = [
     tags: ["Vidéo", "Production", "Promotion", "Montage"],
     technologies: ["DaVinci Resolve", "Adobe Premiere", "Social Media Marketing"],
     date: "2024",
-    link: "#"
+    link: "https://github.com/Badiane95/Festival-Talents-IUT"
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const projects = [
     tags: ["Web", "Backend", "Base de données"],
     technologies: ["PHP", "MySQL", "HTML/CSS", "JavaScript", "Bootstrap"],
     date: "2023",
-    link: "#"
+    link: "https://github.com/Badiane95/sae501"
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ const projects = [
     tags: ["Interactif", "Vidéo", "Design", "Web"],
     technologies: ["Klynt", "DaVinci Resolve", "HTML/CSS", "JavaScript"],
     date: "2024",
-    link: "#"
+    link: "https://github.com/Badiane95/Webdocumentaire"
   },
   {
     id: 4,
@@ -46,7 +46,7 @@ const projects = [
     tags: ["Jeu Vidéo", "Programmation", "Architecture", "Performance"],
     technologies: ["Unity", "C#", "Game Design", "Physics Engine"],
     date: "2025",
-    link: "#"
+    link: "https://github.com/Badiane95/Sae-401"
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ const projects = [
     tags: ["Data Visualization", "Géolocalisation", "API", "Données"],
     technologies: ["JavaScript", "Google Maps API", "D3.js", "React", "Node.js"],
     date: "2025",
-    link: "#"
+    link: "https://github.com/Badiane95/Sae-303"
   },
   {
     id: 6,
@@ -68,7 +68,7 @@ const projects = [
     tags: ["Back-Office", "Gestion de Contenu", "Base de Données", "Sécurité"],
     technologies: ["PHP", "MySQL", "HTML/CSS", "JavaScript", "Bootstrap"],
     date: "2024",
-    link: "#"
+    link: "https://github.com/Badiane95/Sae-203"
   },
   {
     id: 7,
@@ -173,13 +173,22 @@ export default function Projects() {
                   {/* CTA Buttons */}
                   <div className="flex gap-4 pt-4">
                     {project.link !== "#" && (
-                      <Button className="bg-primary hover:bg-primary/90 text-white gap-2">
+                      <Button 
+                        className="bg-primary hover:bg-primary/90 text-white gap-2"
+                        onClick={() => window.open(project.link, '_blank')}
+                      >
                         <ExternalLink size={18} /> Voir le projet
                       </Button>
                     )}
-                    <Button variant="outline" className="border-primary text-primary hover:bg-primary/5 gap-2">
-                      <Github size={18} /> Code source
-                    </Button>
+                    {project.link !== "#" && (
+                      <Button 
+                        variant="outline" 
+                        className="border-primary text-primary hover:bg-primary/5 gap-2"
+                        onClick={() => window.open(project.link, '_blank')}
+                      >
+                        <Github size={18} /> Code source
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
