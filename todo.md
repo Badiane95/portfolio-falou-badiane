@@ -54,6 +54,8 @@
 - [x] Rendre les boutons "Code source" cliquables vers GitHub
 - [x] Ajouter le CV téléchargeable (CurriculumVitae.pdf)
 - [x] Configurer l'email de contact (badiane.falou95@gmail.com)
+- [x] Corriger les liens des projets (Webdocumentaire, Data Visualization, Back-Office)
+- [x] Enlever le lien "Code source" pour Festival Les Talents de l'IUT
 
 ## Features Futures
 - [ ] Système de filtrage des compétences

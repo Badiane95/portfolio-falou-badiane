@@ -13,7 +13,7 @@ const projects = [
     tags: ["Vidéo", "Production", "Promotion", "Montage"],
     technologies: ["DaVinci Resolve", "Adobe Premiere", "Social Media Marketing"],
     date: "2024",
-    link: "https://github.com/Badiane95/Festival-Talents-IUT"
+    link: "#"
   },
   {
     id: 2,
@@ -35,7 +35,7 @@ const projects = [
     tags: ["Interactif", "Vidéo", "Design", "Web"],
     technologies: ["Klynt", "DaVinci Resolve", "HTML/CSS", "JavaScript"],
     date: "2024",
-    link: "https://github.com/Badiane95/Webdocumentaire"
+    link: "https://badiane95.github.io/Webdocummentaire/"
   },
   {
     id: 4,
@@ -57,7 +57,7 @@ const projects = [
     tags: ["Data Visualization", "Géolocalisation", "API", "Données"],
     technologies: ["JavaScript", "Google Maps API", "D3.js", "React", "Node.js"],
     date: "2025",
-    link: "https://github.com/Badiane95/Sae-303"
+    link: "https://baptistectldwbr.github.io/SAE303/"
   },
   {
     id: 6,
@@ -68,7 +68,7 @@ const projects = [
     tags: ["Back-Office", "Gestion de Contenu", "Base de Données", "Sécurité"],
     technologies: ["PHP", "MySQL", "HTML/CSS", "JavaScript", "Bootstrap"],
     date: "2024",
-    link: "https://github.com/Badiane95/Sae-203"
+    link: "https://github.com/BaptisteCtldWbr/SAE203"
   },
   {
     id: 7,
