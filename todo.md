@@ -72,3 +72,7 @@
 - [x] Ajouter animations zoom-in aux badges de technologies et tags
 - [x] Ajouter animations aux boutons CTA
 - [x] Ajouter hover effects avec scale et shadow
+
+## Features Complétées (Nettoyage)
+- [x] Retirer le projet Station Numixs
+- [x] Mettre à jour le nombre de projets dans le header (7 → 6)

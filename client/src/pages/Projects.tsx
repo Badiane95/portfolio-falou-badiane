@@ -78,18 +78,6 @@ const projects = [
     date: "2024",
     link: "#",
     codeLink: "https://github.com/BaptisteCtldWbr/SAE203.git"
-  },
-  {
-    id: 7,
-    title: "Station Numixs - Workflows Automatisation IA",
-    description: "Conception et déploiement de 5 workflows automatisés via IA chez Unitee, réduisant de 20% le temps opérationnel. Un projet d'automatisation d'entreprise à grande échelle.",
-    longDescription: "Ce projet représente mon expertise en automatisation et intelligence artificielle appliquée aux processus métiers. J'ai conçu et déployé 5 workflows automatisés qui ont réduit significativement le temps opérationnel de 20%. Ces workflows intègrent des technologies IA avancées pour l'optimisation des processus, l'analyse de données et la prise de décision automatisée. Le projet démontre ma capacité à transformer des processus manuels en solutions intelligentes et scalables.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/station-numixs-GDcj6MmxpnX2WPkLkCceMu.webp",
-    tags: ["Automatisation", "IA", "Workflows", "Optimisation"],
-    technologies: ["Python", "IA/ML", "Web Scraping", "APIs", "Automation"],
-    date: "2025",
-    link: "#",
-    codeLink: "#"
   }
 ];
 
@@ -134,7 +122,7 @@ export default function Projects() {
         <div className="container space-y-4">
           <h1 className="text-5xl md:text-6xl font-bold">Mes Projets</h1>
           <p className="text-xl text-white/80 max-w-2xl">
-            Découvrez en détail les 7 projets qui démontrent mes compétences en développement web, jeux vidéo, data visualization et automatisation IA.
+            Découvrez en détail les 6 projets qui démontrent mes compétences en développement web, jeux vidéo, data visualization et automatisation.
           </p>
         </div>
       </section>
