@@ -13,7 +13,8 @@ const projects = [
     tags: ["Vidéo", "Production", "Promotion", "Montage"],
     technologies: ["DaVinci Resolve", "Adobe Premiere", "Social Media Marketing"],
     date: "2024",
-    link: "#"
+    link: "#",
+    codeLink: "#"
   },
   {
     id: 2,
@@ -24,7 +25,8 @@ const projects = [
     tags: ["Web", "Backend", "Base de données"],
     technologies: ["PHP", "MySQL", "HTML/CSS", "JavaScript", "Bootstrap"],
     date: "2023",
-    link: "https://github.com/Badiane95/sae501"
+    link: "#",
+    codeLink: "https://github.com/Badiane95/sae501"
   },
   {
     id: 3,
@@ -35,7 +37,8 @@ const projects = [
     tags: ["Interactif", "Vidéo", "Design", "Web"],
     technologies: ["Klynt", "DaVinci Resolve", "HTML/CSS", "JavaScript"],
     date: "2024",
-    link: "https://badiane95.github.io/Webdocummentaire/"
+    link: "https://badiane95.github.io/Webdocummentaire/",
+    codeLink: "https://github.com/Badiane95/Webdocummentaire.git"
   },
   {
     id: 4,
@@ -46,7 +49,8 @@ const projects = [
     tags: ["Jeu Vidéo", "Programmation", "Architecture", "Performance"],
     technologies: ["Unity", "C#", "Game Design", "Physics Engine"],
     date: "2025",
-    link: "https://github.com/Badiane95/Sae-401"
+    link: "#",
+    codeLink: "https://github.com/tjrardaa/SAE402.git"
   },
   {
     id: 5,
@@ -57,7 +61,8 @@ const projects = [
     tags: ["Data Visualization", "Géolocalisation", "API", "Données"],
     technologies: ["JavaScript", "Google Maps API", "D3.js", "React", "Node.js"],
     date: "2025",
-    link: "https://baptistectldwbr.github.io/SAE303/"
+    link: "https://baptistectldwbr.github.io/SAE303/",
+    codeLink: "https://github.com/BaptisteCtldWbr/SAE303.git"
   },
   {
     id: 6,
@@ -68,7 +73,8 @@ const projects = [
     tags: ["Back-Office", "Gestion de Contenu", "Base de Données", "Sécurité"],
     technologies: ["PHP", "MySQL", "HTML/CSS", "JavaScript", "Bootstrap"],
     date: "2024",
-    link: "https://github.com/BaptisteCtldWbr/SAE203"
+    link: "#",
+    codeLink: "https://github.com/BaptisteCtldWbr/SAE203.git"
   },
   {
     id: 7,
@@ -79,7 +85,8 @@ const projects = [
     tags: ["Automatisation", "IA", "Workflows", "Optimisation"],
     technologies: ["Python", "IA/ML", "Web Scraping", "APIs", "Automation"],
     date: "2025",
-    link: "#"
+    link: "#",
+    codeLink: "#"
   }
 ];
 
@@ -180,11 +187,11 @@ export default function Projects() {
                         <ExternalLink size={18} /> Voir le projet
                       </Button>
                     )}
-                    {project.link !== "#" && (
+                    {project.codeLink !== "#" && (
                       <Button 
                         variant="outline" 
                         className="border-primary text-primary hover:bg-primary/5 gap-2"
-                        onClick={() => window.open(project.link, '_blank')}
+                        onClick={() => window.open(project.codeLink, '_blank')}
                       >
                         <Github size={18} /> Code source
                       </Button>

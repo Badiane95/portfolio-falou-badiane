@@ -56,6 +56,8 @@
 - [x] Configurer l'email de contact (badiane.falou95@gmail.com)
 - [x] Corriger les liens des projets (Webdocumentaire, Data Visualization, Back-Office)
 - [x] Enlever le lien "Code source" pour Festival Les Talents de l'IUT
+- [x] Séparer les liens "Voir le projet" et "Code source" pour chaque projet
+- [x] Ajouter les liens GitHub corrects pour chaque projet
 
 ## Features Futures
 - [ ] Système de filtrage des compétences
