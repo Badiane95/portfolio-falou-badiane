@@ -153,7 +153,7 @@ export default function Home() {
               <a href="/projects" className="bg-primary hover:bg-primary/90 text-white gap-2 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center">
                 Découvrir mon travail <ArrowRight size={18} />
               </a>
-              <a href="/Falou-Badiane-CV.pdf" download className="border border-primary text-primary hover:bg-primary/5 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2">
+              <a href="/CV-Falou-Badiane.pdf" download className="border border-primary text-primary hover:bg-primary/5 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2">
                 <Download size={18} /> Télécharger CV
               </a>
             </div>

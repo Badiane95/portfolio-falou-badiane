@@ -15,3 +15,12 @@ export const getLoginUrl = () => {
 
   return url.toString();
 };
+
+// Contact information
+export const CONTACT_EMAIL = "badiane.falou95@gmail.com";
+export const CONTACT_PHONE = "+33 (à ajouter si nécessaire)";
+export const SOCIAL_LINKS = {
+  github: "https://github.com/Badiane95",
+  linkedin: "https://linkedin.com/in/falou-badiane",
+  email: `mailto:${CONTACT_EMAIL}`
+};

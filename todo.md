@@ -52,6 +52,8 @@
 - [x] Remplacer les URLs des images par les nouvelles versions CDN
 - [x] Ajouter les liens GitHub pour tous les projets
 - [x] Rendre les boutons "Code source" cliquables vers GitHub
+- [x] Ajouter le CV téléchargeable (CurriculumVitae.pdf)
+- [x] Configurer l'email de contact (badiane.falou95@gmail.com)
 
 ## Features Futures
 - [ ] Système de filtrage des compétences
