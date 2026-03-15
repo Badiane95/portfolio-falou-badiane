@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { useLocation } from "wouter";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const projects = [
   {
@@ -93,6 +96,15 @@ const projects = [
 export default function Projects() {
   const [, setLocation] = useLocation();
 
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out-quart',
+      once: false,
+      offset: 100,
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-white text-foreground">
       {/* Navigation */}
@@ -131,20 +143,20 @@ export default function Projects() {
       <section className="py-20 md:py-32">
         <div className="container space-y-16">
           {projects.map((project, idx) => (
-            <div key={project.id} className="space-y-8">
+            <div key={project.id} className="space-y-8" data-aos="fade-up">
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 {/* Image - Alternance gauche/droite */}
-                <div className={`relative ${idx % 2 === 1 ? 'md:order-2' : ''}`}>
+                <div className={`relative ${idx % 2 === 1 ? 'md:order-2' : ''}`} data-aos={idx % 2 === 0 ? 'fade-right' : 'fade-left'} data-aos-delay="100">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl"></div>
                   <img 
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-96 object-cover rounded-2xl relative z-10"
+                    className="w-full h-96 object-cover rounded-2xl relative z-10 transition-transform duration-500 hover:scale-105"
                   />
                 </div>
 
                 {/* Contenu */}
-                <div className={`space-y-6 ${idx % 2 === 1 ? 'md:order-1' : ''}`}>
+                <div className={`space-y-6 ${idx % 2 === 1 ? 'md:order-1' : ''}`} data-aos={idx % 2 === 1 ? 'fade-right' : 'fade-left'} data-aos-delay="150">
                   <div className="space-y-2">
                     <div className="text-sm font-semibold text-primary uppercase tracking-wide">
                       Projet {project.id} • {project.date}
@@ -157,11 +169,11 @@ export default function Projects() {
                   </p>
 
                   {/* Technologies */}
-                  <div className="space-y-3">
+                  <div className="space-y-3" data-aos="fade-up" data-aos-delay="200">
                     <h3 className="font-semibold text-sm uppercase tracking-wide">Technologies utilisées</h3>
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.map((tech, i) => (
-                        <span key={i} className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">
+                        <span key={i} className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full transition-all duration-300 hover:bg-primary/20 hover:scale-110" data-aos="zoom-in" data-aos-delay={String(250 + i * 50)}>
                           {tech}
                         </span>
                       ))}
@@ -169,19 +181,19 @@ export default function Projects() {
                   </div>
 
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2" data-aos="fade-up" data-aos-delay="250">
                     {project.tags.map((tag, i) => (
-                      <span key={i} className="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full border border-accent/30">
+                      <span key={i} className="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full border border-accent/30 transition-all duration-300 hover:bg-accent/30 hover:scale-110" data-aos="zoom-in" data-aos-delay={String(300 + i * 50)}>
                         {tag}
                       </span>
                     ))}
                   </div>
 
                   {/* CTA Buttons */}
-                  <div className="flex gap-4 pt-4">
+                  <div className="flex gap-4 pt-4" data-aos="fade-up" data-aos-delay="300">
                     {project.link !== "#" && (
                       <Button 
-                        className="bg-primary hover:bg-primary/90 text-white gap-2"
+                        className="bg-primary hover:bg-primary/90 text-white gap-2 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                         onClick={() => window.open(project.link, '_blank')}
                       >
                         <ExternalLink size={18} /> Voir le projet
@@ -190,7 +202,7 @@ export default function Projects() {
                     {project.codeLink !== "#" && (
                       <Button 
                         variant="outline" 
-                        className="border-primary text-primary hover:bg-primary/5 gap-2"
+                        className="border-primary text-primary hover:bg-primary/5 gap-2 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                         onClick={() => window.open(project.codeLink, '_blank')}
                       >
                         <Github size={18} /> Code source

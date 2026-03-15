@@ -64,3 +64,11 @@
 - [ ] Blog ou articles techniques
 - [ ] Intégration avec GitHub API
 - [ ] Analytics et tracking
+
+## Features Complétées (Animations au Scroll)
+- [x] Intégrer AOS (Animate On Scroll)
+- [x] Ajouter animations fade-up aux sections
+- [x] Ajouter animations fade-left/fade-right aux cartes de projets
+- [x] Ajouter animations zoom-in aux badges de technologies et tags
+- [x] Ajouter animations aux boutons CTA
+- [x] Ajouter hover effects avec scale et shadow
