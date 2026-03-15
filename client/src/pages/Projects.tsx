@@ -29,7 +29,7 @@ const projects = [
     technologies: ["PHP", "MySQL", "HTML/CSS", "JavaScript", "Bootstrap"],
     date: "2023",
     link: "#",
-    codeLink: "https://github.com/Badiane95/sae501"
+    codeLink: "https://github.com/lucasl0/SAE501.git"
   },
   {
     id: 3,
