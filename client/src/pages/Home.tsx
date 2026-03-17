@@ -4,7 +4,6 @@ import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
-import BubbleMenu from "@/components/BubbleMenu";
 
 /**
  * DESIGN PHILOSOPHY: Minimalisme Moderne Technologique
@@ -88,13 +87,51 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white text-foreground">
-      {/* Bubble Menu Navigation */}
-      <BubbleMenu
-        logo="Falou Badiane"
-        menuBg="#fff"
-        menuContentColor="#111"
-        useFixedPosition={true}
-      />
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-border">
+        <div className="w-full max-w-6xl mx-auto flex items-center justify-between h-16 px-4 md:px-8">
+          <div className="text-xl md:text-2xl font-bold text-primary">Falou Badiane</div>
+          
+          {/* Desktop Menu */}
+          <ul className="hidden md:flex gap-8">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} className="hover:text-primary transition-colors text-sm md:text-base">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden p-2 hover:bg-secondary rounded-lg transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border bg-white">
+            <ul className="flex flex-col gap-0">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a 
+                    href={link.href} 
+                    className="block px-4 py-3 hover:bg-secondary transition-colors border-b border-border last:border-b-0"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </nav>
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-cyan-50/20">
@@ -145,11 +182,11 @@ export default function Home() {
       </section>
 
       {/* Section Compétences */}
-      <section id="competences" className="py-20 md:py-32 bg-secondary/30">
+      <section id="competences" className="py-12 md:py-32 bg-secondary/30">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
           <div className="space-y-4 max-w-2xl">
-            <h2 className="text-4xl md:text-5xl font-bold">Mes Compétences</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="text-3xl md:text-5xl font-bold">Mes Compétences</h2>
+            <p className="text-base md:text-lg text-muted-foreground">
               La boîte à outils d'un développeur, alliant maîtrise technique et créativité pour donner vie à vos projets web.
             </p>
           </div>
@@ -187,106 +224,145 @@ export default function Home() {
           {/* Indicateurs de progression */}
           <div className="grid md:grid-cols-2 gap-8 pt-8">
             {[
-              { label: "Projets Réalisés", value: "6+" },
+              { label: "Projets Réalisés", value: "8+" },
               { label: "Années d'Expérience", value: "2+" },
               { label: "Technologies", value: "15+" },
               { label: "Satisfaction Client", value: "100%" }
             ].map((stat, idx) => (
-              <div key={idx} className="flex items-center gap-4">
-                <div className="text-4xl font-bold text-primary">{stat.value}</div>
-                <div className="text-lg text-muted-foreground">{stat.label}</div>
+              <div key={idx} className="space-y-2">
+                <p className="text-muted-foreground">{stat.label}</p>
+                <p className="text-3xl md:text-4xl font-bold text-primary">{stat.value}</p>
               </div>
             ))}
+          </div>
+
+          <div className="pt-8">
+            <a href="/skills" className="text-primary hover:text-primary/80 font-medium inline-flex items-center gap-2 transition-colors">
+              Voir toutes les compétences <ArrowRight size={18} />
+            </a>
           </div>
         </div>
       </section>
 
       {/* Section Contact */}
-      <section id="contact" className="py-20 md:py-32 bg-white">
-        <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
-          <div className="space-y-12">
-            <div className="space-y-4 max-w-2xl">
-              <h2 className="text-4xl md:text-5xl font-bold">Contactez-moi</h2>
-              <p className="text-lg text-muted-foreground">
-                Vous avez un projet en tête ? N'hésitez pas à me contacter. Je serais ravi de discuter de vos idées.
-              </p>
-            </div>
+      <section id="contact" className="py-12 md:py-32 bg-primary text-white">
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
+          <div className="space-y-4 max-w-2xl">
+            <h2 className="text-3xl md:text-5xl font-bold">Vous avez un projet ?</h2>
+            <p className="text-base md:text-lg text-white/80">
+              N'hésitez pas à me contacter pour discuter de vos besoins en développement web ou automatisation.
+            </p>
+          </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* Moyens de contact */}
-              <div className="space-y-4">
-                <h3 className="text-xl font-bold">Moyens de contact</h3>
-                <div className="space-y-3">
-                  <a href="mailto:badiane.falou95@gmail.com" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
-                    <Mail size={20} />
-                    badiane.falou95@gmail.com
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Formulaire */}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium mb-2">Nom (min. 2 caractères)</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  minLength={2}
+                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
+                  placeholder="Votre nom"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
+                  placeholder="votre@email.com"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">Sujet (min. 5 caractères)</label>
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  minLength={5}
+                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
+                  placeholder="Sujet de votre message"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Message (min. 10 caractères) - {formData.message.length}/10
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  minLength={10}
+                  rows={5}
+                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors resize-none"
+                  placeholder="Votre message..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={sendContactMutation.isPending}
+                className="w-full bg-white text-primary hover:bg-white/90 disabled:opacity-50 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2"
+              >
+                {sendContactMutation.isPending ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    Envoi en cours...
+                  </>
+                ) : (
+                  "Envoyer le message"
+                )}
+              </button>
+            </form>
+
+            {/* Informations de contact */}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-xl font-bold mb-4">Moyens de contact</h3>
+                <div className="space-y-4">
+                  <a href="mailto:badiane.falou95@gmail.com" className="flex items-center gap-3 hover:text-white/80 transition-colors">
+                    <Mail size={24} />
+                    <span>badiane.falou95@gmail.com</span>
                   </a>
-                  <a href="https://github.com/Badiane95" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
-                    <Github size={20} />
-                    GitHub
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white/80 transition-colors">
+                    <Linkedin size={24} />
+                    <span>LinkedIn</span>
                   </a>
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
-                    <Linkedin size={20} />
-                    LinkedIn
+                  <a href="https://github.com/Badiane95" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white/80 transition-colors">
+                    <Github size={24} />
+                    <span>GitHub</span>
                   </a>
                 </div>
               </div>
 
-              {/* Formulaire de contact */}
-              <form onSubmit={handleSubmit} className="md:col-span-2 space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Votre nom"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Votre email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                </div>
-                <input
-                  type="text"
-                  name="subject"
-                  placeholder="Sujet"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-                <textarea
-                  name="message"
-                  placeholder="Votre message"
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-                <button
-                  type="submit"
-                  disabled={sendContactMutation.isPending}
-                  className="w-full bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  {sendContactMutation.isPending ? (
-                    <>
-                      <Loader2 size={18} className="animate-spin" />
-                      Envoi en cours...
-                    </>
-                  ) : (
-                    "Envoyer le message"
-                  )}
-                </button>
-              </form>
+              <div>
+                <h3 className="text-xl font-bold mb-4">Temps de réponse</h3>
+                <p className="text-white/80">
+                  Je m'efforce de répondre à tous les messages dans les 24 heures. Pour les demandes urgentes, n'hésitez pas à me contacter directement.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-secondary/50 border-t border-border py-8 md:py-12">
+        <div className="container px-4 md:px-0 text-center text-muted-foreground">
+          <p>&copy; 2026 Falou Badiane. Tous les droits réservés.</p>
+        </div>
+      </footer>
     </div>
   );
 }
