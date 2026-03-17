@@ -108,6 +108,7 @@ export default function BubbleMenu({
     if (isMenuOpen) {
       gsap.set(overlay, { display: 'flex' });
       gsap.killTweensOf([...bubbles, ...labels]);
+      // Animer seulement les bulles du menu (pas le logo)
       gsap.set(bubbles, { scale: 0, transformOrigin: '50% 50%' });
       gsap.set(labels, { y: 24, autoAlpha: 0 });
 

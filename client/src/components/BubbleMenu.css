@@ -180,13 +180,13 @@
   --pill-color: #111;
   --pill-border: rgba(0, 0, 0, 0.12);
   --item-rot: 0deg;
-  --pill-min-h: 160px;
+  --pill-min-h: 80px;
   --hover-bg: #f3f4f6;
   --hover-color: #111;
   width: 100%;
   min-height: var(--pill-min-h);
-  padding: clamp(1.5rem, 3vw, 8rem) 0;
-  font-size: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(0.75rem, 1.5vw, 2rem) 0;
+  font-size: clamp(1rem, 2vw, 2rem);
   font-weight: 400;
   line-height: 0;
   border-radius: 999px;
@@ -233,11 +233,11 @@
   .bubble-menu-items {
     padding-top: 0px;
     align-items: flex-start;
-    padding-top: 120px;
+    padding-top: 80px;
   }
 
   .bubble-menu-items .pill-list {
-    row-gap: 16px;
+    row-gap: 12px;
   }
 
   .bubble-menu-items .pill-list .pill-col {
@@ -247,9 +247,9 @@
   }
 
   .bubble-menu-items .pill-link {
-    font-size: clamp(1.2rem, 3vw, 4rem);
-    padding: clamp(1rem, 2vw, 2rem) 0;
-    min-height: 80px;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    padding: clamp(0.5rem, 1vw, 1rem) 0;
+    min-height: 60px;
   }
 
   .bubble-menu-items .pill-link:hover {
