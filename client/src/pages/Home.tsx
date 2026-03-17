@@ -267,9 +267,12 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-12">
-            {/* Formulaire */}
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-12 relative">
+              {/* Carré bleu derrière le formulaire */}
+              <div className="hidden md:block absolute -left-20 -top-20 w-96 h-96 bg-primary/20 rounded-3xl blur-3xl"></div>
+              
+              {/* Formulaire */}
+              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div>
                 <label className="block text-sm font-medium mb-2 text-foreground">Nom (min. 2 caractères)</label>
                 <input
