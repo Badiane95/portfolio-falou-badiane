@@ -1,9 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Code, Zap, Globe, Github, Linkedin, Mail, Loader2, Download, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 /**
  * DESIGN PHILOSOPHY: Minimalisme Moderne Technologique
@@ -15,6 +17,14 @@ import { useLocation } from "wouter";
  */
 
 export default function Home() {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      offset: 100,
+      once: false
+    });
+  }, []);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -144,7 +154,7 @@ export default function Home() {
         
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-32 grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
           {/* Texte Hero - Asymétrie à gauche */}
-          <div className="space-y-6">
+          <div className="space-y-6" data-aos="fade-up">
             <div className="space-y-2">
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                 Développeur Web & <span className="text-primary">Automation</span>
@@ -182,9 +192,9 @@ export default function Home() {
       </section>
 
       {/* Section Compétences */}
-      <section id="competences" className="py-12 md:py-32 bg-secondary/30">
+      <section id="competences" className="py-20 md:py-32 bg-secondary/30">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
-          <div className="space-y-4 max-w-2xl">
+          <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-3xl md:text-5xl font-bold">Mes Compétences</h2>
             <p className="text-base md:text-lg text-muted-foreground">
               La boîte à outils d'un développeur, alliant maîtrise technique et créativité pour donner vie à vos projets web.
@@ -210,7 +220,9 @@ export default function Home() {
                 description: "Figma, Adobe Suite, SEO, Web Marketing, Responsive Design"
               }
             ].map((skill, idx) => (
-              <Card 
+              <Card
+                data-aos="fade-up"
+                data-aos-delay={idx * 100} 
                 key={idx}
                 className="p-6 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white"
               >
@@ -245,16 +257,17 @@ export default function Home() {
       </section>
 
       {/* Section Contact */}
-      <section id="contact" className="py-12 md:py-32 bg-primary text-white">
-        <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
-          <div className="space-y-4 max-w-2xl">
-            <h2 className="text-3xl md:text-5xl font-bold">Vous avez un projet ?</h2>
-            <p className="text-base md:text-lg text-white/80">
-              N'hésitez pas à me contacter pour discuter de vos besoins en développement web ou automatisation.
-            </p>
-          </div>
+      <section id="contact" className="py-20 md:py-32 bg-white">
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
+          <div className="space-y-12">
+            <div className="space-y-4 max-w-2xl" data-aos="fade-up">
+              <h2 className="text-3xl md:text-5xl font-bold">Vous avez un projet ?</h2>
+              <p className="text-base md:text-lg text-muted-foreground">
+                N'hésitez pas à me contacter pour discuter de vos besoins en développement web ou automatisation.
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-2 gap-12">
             {/* Formulaire */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
@@ -352,6 +365,7 @@ export default function Home() {
                   Je m'efforce de répondre à tous les messages dans les 24 heures. Pour les demandes urgentes, n'hésitez pas à me contacter directement.
                 </p>
               </div>
+            </div>
             </div>
           </div>
         </div>
