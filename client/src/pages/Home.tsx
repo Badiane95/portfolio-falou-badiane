@@ -257,9 +257,9 @@ export default function Home() {
       </section>
 
       {/* Section Contact */}
-      <section id="contact" className="py-20 md:py-32 bg-white">
+      <section id="contact" className="py-20 md:py-32 bg-secondary/30">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
-          <div className="space-y-12">
+          <div className="space-y-8">
             <div className="space-y-4 max-w-2xl" data-aos="fade-up">
               <h2 className="text-3xl md:text-5xl font-bold">Vous avez un projet ?</h2>
               <p className="text-base md:text-lg text-muted-foreground">
@@ -267,12 +267,9 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-12 relative">
-              {/* Carré bleu derrière le formulaire */}
-              <div className="hidden md:block absolute -left-20 -top-20 w-96 h-96 bg-primary/20 rounded-3xl blur-3xl"></div>
-              
+            <Card className="p-8 md:p-12" data-aos="fade-up">
               {/* Formulaire */}
-              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+              <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium mb-2 text-foreground">Nom (min. 2 caractères)</label>
                 <input
@@ -340,36 +337,8 @@ export default function Home() {
                   "Envoyer le message"
                 )}
               </button>
-            </form>
-
-            {/* Informations de contact */}
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-xl font-bold mb-4">Moyens de contact</h3>
-                <div className="space-y-4">
-                  <a href="mailto:badiane.falou95@gmail.com" className="flex items-center gap-3 hover:text-white/80 transition-colors">
-                    <Mail size={24} />
-                    <span>badiane.falou95@gmail.com</span>
-                  </a>
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white/80 transition-colors">
-                    <Linkedin size={24} />
-                    <span>LinkedIn</span>
-                  </a>
-                  <a href="https://github.com/Badiane95" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white/80 transition-colors">
-                    <Github size={24} />
-                    <span>GitHub</span>
-                  </a>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold mb-4">Temps de réponse</h3>
-                <p className="text-white/80">
-                  Je m'efforce de répondre à tous les messages dans les 24 heures. Pour les demandes urgentes, n'hésitez pas à me contacter directement.
-                </p>
-              </div>
-            </div>
-            </div>
+              </form>
+            </Card>
           </div>
         </div>
       </section>
