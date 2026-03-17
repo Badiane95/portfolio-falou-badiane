@@ -154,7 +154,7 @@ export default function Home() {
               </p>
             </div>
             <p className="text-base text-muted-foreground leading-relaxed max-w-md">
-              À la recherche d'une alternance pour mettre en pratique mes compétences en développement web, design et automatisation. Prêt à apporter mon enthousiasme et mon savoir-faire à votre équipe.
+              Passionné par la création de solutions web modernes et l'automatisation de processus. Prêt à collaborer sur des projets innovants et à apporter mon expertise technique à votre équipe.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <a href="/projects" className="bg-primary hover:bg-primary/90 text-white gap-2 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center">

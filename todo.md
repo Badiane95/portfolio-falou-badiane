@@ -93,3 +93,8 @@
 - [x] Ajouter animations hover sur les cartes de projets
 - [x] Initialiser AOS avec duration 800ms et offset 100px
 - [x] Ajouter animations stagger aux cartes de contact
+
+
+## Features Complétées (Nettoyage Final)
+- [x] Enlever la mention de recherche d'alternance du portfolio
+- [x] Mettre à jour le texte de présentation pour se concentrer sur l'expertise technique
