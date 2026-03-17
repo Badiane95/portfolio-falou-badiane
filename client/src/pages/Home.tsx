@@ -89,7 +89,7 @@ export default function Home() {
     <div className="min-h-screen bg-white text-foreground">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white border-b border-border">
-        <div className="container flex items-center justify-between h-16 px-4 md:px-0">
+        <div className="w-full max-w-6xl mx-auto flex items-center justify-between h-16 px-4 md:px-8">
           <div className="text-xl md:text-2xl font-bold text-primary">Falou Badiane</div>
           
           {/* Desktop Menu */}
@@ -135,7 +135,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="container px-4 md:px-0 py-12 md:py-32 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-32 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Texte Hero - Asymétrie à gauche */}
           <div className="space-y-6">
             <div className="space-y-2">
@@ -176,7 +176,7 @@ export default function Home() {
 
       {/* Section Compétences */}
       <section id="competences" className="py-12 md:py-32 bg-secondary/30">
-        <div className="container px-4 md:px-0 space-y-12">
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
           <div className="space-y-4 max-w-2xl">
             <h2 className="text-3xl md:text-5xl font-bold">Mes Compétences</h2>
             <p className="text-base md:text-lg text-muted-foreground">
@@ -239,7 +239,7 @@ export default function Home() {
 
       {/* Section Contact */}
       <section id="contact" className="py-12 md:py-32 bg-primary text-white">
-        <div className="container px-4 md:px-0 space-y-12">
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
           <div className="space-y-4 max-w-2xl">
             <h2 className="text-3xl md:text-5xl font-bold">Vous avez un projet ?</h2>
             <p className="text-base md:text-lg text-white/80">
