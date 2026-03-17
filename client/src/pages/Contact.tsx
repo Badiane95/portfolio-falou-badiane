@@ -2,12 +2,23 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, Mail, Linkedin, Github, Phone, MapPin, Clock } from "lucide-react";
 import { useLocation } from "wouter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Contact() {
   const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,
+      offset: 100
+    });
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -120,7 +131,7 @@ export default function Contact() {
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
-        <div className="container space-y-4">
+        <div className="container space-y-4" data-aos="fade-up">
           <h1 className="text-5xl md:text-6xl font-bold">Contactez-moi</h1>
           <p className="text-xl text-white/80 max-w-2xl">
             Vous avez un projet intéressant ou des questions ? N'hésitez pas à me contacter. Je serais ravi de discuter avec vous.
@@ -146,6 +157,7 @@ export default function Contact() {
                 target={method.link.startsWith('http') ? "_blank" : undefined}
                 rel={method.link.startsWith('http') ? "noopener noreferrer" : undefined}
                 className="no-underline"
+                data-aos="fade-up"
               >
                 <Card className="p-8 h-full border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer">
                   <method.icon className="w-12 h-12 text-primary mb-6" />
@@ -162,7 +174,7 @@ export default function Contact() {
       {/* Contact Form */}
       <section className="py-20 md:py-32 bg-secondary/30">
         <div className="container max-w-3xl space-y-8">
-          <div className="space-y-4">
+          <div className="space-y-4" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Envoyez-moi un message</h2>
             <p className="text-lg text-muted-foreground">
               Remplissez le formulaire ci-dessous et je vous répondrai dans les plus brefs délais.

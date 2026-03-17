@@ -2,9 +2,20 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, Mail, Linkedin, Github, Globe } from "lucide-react";
 import { useLocation } from "wouter";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function About() {
   const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,
+      offset: 100
+    });
+  }, []);
 
   const skills = [
     {
@@ -101,7 +112,7 @@ export default function About() {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
         <div className="container space-y-6">
-          <div className="space-y-4">
+          <div className="space-y-4" data-aos="fade-up">
             <h1 className="text-5xl md:text-6xl font-bold">À propos de moi</h1>
             <p className="text-xl text-white/80 max-w-2xl">
               Développeur Web Full-Stack passionné par l'automatisation et l'intelligence artificielle, spécialisé dans la transformation des données en solutions innovantes.
@@ -121,7 +132,7 @@ export default function About() {
       {/* Résumé */}
       <section className="py-20 md:py-32">
         <div className="container max-w-3xl space-y-8">
-          <div className="space-y-4">
+          <div className="space-y-4" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Qui suis-je ?</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Je suis Falou Badiane, étudiant en BUT MMI et développeur Full-Stack passionné par la création de solutions web innovantes. Ma spécialité réside dans l'optimisation des processus métiers par la donnée et l'automatisation via l'IA.

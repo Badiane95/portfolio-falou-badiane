@@ -86,3 +86,10 @@
 - [x] Configurer les couleurs du gradient Aurora (#0052CC, #06B6D4, #7cff67)
 - [x] Ajouter des animations pulse avec délais progressifs
 - [x] Tester l'affichage sur tous les appareils
+
+## Features Complétées (Animations Dynamiques)
+- [x] Ajouter animations fade-up aux pages About et Contact
+- [x] Ajouter animations AOS (Animate On Scroll) sur toutes les pages
+- [x] Ajouter animations hover sur les cartes de projets
+- [x] Initialiser AOS avec duration 800ms et offset 100px
+- [x] Ajouter animations stagger aux cartes de contact
