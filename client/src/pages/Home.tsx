@@ -271,45 +271,45 @@ export default function Home() {
             {/* Formulaire */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium mb-2">Nom (min. 2 caractères)</label>
+                <label className="block text-sm font-medium mb-2 text-foreground">Nom (min. 2 caractères)</label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   minLength={2}
-                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
                   placeholder="Votre nom"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Email</label>
+                <label className="block text-sm font-medium mb-2 text-foreground">Email</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
                   placeholder="votre@email.com"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Sujet (min. 5 caractères)</label>
+                <label className="block text-sm font-medium mb-2 text-foreground">Sujet (min. 5 caractères)</label>
                 <input
                   type="text"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                   minLength={5}
-                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
                   placeholder="Sujet de votre message"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">
+                <label className="block text-sm font-medium mb-2 text-foreground">
                   Message (min. 10 caractères) - {formData.message.length}/10
                 </label>
                 <textarea
@@ -318,7 +318,7 @@ export default function Home() {
                   onChange={handleChange}
                   minLength={10}
                   rows={5}
-                  className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors resize-none"
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
                   placeholder="Votre message..."
                 />
               </div>
@@ -326,7 +326,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={sendContactMutation.isPending}
-                className="w-full bg-white text-primary hover:bg-white/90 disabled:opacity-50 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2"
+                className="w-full bg-primary text-white hover:bg-primary/90 disabled:opacity-50 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2"
               >
                 {sendContactMutation.isPending ? (
                   <>
