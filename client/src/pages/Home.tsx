@@ -1,10 +1,9 @@
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Code, Zap, Globe, Github, Linkedin, Mail, Loader2, Download, Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
-import AOS from "aos";
 
 /**
  * DESIGN PHILOSOPHY: Minimalisme Moderne Technologique
@@ -176,7 +175,7 @@ export default function Home() {
       </section>
 
       {/* Section Compétences */}
-      <section id="competences" className="py-20 md:py-32 bg-white">
+      <section id="competences" className="py-12 md:py-32 bg-secondary/30">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
           <div className="space-y-4 max-w-2xl">
             <h2 className="text-3xl md:text-5xl font-bold">Mes Compétences</h2>
@@ -204,21 +203,14 @@ export default function Home() {
                 description: "Figma, Adobe Suite, SEO, Web Marketing, Responsive Design"
               }
             ].map((skill, idx) => (
-              <div
+              <Card 
                 key={idx}
-                className="group relative p-6 rounded-2xl bg-white border border-gray-200 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
-                data-aos="fade-up"
-                data-aos-delay={idx * 100}
+                className="p-6 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent p-2.5 mb-4 flex items-center justify-center">
-                    <skill.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 text-foreground">{skill.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{skill.description}</p>
-                </div>
-              </div>
+                <skill.icon className="w-10 h-10 text-primary mb-4" />
+                <h3 className="text-xl font-bold mb-2">{skill.title}</h3>
+                <p className="text-muted-foreground text-sm">{skill.description}</p>
+              </Card>
             ))}
           </div>
 
@@ -230,14 +222,9 @@ export default function Home() {
               { label: "Technologies", value: "15+" },
               { label: "Satisfaction Client", value: "100%" }
             ].map((stat, idx) => (
-              <div
-                key={idx}
-                className="p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-accent/5 border border-primary/10 hover:border-primary/30 transition-all duration-300"
-                data-aos="fade-up"
-                data-aos-delay={idx * 100}
-              >
-                <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-3">{stat.label}</p>
-                <p className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{stat.value}</p>
+              <div key={idx} className="space-y-2">
+                <p className="text-muted-foreground">{stat.label}</p>
+                <p className="text-3xl md:text-4xl font-bold text-primary">{stat.value}</p>
               </div>
             ))}
           </div>
