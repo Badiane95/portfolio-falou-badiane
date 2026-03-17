@@ -344,9 +344,52 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-secondary/50 border-t border-border py-8 md:py-12">
-        <div className="container px-4 md:px-0 text-center text-muted-foreground">
-          <p>&copy; 2026 Falou Badiane. Tous les droits réservés.</p>
+      <footer className="bg-gradient-to-br from-primary/10 to-primary/5 border-t border-border py-12 md:py-16">
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
+          <div className="grid md:grid-cols-3 gap-12 mb-12">
+            {/* Logo et description */}
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold text-primary">Falou Badiane</h3>
+              <p className="text-muted-foreground">
+                Développeur Web & Automation passionné par la création de solutions innovantes.
+              </p>
+            </div>
+
+            {/* Liens du site */}
+            <div className="space-y-4">
+              <h4 className="font-bold text-foreground">Navigation</h4>
+              <ul className="space-y-2">
+                <li><a href="/#competences" className="text-muted-foreground hover:text-primary transition-colors">Compétences</a></li>
+                <li><a href="/projects" className="text-muted-foreground hover:text-primary transition-colors">Projets</a></li>
+                <li><a href="/about" className="text-muted-foreground hover:text-primary transition-colors">À propos</a></li>
+                <li><a href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
+              </ul>
+            </div>
+
+            {/* Réseaux sociaux */}
+            <div className="space-y-4">
+              <h4 className="font-bold text-foreground">Réseaux sociaux</h4>
+              <div className="flex gap-4">
+                <a href="https://github.com/Badiane95" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary/20 hover:bg-primary/40 flex items-center justify-center transition-colors" title="GitHub">
+                  <Github size={20} className="text-primary" />
+                </a>
+                <a href="https://linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary/20 hover:bg-primary/40 flex items-center justify-center transition-colors" title="LinkedIn">
+                  <Linkedin size={20} className="text-primary" />
+                </a>
+                <a href="mailto:badiane.falou95@gmail.com" className="w-10 h-10 rounded-full bg-primary/20 hover:bg-primary/40 flex items-center justify-center transition-colors" title="Email">
+                  <Mail size={20} className="text-primary" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="border-t border-border my-8"></div>
+
+          {/* Copyright */}
+          <div className="text-center text-muted-foreground">
+            <p>&copy; 2026 Falou Badiane. Tous les droits réservés.</p>
+          </div>
         </div>
       </footer>
     </div>
