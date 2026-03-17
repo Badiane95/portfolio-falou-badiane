@@ -79,3 +79,10 @@
 - [x] Ajouter le lien GitHub pour SAE 501 (https://github.com/lucasl0/SAE501.git)
 - [x] Centrer le contenu sur la page principale (navigation, hero, compétences, contact)
 - [x] Remplacer l'email falou.badiane@example.com par badiane.falou95@gmail.com dans "Moyens de contact"
+
+## Features Complétées (Aurora Background)
+- [x] Installer react-bits pour les composants avancés
+- [x] Ajouter un fond Aurora personnalisé à la section Hero
+- [x] Configurer les couleurs du gradient Aurora (#0052CC, #06B6D4, #7cff67)
+- [x] Ajouter des animations pulse avec délais progressifs
+- [x] Tester l'affichage sur tous les appareils
