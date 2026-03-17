@@ -176,7 +176,7 @@ export default function Home() {
       </section>
 
       {/* Section Compétences */}
-      <section id="competences" className="py-12 md:py-32 bg-secondary/30">
+      <section id="competences" className="py-20 md:py-32 bg-white">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
           <div className="space-y-4 max-w-2xl">
             <h2 className="text-3xl md:text-5xl font-bold">Mes Compétences</h2>
@@ -215,8 +215,8 @@ export default function Home() {
                   <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent p-2.5 mb-4 flex items-center justify-center">
                     <skill.icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2 text-gray-900">{skill.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{skill.description}</p>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">{skill.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{skill.description}</p>
                 </div>
               </div>
             ))}
