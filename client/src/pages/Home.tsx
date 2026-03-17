@@ -324,9 +324,9 @@ export default function Home() {
               <div>
                 <h3 className="text-xl font-bold mb-4">Moyens de contact</h3>
                 <div className="space-y-4">
-                  <a href="mailto:falou.badiane@example.com" className="flex items-center gap-3 hover:text-white/80 transition-colors">
+                  <a href="mailto:badiane.falou95@gmail.com" className="flex items-center gap-3 hover:text-white/80 transition-colors">
                     <Mail size={24} />
-                    <span>falou.badiane@example.com</span>
+                    <span>badiane.falou95@gmail.com</span>
                   </a>
                   <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white/80 transition-colors">
                     <Linkedin size={24} />

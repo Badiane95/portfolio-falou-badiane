@@ -78,3 +78,4 @@
 - [x] Mettre à jour le nombre de projets dans le header (7 → 6)
 - [x] Ajouter le lien GitHub pour SAE 501 (https://github.com/lucasl0/SAE501.git)
 - [x] Centrer le contenu sur la page principale (navigation, hero, compétences, contact)
+- [x] Remplacer l'email falou.badiane@example.com par badiane.falou95@gmail.com dans "Moyens de contact"
