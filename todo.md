@@ -98,3 +98,12 @@
 ## Features Complétées (Nettoyage Final)
 - [x] Enlever la mention de recherche d'alternance du portfolio
 - [x] Mettre à jour le texte de présentation pour se concentrer sur l'expertise technique
+
+
+## Features En Cours (Bubble Menu Navigation)
+- [ ] Créer le composant BubbleMenu.tsx avec GSAP
+- [ ] Ajouter les styles CSS pour le bubble menu
+- [ ] Installer la dépendance GSAP
+- [ ] Intégrer le bubble menu dans la navigation de toutes les pages
+- [ ] Configurer les items du menu avec les couleurs du portfolio
+- [ ] Tester l'animation sur tous les appareils
