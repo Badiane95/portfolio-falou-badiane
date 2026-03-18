@@ -18,7 +18,11 @@ const projects = [
     technologies: ["DaVinci Resolve", "BlackMagic Cinema Camera", "Cinematography"],
     date: "2024",
     link: "https://www.behance.net/gallery/200219493/Pastilles-de-communication",
-    codeLink: "#"
+    codeLink: "#",
+    videos: [
+      { id: "TauE60Y4VX8", title: "Pastille 1" },
+      { id: "I5p-20UYyGU", title: "Pastille 2" }
+    ]
   },
   {
     id: 2,
@@ -200,6 +204,30 @@ export default function Projects() {
                   </div>
                 </div>
               </div>
+
+              {/* Videos Section */}
+              {project.videos && project.videos.length > 0 && (
+                <div className="space-y-6" data-aos="fade-up">
+                  <h3 className="text-2xl font-bold">Videos du projet</h3>
+                  <div className="grid md:grid-cols-2 gap-8">
+                    {project.videos.map((video, vidIdx) => (
+                      <div key={vidIdx} className="relative w-full bg-black rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay={String(100 + vidIdx * 100)}>
+                        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                          <iframe
+                            className="absolute top-0 left-0 w-full h-full"
+                            src={`https://www.youtube.com/embed/${video.id}`}
+                            title={video.title}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Divider */}
               {idx < projects.length - 1 && (
