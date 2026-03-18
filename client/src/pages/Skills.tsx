@@ -113,7 +113,7 @@ export default function Skills() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white border-b border-border">
         <div className="container flex items-center justify-between h-16">
-          <div className="text-2xl font-bold text-primary">Falou Badiane</div>
+          <a href="/" className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors cursor-pointer">Falou Badiane</a>
           <div className="flex items-center gap-4">
             <ul className="hidden md:flex gap-8">
               <li><a href="/skills" className="hover:text-primary transition-colors">Compétences</a></li>

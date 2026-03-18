@@ -100,7 +100,7 @@ export default function Home() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white border-b border-border">
         <div className="w-full max-w-6xl mx-auto flex items-center justify-between h-16 px-4 md:px-8">
-          <div className="text-xl md:text-2xl font-bold text-primary">Falou Badiane</div>
+          <a href="/" className="text-xl md:text-2xl font-bold text-primary hover:text-primary/80 transition-colors cursor-pointer">Falou Badiane</a>
           
           {/* Desktop Menu */}
           <ul className="hidden md:flex gap-8">
@@ -241,14 +241,14 @@ export default function Home() {
               { label: "Technologies", value: "15+" },
               { label: "Satisfaction Client", value: "100%" }
             ].map((stat, idx) => (
-              <div key={idx} className="space-y-2">
+              <div key={idx} className="space-y-2" data-aos="zoom-in" data-aos-delay={idx * 100}>
                 <p className="text-muted-foreground">{stat.label}</p>
                 <p className="text-3xl md:text-4xl font-bold text-primary">{stat.value}</p>
               </div>
             ))}
           </div>
 
-          <div className="pt-8">
+          <div className="pt-8" data-aos="fade-up">
             <a href="/skills" className="text-primary hover:text-primary/80 font-medium inline-flex items-center gap-2 transition-colors">
               Voir toutes les compétences <ArrowRight size={18} />
             </a>

@@ -111,7 +111,7 @@ export default function Contact() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white border-b border-border">
         <div className="container flex items-center justify-between h-16">
-          <div className="text-2xl font-bold text-primary">Falou Badiane</div>
+          <a href="/" className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors cursor-pointer">Falou Badiane</a>
           <div className="flex items-center gap-4">
             <ul className="hidden md:flex gap-8">
               <li><a href="/#competences" className="hover:text-primary transition-colors">Compétences</a></li>
@@ -143,7 +143,7 @@ export default function Contact() {
       {/* Contact Methods */}
       <section className="py-20 md:py-32">
         <div className="container space-y-12">
-          <div className="space-y-4 max-w-2xl">
+          <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Moyens de contact</h2>
             <p className="text-lg text-muted-foreground">
               Plusieurs façons de me joindre pour discuter de vos projets ou collaborations.
@@ -159,6 +159,7 @@ export default function Contact() {
                 rel={method.link.startsWith('http') ? "noopener noreferrer" : undefined}
                 className="no-underline"
                 data-aos="fade-up"
+                data-aos-delay={idx * 100}
               >
                 <Card className="p-8 h-full border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer">
                   <method.icon className="w-12 h-12 text-primary mb-6" />
@@ -182,7 +183,7 @@ export default function Contact() {
             </p>
           </div>
 
-          <Card className="p-8 md:p-12">
+          <Card className="p-8 md:p-12" data-aos="fade-up" data-aos-delay="100">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Nom */}
               <div className="space-y-2">
@@ -264,7 +265,7 @@ export default function Contact() {
           </Card>
 
           {/* Info Box */}
-          <Card className="p-8 bg-primary/5 border-l-4 border-l-primary">
+          <Card className="p-8 bg-primary/5 border-l-4 border-l-primary" data-aos="fade-up" data-aos-delay="200">
             <div className="space-y-4">
               <h3 className="text-xl font-bold">Informations utiles</h3>
               <div className="space-y-3">
