@@ -21,7 +21,8 @@ const projects = [
     codeLink: "#",
     videos: [
       { id: "TauE60Y4VX8", title: "Pastille 1" },
-      { id: "I5p-20UYyGU", title: "Pastille 2" }
+      { id: "I5p-20UYyGU", title: "Pastille 2" },
+      { id: "ZuY8DOnWmGA", title: "Pastille 3" }
     ]
   },
   {
@@ -209,7 +210,7 @@ export default function Projects() {
               {project.videos && project.videos.length > 0 && (
                 <div className="space-y-6" data-aos="fade-up">
                   <h3 className="text-2xl font-bold">Videos du projet</h3>
-                  <div className="grid md:grid-cols-2 gap-8">
+                  <div className="grid md:grid-cols-3 gap-8">
                     {project.videos.map((video, vidIdx) => (
                       <div key={vidIdx} className="relative w-full bg-black rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay={String(100 + vidIdx * 100)}>
                         <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
