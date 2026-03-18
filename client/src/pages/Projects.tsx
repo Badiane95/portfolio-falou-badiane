@@ -27,12 +27,12 @@ const projects = [
   },
   {
     id: 2,
-    title: "Site Web Institutionnel",
-    description: "Développement d'un site web moderne pour présenter la formation MMI de l'IUT. Le projet inclut une intégration complète de bases de données et un système de gestion de contenu dynamique.",
-    longDescription: "Ce site institutionnel a été conçu pour offrir une expérience utilisateur optimale tout en permettant une gestion facile du contenu. J'ai implémenté une architecture backend robuste avec PHP et MySQL, assurant la sécurité et la performance du site.",
+    title: "SAE 501 - Site Web Institutionnel",
+    description: "Développement d'un site web institutionnel moderne pour le BUT MMI, intégrant des technologies front-end (Vite, Nunjucks) et back-end (Node.js, Express, MongoDB) pour une gestion de contenu dynamique et une expérience utilisateur optimale.",
+    longDescription: "Ce projet, réalisé dans le cadre de la SAÉ 501, a consisté à moderniser le site dédié au BUT Métiers du Multimédia et de l'Internet (MMI). J'ai travaillé sur une architecture basée sur Nunjucks pour les templates, Vite pour le développement front-end rapide, et un serveur robuste avec Node.js et Express. La gestion des données a été effectuée via MongoDB (NoSQL), offrant une flexibilité accrue. Le projet a mis l'accent sur le développement back-end avancé (R5.DWeb-DI.06) et front-end avancé (R5.DWeb-DI.05), l'intégration d'interactions riches (AC34.03), et la maîtrise de la qualité web (AC35.02). J'ai également utilisé Tailwind CSS pour un design responsive et moderne, et implémenté des fonctionnalités telles que la gestion des erreurs 404, l'accessibilité web, et la validation client des formulaires. Ce projet démontre ma capacité à utiliser des outils modernes pour construire des applications web performantes et maintenables.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/institutional-website-9DwxxMR5NQEZsez2UQYHor.webp",
-    tags: ["Web", "Backend", "Base de données"],
-    technologies: ["PHP", "MySQL", "HTML/CSS", "JavaScript", "Bootstrap"],
+    tags: ["Web", "Backend", "NoSQL", "Fullstack"],
+    technologies: ["Node.js", "Express.js", "MongoDB", "Nunjucks", "Vite", "Tailwind CSS", "JavaScript"],
     date: "2023",
     link: "#",
     codeLink: "https://github.com/lucasl0/SAE501.git"
