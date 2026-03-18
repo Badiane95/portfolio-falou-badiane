@@ -113,13 +113,13 @@ export default function About() {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
         <div className="container space-y-6">
-          <div className="space-y-4" data-aos="fade-up">
+          <div className="space-y-4" data-aos="fade-up" data-aos-duration="900">
             <h1 className="text-5xl md:text-6xl font-bold">À propos de moi</h1>
             <p className="text-xl text-white/80 max-w-2xl">
-              Développeur Web Full-Stack passionné par l'automatisation et l'intelligence artificielle, spécialisé dans la transformation des données en solutions innovantes.
+              Développeur Web Full-Stack passioné par l'automatisation et l'intelligence artificielle, spécialisé dans la transformation des données en solutions innovantes.
             </p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4" data-aos="fade-up" data-aos-delay="200">
             <a href="mailto:badiane.falou95@gmail.com" className="inline-flex items-center gap-2 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors">
               <Mail size={18} /> Me contacter
             </a>
@@ -133,10 +133,10 @@ export default function About() {
       {/* Résumé */}
       <section className="py-20 md:py-32">
         <div className="container max-w-3xl space-y-8">
-          <div className="space-y-4" data-aos="fade-up">
+          <div className="space-y-4" data-aos="fade-up" data-aos-duration="800">
             <h2 className="text-4xl font-bold">Qui suis-je ?</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Je suis Falou Badiane, étudiant en BUT MMI et développeur Full-Stack passionné par la création de solutions web innovantes. Ma spécialité réside dans l'optimisation des processus métiers par la donnée et l'automatisation via l'IA.
+              Je suis Falou Badiane, étudiant en BUT MMI et développeur Full-Stack passioné par la création de solutions web innovantes. Ma spécialité réside dans l'optimisation des processus métiers par la donnée et l'automatisation via l'IA.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Expert en création d'interfaces modernes, je maîtrise l'automatisation via l'IA et le Web Scraping pour transformer les données brutes en leviers de croissance stratégiques. Mon approche combine expertise technique, vision produit et gestion de projet autonome.
@@ -144,7 +144,7 @@ export default function About() {
           </div>
 
           {/* Informations de contact */}
-          <Card className="p-8 bg-secondary/30 border-l-4 border-l-primary">
+          <Card className="p-8 bg-secondary/30 border-l-4 border-l-primary" data-aos="fade-up" data-aos-delay="100">
             <h3 className="text-2xl font-bold mb-6">Informations de contact</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
@@ -182,7 +182,7 @@ export default function About() {
       {/* Points Forts */}
       <section className="py-20 md:py-32 bg-secondary/30">
         <div className="container space-y-12">
-          <div className="space-y-4 max-w-2xl">
+          <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Mes Points Forts</h2>
             <p className="text-lg text-muted-foreground">
               Une combinaison unique de compétences techniques et de vision stratégique pour transformer vos idées en réalité.
@@ -191,7 +191,7 @@ export default function About() {
 
           <div className="grid md:grid-cols-2 gap-8">
             {strengths.map((strength, idx) => (
-              <Card key={idx} className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300">
+              <Card key={idx} className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay={idx * 100}>
                 <h3 className="text-xl font-bold mb-3">{strength.title}</h3>
                 <p className="text-muted-foreground">{strength.description}</p>
               </Card>
@@ -203,7 +203,7 @@ export default function About() {
       {/* Compétences */}
       <section className="py-20 md:py-32">
         <div className="container space-y-12">
-          <div className="space-y-4 max-w-2xl">
+          <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Compétences Techniques</h2>
             <p className="text-lg text-muted-foreground">
               Une palette complète de technologies et de frameworks pour créer des solutions robustes et innovantes.
@@ -212,7 +212,7 @@ export default function About() {
 
           <div className="grid md:grid-cols-2 gap-8">
             {skills.map((skillGroup, idx) => (
-              <Card key={idx} className="p-8 hover:shadow-lg transition-all duration-300">
+              <Card key={idx} className="p-8 hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay={idx * 100}>
                 <h3 className="text-xl font-bold mb-6 text-primary">{skillGroup.category}</h3>
                 <div className="flex flex-wrap gap-3">
                   {skillGroup.items.map((skill, i) => (
@@ -230,7 +230,7 @@ export default function About() {
       {/* Expérience */}
       <section className="py-20 md:py-32 bg-secondary/30">
         <div className="container space-y-12">
-          <div className="space-y-4 max-w-2xl">
+          <div className="space-y-4 max-w-2xl" data-aos="fade-right">
             <h2 className="text-4xl font-bold">Expérience</h2>
             <p className="text-lg text-muted-foreground">
               Mon parcours professionnel et académique qui m'a permis de développer une expertise diversifiée.
@@ -239,7 +239,7 @@ export default function About() {
 
           <div className="space-y-6">
             {experience.map((exp, idx) => (
-              <Card key={idx} className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300">
+              <Card key={idx} className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300" data-aos="fade-left" data-aos-delay={idx * 150}>
                 <div className="space-y-2 mb-4">
                   <h3 className="text-2xl font-bold">{exp.title}</h3>
                   <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-muted-foreground">
@@ -257,8 +257,9 @@ export default function About() {
       {/* Éducation */}
       <section className="py-20 md:py-32">
         <div className="container space-y-12">
-          <div className="space-y-4 max-w-2xl">
-            <h2 className="text-4xl font-bold">Éducation</h2>
+          <div className="space-y-4 max-w-2xl" data-aos="fade-right">
+           
+<h2 className="text-4xl font-bold">Éducation</h2>
             <p className="text-lg text-muted-foreground">
               Une formation solide en multimédia et informatique, complétée par des projets pratiques variés.
             </p>
@@ -266,7 +267,7 @@ export default function About() {
 
           <div className="space-y-6">
             {education.map((edu, idx) => (
-              <Card key={idx} className="p-8 border-l-4 border-l-accent hover:shadow-lg transition-all duration-300">
+              <Card key={idx} className="p-8 border-l-4 border-l-accent hover:shadow-lg transition-all duration-300" data-aos="fade-left" data-aos-delay={idx * 150}>
                 <div className="space-y-2 mb-4">
                   <h3 className="text-2xl font-bold">{edu.degree}</h3>
                   <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-muted-foreground">
@@ -284,16 +285,16 @@ export default function About() {
       {/* Langues */}
       <section className="py-20 md:py-32 bg-secondary/30">
         <div className="container space-y-8">
-          <div className="space-y-4 max-w-2xl">
+          <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Langues</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 border-l-4 border-l-primary">
+            <Card className="p-8 border-l-4 border-l-primary" data-aos="zoom-in" data-aos-delay="100">
               <h3 className="text-xl font-bold mb-2">Français</h3>
               <p className="text-muted-foreground">Langue maternelle</p>
             </Card>
-            <Card className="p-8 border-l-4 border-l-primary">
+            <Card className="p-8 border-l-4 border-l-primary" data-aos="zoom-in" data-aos-delay="200">
               <h3 className="text-xl font-bold mb-2">Anglais</h3>
               <p className="text-muted-foreground">Avancé</p>
             </Card>
@@ -304,7 +305,7 @@ export default function About() {
       {/* CTA Section */}
       <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-primary/80 text-white">
         <div className="container max-w-2xl text-center space-y-8">
-          <div className="space-y-4">
+          <div className="space-y-4" data-aos="zoom-in">
             <h2 className="text-4xl md:text-5xl font-bold">Parlons de votre projet</h2>
             <p className="text-lg text-white/80">
               Vous cherchez un développeur passionné pour votre équipe ? Contactez-moi pour discuter de vos besoins.

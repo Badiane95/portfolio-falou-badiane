@@ -2,7 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, Code, Zap, Globe, Palette, Brain, Database } from "lucide-react";
 import { useLocation } from "wouter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { Footer } from "@/components/Footer";
 
 const skillCategories = [
   {
@@ -95,6 +98,14 @@ export default function Skills() {
   const [, setLocation] = useLocation();
   const [selectedCategory, setSelectedCategory] = useState("web");
 
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,
+      offset: 100
+    });
+  }, []);
+
   const currentCategory = skillCategories.find(cat => cat.id === selectedCategory);
 
   return (
@@ -124,10 +135,12 @@ export default function Skills() {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
         <div className="container space-y-4">
-          <h1 className="text-5xl md:text-6xl font-bold">Mes Compétences</h1>
-          <p className="text-xl text-white/80 max-w-2xl">
-            Une palette complète de technologies et de compétences pour créer des solutions innovantes et performantes.
-          </p>
+          <div data-aos="fade-up" data-aos-duration="900">
+            <h1 className="text-5xl md:text-6xl font-bold">Mes Compétences</h1>
+            <p className="text-xl text-white/80 max-w-2xl mt-4">
+              Une palette complète de technologies et de compétences pour créer des solutions innovantes et performantes.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -135,14 +148,16 @@ export default function Skills() {
       <section className="py-20 md:py-32">
         <div className="container space-y-12">
           {/* Category Tabs */}
-          <div className="space-y-8">
+          <div className="space-y-8" data-aos="fade-up">
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              {skillCategories.map((category) => {
+              {skillCategories.map((category, idx) => {
                 const Icon = category.icon;
                 return (
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
+                    data-aos="zoom-in"
+                    data-aos-delay={idx * 80}
                     className={`p-4 rounded-lg transition-all duration-300 ${
                       selectedCategory === category.id
                         ? "bg-primary text-white shadow-lg scale-105"
@@ -160,9 +175,9 @@ export default function Skills() {
           {/* Category Details */}
           {currentCategory && (
             <div className="space-y-8">
-              <div className="space-y-4">
+              <div className="space-y-4" data-aos="fade-right">
                 <div className="flex items-center gap-4">
-                  <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${currentCategory.color} flex items-center justify-center`}>
+                  <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${currentCategory.color} flex items-center justify-center`} data-aos="zoom-in">
                     <currentCategory.icon className="w-8 h-8 text-white" />
                   </div>
                   <div>
@@ -175,7 +190,7 @@ export default function Skills() {
               {/* Skills Grid */}
               <div className="grid md:grid-cols-2 gap-8">
                 {currentCategory.skills.map((skill, idx) => (
-                  <Card key={idx} className="p-6 hover:shadow-lg transition-all duration-300">
+                  <Card key={idx} className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay={idx * 80}>
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <h3 className="text-xl font-bold">{skill.name}</h3>
@@ -202,7 +217,7 @@ export default function Skills() {
       {/* Summary Section */}
       <section className="py-20 md:py-32 bg-secondary/30">
         <div className="container space-y-12">
-          <div className="space-y-4 max-w-2xl">
+          <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Résumé des compétences</h2>
             <p className="text-lg text-muted-foreground">
               Une expertise diversifiée couvrant tous les aspects du développement web, des jeux vidéo et de l'automatisation IA.
@@ -210,16 +225,16 @@ export default function Skills() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-8 border-l-4 border-l-primary">
-              <h3 className="text-2xl font-bold mb-4">50+</h3>
+            <Card className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
+              <h3 className="text-2xl font-bold mb-4 text-primary">50+</h3>
               <p className="text-muted-foreground">Technologies et outils maîtrisés</p>
             </Card>
-            <Card className="p-8 border-l-4 border-l-accent">
-              <h3 className="text-2xl font-bold mb-4">7</h3>
+            <Card className="p-8 border-l-4 border-l-accent hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
+              <h3 className="text-2xl font-bold mb-4 text-accent">6</h3>
               <p className="text-muted-foreground">Projets majeurs complétés</p>
             </Card>
-            <Card className="p-8 border-l-4 border-l-primary">
-              <h3 className="text-2xl font-bold mb-4">2+</h3>
+            <Card className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay="300">
+              <h3 className="text-2xl font-bold mb-4 text-primary">2+</h3>
               <p className="text-muted-foreground">Années d'expérience professionnelle</p>
             </Card>
           </div>
@@ -229,13 +244,13 @@ export default function Skills() {
       {/* CTA Section */}
       <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-primary/80 text-white">
         <div className="container max-w-2xl text-center space-y-8">
-          <div className="space-y-4">
+          <div className="space-y-4" data-aos="zoom-in">
             <h2 className="text-4xl md:text-5xl font-bold">Prêt à collaborer ?</h2>
             <p className="text-lg text-white/80">
               Utilisez mes compétences pour transformer votre projet en réalité.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
             <Button 
               className="bg-white text-primary hover:bg-white/90"
               onClick={() => setLocation('/contact')}
@@ -261,12 +276,7 @@ export default function Skills() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-border py-8">
-        <div className="container text-center text-muted-foreground text-sm">
-          <p>&copy; 2025 Falou Badiane. Tous droits réservés.</p>
-          <p className="mt-2">Développeur Web & Automation | Portfolio Minimaliste Moderne</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

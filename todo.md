@@ -98,3 +98,7 @@
 ## Features Complétées (Nettoyage Final)
 - [x] Enlever la mention de recherche d'alternance du portfolio
 - [x] Mettre à jour le texte de présentation pour se concentrer sur l'expertise technique
+
+## Features En Cours (Animations Pages About & Skills)
+- [ ] Ajouter animations AOS à toutes les sections de la page À propos
+- [ ] Ajouter animations AOS à toutes les sections de la page Compétences
