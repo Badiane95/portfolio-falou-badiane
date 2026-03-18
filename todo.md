@@ -102,3 +102,8 @@
 ## Features En Cours (Animations Pages About & Skills)
 - [ ] Ajouter animations AOS à toutes les sections de la page À propos
 - [ ] Ajouter animations AOS à toutes les sections de la page Compétences
+
+## Features Complétées (Contenu CTA Page d'Accueil)
+- [x] Ajouter une section "Aperçu des Projets" avec 3 projets en vedette et CTA vers /projects
+- [x] Ajouter une section "À Propos" avec statistiques et CTA vers /about
+- [x] Ajouter des animations AOS sur les nouvelles sections (fade-up, fade-right, fade-left, zoom-in)

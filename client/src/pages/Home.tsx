@@ -256,6 +256,110 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Section Aperçu Projets */}
+      <section className="py-20 md:py-32 bg-white">
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
+          <div className="space-y-12">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4" data-aos="fade-up">
+              <div className="space-y-4 max-w-2xl">
+                <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">Mes Projets</span>
+                <h2 className="text-3xl md:text-5xl font-bold">Quelques Réalisations</h2>
+                <p className="text-base md:text-lg text-muted-foreground">
+                  Des projets concrets alliant créativité, technique et innovation.
+                </p>
+              </div>
+              <a href="/projects" className="shrink-0 inline-flex items-center gap-2 text-primary font-medium hover:text-primary/80 transition-colors">
+                Voir tous les projets <ArrowRight size={18} />
+              </a>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Webdocumentaire Interactif",
+                  description: "Webdocumentaire immersif avec navigation non-linéaire, animations CSS avancées et intégration multimédia.",
+                  tags: ["HTML/CSS", "JavaScript", "UX Design"],
+                  href: "/projects"
+                },
+                {
+                  title: "Jeu Vidéo Unity",
+                  description: "Jeu de plateforme 2D développé avec Unity et C#, avec physique, animations et système de score.",
+                  tags: ["Unity", "C#", "Game Design"],
+                  href: "/projects"
+                },
+                {
+                  title: "Data Visualization",
+                  description: "Tableau de bord interactif avec géolocalisation et visualisation de données en temps réel.",
+                  tags: ["JavaScript", "Charts.js", "API"],
+                  href: "/projects"
+                }
+              ].map((project, idx) => (
+                <a
+                  key={idx}
+                  href={project.href}
+                  data-aos="fade-up"
+                  data-aos-delay={idx * 100}
+                  className="group block"
+                >
+                  <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-t-primary cursor-pointer">
+                    <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
+                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{project.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tags.map((tag, i) => (
+                        <span key={i} className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full font-medium">{tag}</span>
+                      ))}
+                    </div>
+                  </Card>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section À Propos CTA */}
+      <section className="py-20 md:py-28 bg-primary">
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6" data-aos="fade-right">
+              <span className="inline-block px-3 py-1 bg-white/20 text-white text-sm font-medium rounded-full">À Propos</span>
+              <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
+                Qui suis-je ?<br />
+                <span className="text-cyan-300">Falou Badiane</span>
+              </h2>
+              <p className="text-white/80 text-base md:text-lg leading-relaxed">
+                Étudiant en BUT MMI, passionné par le développement web et l'automatisation. Je combine créativité et expertise technique pour créer des expériences numériques mémorables.
+              </p>
+              <a
+                href="/about"
+                className="inline-flex items-center gap-2 bg-white text-primary hover:bg-white/90 px-6 py-3 rounded-lg font-medium transition-colors"
+              >
+                En savoir plus <ArrowRight size={18} />
+              </a>
+            </div>
+            <div className="grid grid-cols-2 gap-4" data-aos="fade-left">
+              {[
+                { label: "Projets Réalisés", value: "6+", icon: "🚀" },
+                { label: "Technologies", value: "15+", icon: "⚡" },
+                { label: "Années d'études", value: "3", icon: "🎓" },
+                { label: "Langues", value: "2", icon: "🌍" }
+              ].map((stat, idx) => (
+                <div
+                  key={idx}
+                  data-aos="zoom-in"
+                  data-aos-delay={idx * 100}
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20"
+                >
+                  <div className="text-3xl mb-2">{stat.icon}</div>
+                  <div className="text-3xl font-bold text-white">{stat.value}</div>
+                  <div className="text-white/70 text-sm mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Section Contact */}
       <section id="contact" className="py-20 md:py-32 bg-secondary/30">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
