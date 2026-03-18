@@ -46,15 +46,15 @@ const projects = [
   },
   {
     id: 4,
-    title: "Création d'un Jeu Vidéo",
+    title: "Jeu Vidéo Unity",
     description: "Développement complet d'un jeu vidéo avec Unity et C#. Le projet inclut la programmation de la logique de jeu, des mécaniques de mouvement avancées et des systèmes de collision optimisés.",
     longDescription: "Ce projet de jeu vidéo démontre ma maîtrise de l'architecture de jeu et de l'optimisation des performances. J'ai implémenté un système complet de gestion des états de jeu (Game States), des mécaniques de mouvement fluides et des systèmes de collision précis. Le code a été optimisé pour assurer une performance optimale sur différentes plateformes.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/video-game-XJ2ZT6LLYAGKzDKrnhMMqn.webp",
+    image: "/assets/projects/unity-game.png",
     tags: ["Jeu Vidéo", "Programmation", "Architecture", "Performance"],
     technologies: ["Unity", "C#", "Game Design", "Physics Engine"],
     date: "2025",
-    link: "#",
-    codeLink: "https://github.com/tjrardaa/SAE402.git"
+    link: "https://badiane95.github.io/Game/",
+    codeLink: "https://github.com/Badiane95/Game.git"
   },
   {
     id: 5,
