@@ -10,14 +10,14 @@ import { Footer } from "@/components/Footer";
 const projects = [
   {
     id: 1,
-    title: "Festival Les Talents de l'IUT",
-    description: "Réalisation complète de vidéos promotionnelles pour le festival annuel de l'IUT de Cergy-Pontoise. Ce projet a impliqué la production vidéo professionnelle, le montage avancé et la promotion digitale sur les réseaux sociaux.",
-    longDescription: "J'ai pris en charge l'ensemble du processus de création vidéo, de la pré-production à la post-production. Cela incluait la planification du tournage, la direction de la production, le montage vidéo sophisticé et la création de contenu promotionnel pour maximiser la visibilité de l'événement.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/festival-talents-jNUrAHmaijyw5gcdJzc3yS.webp",
-    tags: ["Vidéo", "Production", "Promotion", "Montage"],
-    technologies: ["DaVinci Resolve", "Adobe Premiere", "Social Media Marketing"],
+    title: "Pastilles de communication - Festival",
+    description: "Création de pastilles vidéo promotionnelles pour le festival 'Les talents de l'IUT' organisé par l'I.U.T de Cergy-Pontoise. Un projet axé sur la communication digitale et la production vidéo.",
+    longDescription: "Dans le cadre de la promotion du festival 'Les talents de l'IUT' organisé par l'I.U.T de Cergy-Pontoise (site de Sarcelles), j'ai réalisé une série de pastilles vidéo de communication. Ce projet comprenait des phases de pré-festival avec des thématiques comme 'Tout le monde a un talent' et 'Prise de risque', ainsi qu'une phase post-festival intitulée 'Bon moment'. J'ai utilisé DaVinci Resolve pour le montage et la post-production, en travaillant avec une BlackMagic Cinema Camera pour garantir une qualité cinématographique. Ce travail démontre ma capacité à créer du contenu engageant pour les réseaux sociaux tout en respectant une identité visuelle forte liée à un événement culturel.",
+    image: "/assets/projects/festival-talents-pastilles.webp",
+    tags: ["Vidéo", "Communication", "Festival", "Montage"],
+    technologies: ["DaVinci Resolve", "BlackMagic Cinema Camera", "Cinematography"],
     date: "2024",
-    link: "#",
+    link: "https://www.behance.net/gallery/200219493/Pastilles-de-communication",
     codeLink: "#"
   },
   {
