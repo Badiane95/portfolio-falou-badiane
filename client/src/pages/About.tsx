@@ -5,6 +5,7 @@ import { useLocation } from "wouter";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Footer } from "@/components/Footer";
 
 export default function About() {
   const [, setLocation] = useLocation();
@@ -335,12 +336,7 @@ export default function About() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-border py-8">
-        <div className="container text-center text-muted-foreground text-sm">
-          <p>&copy; 2025 Falou Badiane. Tous droits réservés.</p>
-          <p className="mt-2">Développeur Web & Automation | Portfolio Minimaliste Moderne</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
