@@ -9,6 +9,18 @@ import { Footer } from "@/components/Footer";
 
 const projects = [
   {
+    id: 0,
+    title: "AI-Powered Web Scraper & Data Analyzer",
+    description: "Plateforme complète de web scraping avec interface intuitive, moteur robuste utilisant Puppeteer, stockage MongoDB, visualisation de données et planification de tâches récurrentes.",
+    longDescription: "Une plateforme moderne et puissante pour automatiser l'extraction de données web. Ce projet démontre une expertise complète en développement fullstack avec React, Node.js, tRPC et Drizzle ORM. Les utilisateurs peuvent créer des tâches de scraping avec sélecteurs CSS/XPath, tester les sélecteurs en temps réel, planifier l'exécution automatique et visualiser les résultats dans un dashboard intuitif. Le système gère les sites dynamiques (JavaScript-rendered), inclut un historique d'exécution détaillé et offre une API tRPC type-safe pour toutes les opérations. L'application est sécurisée avec authentification utilisateur et autorisation basée sur les rôles. Tests Vitest complets et design responsive avec Tailwind CSS.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/web-scraper-ai-preview.webp",
+    tags: ["Fullstack", "Web Scraping", "Automation", "Data Analysis"],
+    technologies: ["React", "Node.js", "tRPC", "Puppeteer", "Drizzle ORM", "Tailwind CSS", "TypeScript", "Vitest"],
+    date: "2026",
+    link: "https://aiwebscrap-994wzucz.manus.space",
+    codeLink: "https://github.com/Badiane95/ai-web-scraper-falou"
+  },
+  {
     id: 1,
     title: "SAE 501 - Site Web Institutionnel",
     description: "Développement d'un site web institutionnel moderne pour le BUT MMI, intégrant des technologies front-end (Vite, Nunjucks) et back-end (Node.js, Express, MongoDB) pour une gestion de contenu dynamique et une expérience utilisateur optimale.",
