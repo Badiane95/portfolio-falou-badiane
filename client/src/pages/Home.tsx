@@ -151,9 +151,9 @@ export default function Home() {
         </div>
         
         {/* Contenu hero — au-dessus de tout */}
-        <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-32 grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-32 flex items-center relative z-10">
           {/* Texte Hero */}
-          <div className="space-y-6" data-aos="fade-up">
+          <div className="space-y-6 max-w-2xl" data-aos="fade-up">
             <div className="space-y-2">
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                 Développeur Web & <span className="text-primary">Automation</span>
@@ -173,16 +173,6 @@ export default function Home() {
                 <Download size={18} /> Télécharger CV
               </a>
             </div>
-          </div>
-
-          {/* Image Hero */}
-          <div className="relative hidden md:block">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl"></div>
-            <img 
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/hero-background-gSWqmtSn8WsMuBYEqWRRCY.webp"
-              alt="Hero Background"
-              className="w-full h-96 object-cover rounded-2xl relative z-10 transition-transform duration-500 hover:scale-105"
-            />
           </div>
         </div>
 
