@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useLocation } from "wouter";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import FloatingLines from "@/components/FloatingLines";
 
 /**
  * DESIGN PHILOSOPHY: Minimalisme Moderne Technologique
@@ -46,39 +47,14 @@ export default function Home() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validation côté client
-    if (!formData.name.trim()) {
-      toast.error("Le nom est obligatoire");
-      return;
-    }
-    if (formData.name.trim().length < 2) {
-      toast.error("Le nom doit contenir au moins 2 caractères");
-      return;
-    }
-    if (!formData.email.trim()) {
-      toast.error("L'email est obligatoire");
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      toast.error("Veuillez entrer un email valide");
-      return;
-    }
-    if (!formData.subject.trim()) {
-      toast.error("Le sujet est obligatoire");
-      return;
-    }
-    if (formData.subject.trim().length < 5) {
-      toast.error("Le sujet doit contenir au moins 5 caractères");
-      return;
-    }
-    if (!formData.message.trim()) {
-      toast.error("Le message est obligatoire");
-      return;
-    }
-    if (formData.message.trim().length < 10) {
-      toast.error("Le message doit contenir au moins 10 caractères");
-      return;
-    }
+    if (!formData.name.trim()) { toast.error("Le nom est obligatoire"); return; }
+    if (formData.name.trim().length < 2) { toast.error("Le nom doit contenir au moins 2 caractères"); return; }
+    if (!formData.email.trim()) { toast.error("L'email est obligatoire"); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) { toast.error("Veuillez entrer un email valide"); return; }
+    if (!formData.subject.trim()) { toast.error("Le sujet est obligatoire"); return; }
+    if (formData.subject.trim().length < 5) { toast.error("Le sujet doit contenir au moins 5 caractères"); return; }
+    if (!formData.message.trim()) { toast.error("Le message est obligatoire"); return; }
+    if (formData.message.trim().length < 10) { toast.error("Le message doit contenir au moins 10 caractères"); return; }
     
     sendContactMutation.mutate(formData);
   };
@@ -143,17 +119,40 @@ export default function Home() {
         )}
       </nav>
 
-      {/* Hero Section */}
+      {/* ─── Hero Section ─────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-cyan-50/20">
-        {/* Aurora-like Background Effect */}
-        <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
+
+        {/* FloatingLines — couche animée en fond, blend screen pour traverser le gradient */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <FloatingLines
+            linesGradient={['#0052CC', '#0077FF', '#06B6D4', '#22D3EE', '#0052CC']}
+            enabledWaves={['top', 'middle', 'bottom']}
+            lineCount={[8, 12, 6]}
+            lineDistance={[4, 3, 6]}
+            animationSpeed={0.6}
+            interactive={true}
+            bendRadius={4.0}
+            bendStrength={-0.4}
+            mouseDamping={0.04}
+            parallax={true}
+            parallaxStrength={0.15}
+            mixBlendMode="screen"
+            middleWavePosition={{ x: 5.0, y: 0.0, rotate: 0.3 }}
+            topWavePosition={{ x: 10.0, y: 0.3, rotate: -0.5 }}
+            bottomWavePosition={{ x: 2.0, y: -0.5, rotate: 0.8 }}
+          />
+        </div>
+
+        {/* Aurora subtle blobs — derrière le contenu mais au-dessus des lignes */}
+        <div className="absolute inset-0 z-[1] opacity-30 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-gradient-to-br from-accent/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
           <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-gradient-to-br from-green-400/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
         
+        {/* Contenu hero — au-dessus de tout */}
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-32 grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
-          {/* Texte Hero - Asymétrie à gauche */}
+          {/* Texte Hero */}
           <div className="space-y-6" data-aos="fade-up">
             <div className="space-y-2">
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -170,26 +169,27 @@ export default function Home() {
               <a href="/projects" className="bg-primary hover:bg-primary/90 text-white gap-2 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center">
                 Découvrir mon travail <ArrowRight size={18} />
               </a>
-              <a href="/CV-Falou-Badiane.pdf" download className="border border-primary text-primary hover:bg-primary/5 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2">
+              <a href="/CV-Falou-Badiane.pdf" download className="border border-primary text-primary hover:bg-primary/5 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2 bg-white/70 backdrop-blur-sm">
                 <Download size={18} /> Télécharger CV
               </a>
             </div>
           </div>
 
-          {/* Image Hero - Asymétrie à droite */}
+          {/* Image Hero */}
           <div className="relative hidden md:block">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl"></div>
             <img 
               src="https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/hero-background-gSWqmtSn8WsMuBYEqWRRCY.webp"
               alt="Hero Background"
-              className="w-full h-96 object-cover rounded-2xl"
+              className="w-full h-96 object-cover rounded-2xl relative z-10 transition-transform duration-500 hover:scale-105"
             />
           </div>
         </div>
 
         {/* Ligne diagonale de séparation */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-transparent z-10"></div>
       </section>
+      {/* ──────────────────────────────────────────────────────────────────────── */}
 
       {/* Section Compétences */}
       <section id="competences" className="py-20 md:py-32 bg-secondary/30">
@@ -201,7 +201,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Grille de compétences avec cartes flottantes */}
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
@@ -233,7 +232,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Indicateurs de progression */}
           <div className="grid md:grid-cols-2 gap-8 pt-8">
             {[
               { label: "Projets Réalisés", value: "8+" },
@@ -372,75 +370,74 @@ export default function Home() {
             </div>
 
             <Card className="p-8 md:p-12" data-aos="fade-up">
-              {/* Formulaire */}
               <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium mb-2 text-foreground">Nom (min. 2 caractères)</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  minLength={2}
-                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                  placeholder="Votre nom"
-                />
-              </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-foreground">Nom (min. 2 caractères)</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    minLength={2}
+                    className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    placeholder="Votre nom"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2 text-foreground">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                  placeholder="votre@email.com"
-                />
-              </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-foreground">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    placeholder="votre@email.com"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2 text-foreground">Sujet (min. 5 caractères)</label>
-                <input
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  minLength={5}
-                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                  placeholder="Sujet de votre message"
-                />
-              </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-foreground">Sujet (min. 5 caractères)</label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    minLength={5}
+                    className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    placeholder="Sujet de votre message"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2 text-foreground">
-                  Message (min. 10 caractères) - {formData.message.length}/10
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  minLength={10}
-                  rows={5}
-                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
-                  placeholder="Votre message..."
-                />
-              </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-foreground">
+                    Message (min. 10 caractères) - {formData.message.length}/10
+                  </label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    minLength={10}
+                    rows={5}
+                    className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
+                    placeholder="Votre message..."
+                  />
+                </div>
 
-              <button
-                type="submit"
-                disabled={sendContactMutation.isPending}
-                className="w-full bg-primary text-white hover:bg-primary/90 disabled:opacity-50 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2"
-              >
-                {sendContactMutation.isPending ? (
-                  <>
-                    <Loader2 size={18} className="animate-spin" />
-                    Envoi en cours...
-                  </>
-                ) : (
-                  "Envoyer le message"
-                )}
-              </button>
+                <button
+                  type="submit"
+                  disabled={sendContactMutation.isPending}
+                  className="w-full bg-primary text-white hover:bg-primary/90 disabled:opacity-50 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2"
+                >
+                  {sendContactMutation.isPending ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Envoi en cours...
+                    </>
+                  ) : (
+                    "Envoyer le message"
+                  )}
+                </button>
               </form>
             </Card>
           </div>
@@ -451,7 +448,6 @@ export default function Home() {
       <footer className="bg-gradient-to-br from-primary/10 to-primary/5 border-t border-border py-12 md:py-16 overflow-hidden">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
-            {/* Logo et description */}
             <div className="space-y-4" data-aos="fade-right" data-aos-duration="800" data-aos-once="true">
               <h3 className="text-2xl font-bold text-primary">Falou Badiane</h3>
               <p className="text-muted-foreground">
@@ -459,7 +455,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Liens du site */}
             <div className="space-y-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" data-aos-once="true">
               <h4 className="font-bold text-foreground">Navigation</h4>
               <ul className="space-y-2">
@@ -470,7 +465,6 @@ export default function Home() {
               </ul>
             </div>
 
-            {/* Réseaux sociaux */}
             <div className="space-y-4" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200" data-aos-once="true">
               <h4 className="font-bold text-foreground">Réseaux sociaux</h4>
               <div className="flex gap-4">
@@ -487,10 +481,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Divider */}
           <div className="border-t border-border my-8" data-aos="fade-up" data-aos-duration="600" data-aos-once="true"></div>
 
-          {/* Copyright */}
           <div className="text-center text-muted-foreground" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100" data-aos-once="true">
             <p>&copy; 2026 Falou Badiane. Tous les droits réservés.</p>
           </div>
