@@ -74,24 +74,30 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-foreground">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-border">
+      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="w-full max-w-6xl mx-auto flex items-center justify-between h-16 px-4 md:px-8">
-          <a href="/" className="text-xl md:text-2xl font-bold text-primary hover:text-primary/80 transition-colors cursor-pointer">Falou Badiane</a>
-          
-          {/* Desktop Menu */}
+          {/* Logo — texte sombre sur fond blanc, ratio 7:1 */}
+          <a href="/" className="text-xl md:text-2xl font-bold text-[#0052CC] hover:text-[#003d99] transition-colors cursor-pointer">
+            Falou Badiane
+          </a>
+
+          {/* Desktop Menu — texte gris fonçé #374151 sur blanc, ratio ~9:1 */}
           <ul className="hidden md:flex gap-8">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="hover:text-primary transition-colors text-sm md:text-base">
+                <a
+                  href={link.href}
+                  className="text-[#374151] hover:text-[#0052CC] font-medium transition-colors text-sm md:text-base"
+                >
                   {link.label}
                 </a>
               </li>
             ))}
           </ul>
 
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden p-2 hover:bg-secondary rounded-lg transition-colors"
+          {/* Mobile Menu Button — icône sombre #1f2937 sur fond blanc */}
+          <button
+            className="md:hidden p-2 text-[#1f2937] hover:bg-gray-100 rounded-lg transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -99,15 +105,15 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu — texte #1f2937 sur fond blanc, ratio >12:1 */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-border bg-white">
-            <ul className="flex flex-col gap-0">
+          <div className="md:hidden border-t border-gray-200 bg-white">
+            <ul className="flex flex-col">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a 
-                    href={link.href} 
-                    className="block px-4 py-3 hover:bg-secondary transition-colors border-b border-border last:border-b-0"
+                  <a
+                    href={link.href}
+                    className="block px-6 py-4 text-[#1f2937] font-medium hover:bg-gray-50 hover:text-[#0052CC] transition-colors border-b border-gray-100 last:border-b-0"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.label}
