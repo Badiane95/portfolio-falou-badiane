@@ -5,7 +5,7 @@ Bienvenue sur mon portfolio professionnel ! Je suis un **développeur web** et *
 ## 🌐 Visite le Portfolio
 
 - **GitHub Pages** : [https://badiane95.github.io/portfolio-falou-badiane](https://badiane95.github.io/portfolio-falou-badiane)
-- **Manus** : [manus-webdev://252bfcbf](manus-webdev://252bfcbf)
+
 
 ## 📋 À Propos
 
