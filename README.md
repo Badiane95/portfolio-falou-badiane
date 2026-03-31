@@ -9,7 +9,7 @@ Bienvenue sur mon portfolio professionnel ! Je suis un **développeur web** et *
 
 ## 📋 À Propos
 
-Je suis un étudiant en **BUT MMI (Métiers du Multimédia et de l'Internet)** à la recherche d'une alternance pour mettre en pratique mes compétences en :
+Je suis un étudiant en **BUT MMI (Métiers du Multimédia et de l'Internet)** mes compétences en :
 
 - **Développement Web** : React, TypeScript, Node.js, Express
 - **Automatisation** : Python, Web Scraping, Workflows IA
