@@ -5,33 +5,14 @@ import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import FloatingLines from "@/components/FloatingLines";
 import Navbar from "@/components/Navbar";
-
-/**
- * DESIGN PHILOSOPHY: Minimalisme Moderne Technologique
- * - Espace blanc généreux avec hiérarchie claire
- * - Asymétrie intentionnelle pour dynamique visuelle
- * - Transitions fluides et microinteractions subtiles
- * - Palette : Bleu #0052CC, Blanc, Cyan #06B6D4
- * - Police : Rubik (Bold pour titres, Regular pour corps)
- */
 
 export default function Home() {
   useEffect(() => {
-    AOS.init({
-      duration: 800,
-      offset: 100,
-      once: false
-    });
+    AOS.init({ duration: 800, offset: 100, once: false });
   }, []);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
 
   const sendContactMutation = trpc.contact.send.useMutation({
     onSuccess: () => {
@@ -64,43 +45,17 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-foreground">
 
-      {/* ─── Navbar dynamique ───────────────────────────────────────────────── */}
       <Navbar />
 
-      {/* ─── Hero Section ─────────────────────────────────────────────────────── */}
+      {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-cyan-50/20">
-
-        {/* FloatingLines — couche animée en fond, blend screen pour traverser le gradient */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <FloatingLines
-            linesGradient={['#0052CC', '#0077FF', '#06B6D4', '#22D3EE', '#0052CC']}
-            enabledWaves={['top', 'middle', 'bottom']}
-            lineCount={[8, 12, 6]}
-            lineDistance={[4, 3, 6]}
-            animationSpeed={0.6}
-            interactive={true}
-            bendRadius={4.0}
-            bendStrength={-0.4}
-            mouseDamping={0.04}
-            parallax={true}
-            parallaxStrength={0.15}
-            mixBlendMode="screen"
-            middleWavePosition={{ x: 5.0, y: 0.0, rotate: 0.3 }}
-            topWavePosition={{ x: 10.0, y: 0.3, rotate: -0.5 }}
-            bottomWavePosition={{ x: 2.0, y: -0.5, rotate: 0.8 }}
-          />
-        </div>
-
-        {/* Aurora subtle blobs — derrière le contenu mais au-dessus des lignes */}
-        <div className="absolute inset-0 z-[1] opacity-30 pointer-events-none">
+        <div className="absolute inset-0 z-0 opacity-30 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-gradient-to-br from-accent/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
           <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-gradient-to-br from-green-400/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
 
-        {/* Contenu hero — au-dessus de tout */}
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-32 flex items-center relative z-10">
-          {/* Texte Hero */}
           <div className="space-y-6 max-w-2xl" data-aos="fade-up">
             <div className="space-y-2">
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -111,7 +66,7 @@ export default function Home() {
               </p>
             </div>
             <p className="text-base text-muted-foreground leading-relaxed max-w-md">
-              Passionné par la création de solutions web modernes et l'automatisation de processus. Prêt à collaborer sur des projets innovants et à apporter mon expertise technique à votre équipe.
+              Prêt à collaborer sur des projets innovants et à apporter mon expertise technique à votre équipe.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <a href="/projects" className="bg-primary hover:bg-primary/90 text-white gap-2 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center">
@@ -123,39 +78,24 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        {/* Ligne diagonale de séparation */}
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-transparent z-10"></div>
       </section>
-      {/* ──────────────────────────────────────────────────────────────────────── */}
 
-      {/* Section Compétences */}
+      {/* Compétences */}
       <section id="competences" className="py-20 md:py-32 bg-secondary/30">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-3xl md:text-5xl font-bold">Mes Compétences</h2>
             <p className="text-base md:text-lg text-muted-foreground">
-              La boîte à outils d'un développeur, alliant maîtrise technique et créativité pour donner vie à vos projets web.
+              La boîte à outils d'un développeur, alliant maîtrise technique et créativité.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              {
-                icon: Code,
-                title: "Développement Web",
-                description: "HTML, CSS, JavaScript, React, TypeScript, PHP, MySQL, Bootstrap"
-              },
-              {
-                icon: Zap,
-                title: "Automation & DevOps",
-                description: "Scripts d'automatisation, gestion de projets, CI/CD, outils collaboratifs"
-              },
-              {
-                icon: Globe,
-                title: "Design & UX",
-                description: "Figma, Adobe Suite, SEO, Web Marketing, Responsive Design"
-              }
+              { icon: Code, title: "Développement Web", description: "HTML, CSS, JavaScript, React, TypeScript, PHP, MySQL, Bootstrap" },
+              { icon: Zap, title: "Automation & DevOps", description: "Scripts d'automatisation, gestion de projets, CI/CD, outils collaboratifs" },
+              { icon: Globe, title: "Design & UX", description: "Figma, Adobe Suite, SEO, Web Marketing, Responsive Design" }
             ].map((skill, idx) => (
               <Card
                 data-aos="fade-up"
@@ -192,7 +132,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section Aperçu Projets */}
+      {/* Aperçu Projets */}
       <section className="py-20 md:py-32 bg-white">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
           <div className="space-y-12">
@@ -200,9 +140,7 @@ export default function Home() {
               <div className="space-y-4 max-w-2xl">
                 <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">Mes Projets</span>
                 <h2 className="text-3xl md:text-5xl font-bold">Quelques Réalisations</h2>
-                <p className="text-base md:text-lg text-muted-foreground">
-                  Des projets concrets alliant créativité, technique et innovation.
-                </p>
+                <p className="text-base md:text-lg text-muted-foreground">Des projets concrets alliant créativité, technique et innovation.</p>
               </div>
               <a href="/projects" className="shrink-0 inline-flex items-center gap-2 text-primary font-medium hover:text-primary/80 transition-colors">
                 Voir tous les projets <ArrowRight size={18} />
@@ -220,200 +158,145 @@ export default function Home() {
                 {
                   title: "Jeu Vidéo Unity",
                   description: "Jeu de plateforme 2D développé avec Unity et C#, avec physique, animations et système de score.",
-                  tags: ["Unity", "C#", "Game Design"],
+                  tags: ["Unity", "C#", "Game Dev"],
                   href: "/projects"
                 },
                 {
-                  title: "Data Visualization",
-                  description: "Tableau de bord interactif avec géolocalisation et visualisation de données en temps réel.",
-                  tags: ["JavaScript", "Charts.js", "API"],
+                  title: "Portfolio React",
+                  description: "Portfolio moderne développé avec React, TypeScript et Tailwind CSS, avec animations et design responsive.",
+                  tags: ["React", "TypeScript", "Tailwind"],
                   href: "/projects"
                 }
               ].map((project, idx) => (
-                <a
+                <Card
                   key={idx}
-                  href={project.href}
                   data-aos="fade-up"
                   data-aos-delay={idx * 100}
-                  className="group block"
+                  className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-md bg-white"
                 >
-                  <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-t-primary cursor-pointer">
-                    <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{project.description}</p>
+                  <div className="h-2 bg-gradient-to-r from-primary to-accent"></div>
+                  <div className="p-6 space-y-4">
+                    <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{project.title}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{project.description}</p>
                     <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, i) => (
-                        <span key={i} className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full font-medium">{tag}</span>
+                      {project.tags.map(tag => (
+                        <span key={tag} className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full font-medium">{tag}</span>
                       ))}
                     </div>
-                  </Card>
-                </a>
+                    <a href={project.href} className="inline-flex items-center gap-1 text-primary text-sm font-medium hover:gap-2 transition-all">
+                      Voir le projet <ArrowRight size={14} />
+                    </a>
+                  </div>
+                </Card>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section À Propos CTA */}
-      <section className="py-20 md:py-28 bg-primary">
+      {/* Contact */}
+      <section id="contact" className="py-20 md:py-32 bg-secondary/20">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6" data-aos="fade-right">
-              <h2 className="text-3xl md:text-5xl font-bold text-white">Qui suis-je ?</h2>
-              <p className="text-white/80 text-base md:text-lg leading-relaxed">
-                Étudiant en BUT MMI, passionné par le développement web et l'automatisation. Je combine créativité et expertise technique pour créer des expériences numériques mémorables.
-              </p>
-              <a
-                href="/about"
-                className="inline-flex items-center gap-2 bg-white text-primary hover:bg-white/90 px-6 py-3 rounded-lg font-medium transition-colors"
-              >
-                En savoir plus <ArrowRight size={18} />
-              </a>
-            </div>
-            <div className="grid grid-cols-2 gap-4" data-aos="fade-left">
-              {[
-                { icon: "🎓", label: "Formation", value: "BUT MMI" },
-                { icon: "📍", label: "Localisation", value: "Marseille, FR" },
-                { icon: "💼", label: "Disponibilité", value: "Alternance" },
-                { icon: "🌐", label: "Langues", value: "FR / EN" }
-              ].map((stat, idx) => (
-                <div
-                  key={idx}
-                  data-aos="zoom-in"
-                  data-aos-delay={idx * 100}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20"
-                >
-                  <div className="text-3xl mb-2">{stat.icon}</div>
-                  <div className="text-3xl font-bold text-white">{stat.value}</div>
-                  <div className="text-white/70 text-sm mt-1">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div className="space-y-8" data-aos="fade-right">
+              <div className="space-y-4">
+                <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">Contact</span>
+                <h2 className="text-3xl md:text-5xl font-bold">Travaillons Ensemble</h2>
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                  Vous avez un projet en tête ? Je serais ravi d'en discuter et de vous accompagner dans sa réalisation.
+                </p>
+              </div>
 
-      {/* Section Contact */}
-      <section id="contact" className="py-20 md:py-32 bg-secondary/30">
-        <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
-          <div className="space-y-8">
-            <div className="space-y-4 max-w-2xl" data-aos="fade-up">
-              <h2 className="text-3xl md:text-5xl font-bold">Vous avez un projet ?</h2>
-              <p className="text-base md:text-lg text-muted-foreground">
-                N'hésitez pas à me contacter pour discuter de vos besoins en développement web ou automatisation.
-              </p>
-            </div>
-
-            <Card className="p-8 md:p-12" data-aos="fade-up">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-foreground">Nom (min. 2 caractères)</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    minLength={2}
-                    className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    placeholder="Votre nom"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-foreground">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    placeholder="votre@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-foreground">Sujet (min. 5 caractères)</label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    minLength={5}
-                    className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    placeholder="Sujet de votre message"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-foreground">
-                    Message (min. 10 caractères) - {formData.message.length}/10
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    minLength={10}
-                    rows={5}
-                    className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
-                    placeholder="Votre message..."
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={sendContactMutation.isPending}
-                  className="w-full bg-primary text-white hover:bg-primary/90 disabled:opacity-50 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2"
-                >
-                  {sendContactMutation.isPending ? (
-                    <>
-                      <Loader2 size={18} className="animate-spin" />
-                      Envoi en cours...
-                    </>
-                  ) : (
-                    "Envoyer le message"
-                  )}
-                </button>
-              </form>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gradient-to-br from-primary/10 to-primary/5 border-t border-border py-12 md:py-16 overflow-hidden">
-        <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
-            <div className="space-y-4" data-aos="fade-right" data-aos-duration="800" data-aos-once="true">
-              <h3 className="text-2xl font-bold text-primary">Falou Badiane</h3>
-              <p className="text-muted-foreground">
-                Développeur Web & Automation passionné par la création de solutions innovantes.
-              </p>
-            </div>
-            <div className="space-y-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" data-aos-once="true">
-              <h4 className="font-bold text-foreground">Navigation</h4>
-              <ul className="space-y-2">
-                <li data-aos="fade-up" data-aos-delay="150" data-aos-once="true"><a href="/#competences" className="text-muted-foreground hover:text-primary transition-colors">Compétences</a></li>
-                <li data-aos="fade-up" data-aos-delay="200" data-aos-once="true"><a href="/projects" className="text-muted-foreground hover:text-primary transition-colors">Projets</a></li>
-                <li data-aos="fade-up" data-aos-delay="250" data-aos-once="true"><a href="/about" className="text-muted-foreground hover:text-primary transition-colors">À propos</a></li>
-                <li data-aos="fade-up" data-aos-delay="300" data-aos-once="true"><a href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            <div className="space-y-4" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200" data-aos-once="true">
-              <h4 className="font-bold text-foreground">Réseaux sociaux</h4>
-              <div className="flex gap-4">
-                <a href="https://github.com/Badiane95" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary/20 hover:bg-primary/40 flex items-center justify-center transition-all hover:scale-110 duration-200" title="GitHub" data-aos="zoom-in" data-aos-delay="300" data-aos-once="true">
-                  <Github size={20} className="text-primary" />
-                </a>
-                <a href="https://linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary/20 hover:bg-primary/40 flex items-center justify-center transition-all hover:scale-110 duration-200" title="LinkedIn" data-aos="zoom-in" data-aos-delay="400" data-aos-once="true">
-                  <Linkedin size={20} className="text-primary" />
-                </a>
-                <a href="mailto:badiane.falou95@gmail.com" className="w-10 h-10 rounded-full bg-primary/20 hover:bg-primary/40 flex items-center justify-center transition-all hover:scale-110 duration-200" title="Email" data-aos="zoom-in" data-aos-delay="500" data-aos-once="true">
-                  <Mail size={20} className="text-primary" />
-                </a>
+              <div className="space-y-4">
+                {[
+                  { icon: Mail, label: "Email", value: "falou.badiane@example.com", href: "mailto:falou.badiane@example.com" },
+                  { icon: Github, label: "GitHub", value: "github.com/Badiane95", href: "https://github.com/Badiane95" },
+                  { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/falou-badiane", href: "https://linkedin.com/in/falou-badiane" }
+                ].map((contact, idx) => (
+                  <a
+                    key={idx}
+                    href={contact.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 p-4 rounded-xl hover:bg-white hover:shadow-md transition-all duration-300 group"
+                  >
+                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                      <contact.icon size={20} className="text-primary group-hover:text-white" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">{contact.label}</p>
+                      <p className="font-medium">{contact.value}</p>
+                    </div>
+                  </a>
+                ))}
               </div>
             </div>
-          </div>
-          <div className="border-t border-border my-8" data-aos="fade-up" data-aos-duration="600" data-aos-once="true"></div>
-          <div className="text-center text-muted-foreground" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100" data-aos-once="true">
-            <p>&copy; 2026 Falou Badiane. Tous les droits réservés.</p>
+
+            <div data-aos="fade-left">
+              <Card className="p-8 shadow-xl border-0 bg-white">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Nom</label>
+                      <input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Votre nom"
+                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Email</label>
+                      <input
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="votre@email.com"
+                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Sujet</label>
+                    <input
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="Objet de votre message"
+                      className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Message</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows={5}
+                      placeholder="Décrivez votre projet..."
+                      className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors resize-none"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={sendContactMutation.isPending}
+                    className="w-full bg-primary hover:bg-primary/90 disabled:opacity-50 text-white py-3 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                  >
+                    {sendContactMutation.isPending ? (
+                      <><Loader2 size={18} className="animate-spin" /> Envoi en cours...</>
+                    ) : (
+                      <><Mail size={18} /> Envoyer le message</>
+                    )}
+                  </button>
+                </form>
+              </Card>
+            </div>
           </div>
         </div>
-      </footer>
+      </section>
+
     </div>
   );
 }
