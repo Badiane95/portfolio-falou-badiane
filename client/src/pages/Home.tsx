@@ -1,12 +1,12 @@
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Code, Zap, Globe, Github, Linkedin, Mail, Loader2, Download, Menu, X } from "lucide-react";
+import { ArrowRight, Code, Zap, Globe, Github, Linkedin, Mail, Loader2, Download } from "lucide-react";
 import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
-import { useLocation } from "wouter";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import FloatingLines from "@/components/FloatingLines";
+import Navbar from "@/components/Navbar";
 
 /**
  * DESIGN PHILOSOPHY: Minimalisme Moderne Technologique
@@ -26,7 +26,6 @@ export default function Home() {
     });
   }, []);
 
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -46,7 +45,6 @@ export default function Home() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!formData.name.trim()) { toast.error("Le nom est obligatoire"); return; }
     if (formData.name.trim().length < 2) { toast.error("Le nom doit contenir au moins 2 caractères"); return; }
     if (!formData.email.trim()) { toast.error("L'email est obligatoire"); return; }
@@ -55,7 +53,6 @@ export default function Home() {
     if (formData.subject.trim().length < 5) { toast.error("Le sujet doit contenir au moins 5 caractères"); return; }
     if (!formData.message.trim()) { toast.error("Le message est obligatoire"); return; }
     if (formData.message.trim().length < 10) { toast.error("Le message doit contenir au moins 10 caractères"); return; }
-    
     sendContactMutation.mutate(formData);
   };
 
@@ -64,66 +61,11 @@ export default function Home() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const navLinks = [
-    { label: "Compétences", href: "/skills" },
-    { label: "Projets", href: "/projects" },
-    { label: "À propos", href: "/about" },
-    { label: "Contact", href: "/contact" }
-  ];
-
   return (
     <div className="min-h-screen bg-white text-foreground">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-        <div className="w-full max-w-6xl mx-auto flex items-center justify-between h-16 px-4 md:px-8">
-          {/* Logo — texte sombre sur fond blanc, ratio 7:1 */}
-          <a href="/" className="text-xl md:text-2xl font-bold text-[#0052CC] hover:text-[#003d99] transition-colors cursor-pointer">
-            Falou Badiane
-          </a>
 
-          {/* Desktop Menu — texte gris fonçé #374151 sur blanc, ratio ~9:1 */}
-          <ul className="hidden md:flex gap-8">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-[#374151] hover:text-[#0052CC] font-medium transition-colors text-sm md:text-base"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          {/* Mobile Menu Button — icône sombre #1f2937 sur fond blanc */}
-          <button
-            className="md:hidden p-2 text-[#1f2937] hover:bg-gray-100 rounded-lg transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu — texte #1f2937 sur fond blanc, ratio >12:1 */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white">
-            <ul className="flex flex-col">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="block px-6 py-4 text-[#1f2937] font-medium hover:bg-gray-50 hover:text-[#0052CC] transition-colors border-b border-gray-100 last:border-b-0"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </nav>
+      {/* ─── Navbar dynamique ───────────────────────────────────────────────── */}
+      <Navbar />
 
       {/* ─── Hero Section ─────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-cyan-50/20">
@@ -155,7 +97,7 @@ export default function Home() {
           <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-gradient-to-br from-accent/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
           <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-gradient-to-br from-green-400/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
-        
+
         {/* Contenu hero — au-dessus de tout */}
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-32 flex items-center relative z-10">
           {/* Texte Hero */}
@@ -217,7 +159,7 @@ export default function Home() {
             ].map((skill, idx) => (
               <Card
                 data-aos="fade-up"
-                data-aos-delay={idx * 100} 
+                data-aos-delay={idx * 100}
                 key={idx}
                 className="p-6 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white"
               >
@@ -316,11 +258,7 @@ export default function Home() {
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6" data-aos="fade-right">
-              <span className="inline-block px-3 py-1 bg-white/20 text-white text-sm font-medium rounded-full">À Propos</span>
-              <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
-                Qui suis-je ?<br />
-                <span className="text-cyan-300">Falou Badiane</span>
-              </h2>
+              <h2 className="text-3xl md:text-5xl font-bold text-white">Qui suis-je ?</h2>
               <p className="text-white/80 text-base md:text-lg leading-relaxed">
                 Étudiant en BUT MMI, passionné par le développement web et l'automatisation. Je combine créativité et expertise technique pour créer des expériences numériques mémorables.
               </p>
@@ -333,10 +271,10 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-2 gap-4" data-aos="fade-left">
               {[
-                { label: "Projets Réalisés", value: "6+", icon: "🚀" },
-                { label: "Technologies", value: "15+", icon: "⚡" },
-                { label: "Années d'études", value: "3", icon: "🎓" },
-                { label: "Langues", value: "2", icon: "🌍" }
+                { icon: "🎓", label: "Formation", value: "BUT MMI" },
+                { icon: "📍", label: "Localisation", value: "Marseille, FR" },
+                { icon: "💼", label: "Disponibilité", value: "Alternance" },
+                { icon: "🌐", label: "Langues", value: "FR / EN" }
               ].map((stat, idx) => (
                 <div
                   key={idx}
@@ -379,7 +317,6 @@ export default function Home() {
                     placeholder="Votre nom"
                   />
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium mb-2 text-foreground">Email</label>
                   <input
@@ -391,7 +328,6 @@ export default function Home() {
                     placeholder="votre@email.com"
                   />
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium mb-2 text-foreground">Sujet (min. 5 caractères)</label>
                   <input
@@ -404,7 +340,6 @@ export default function Home() {
                     placeholder="Sujet de votre message"
                   />
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium mb-2 text-foreground">
                     Message (min. 10 caractères) - {formData.message.length}/10
@@ -419,7 +354,6 @@ export default function Home() {
                     placeholder="Votre message..."
                   />
                 </div>
-
                 <button
                   type="submit"
                   disabled={sendContactMutation.isPending}
@@ -450,7 +384,6 @@ export default function Home() {
                 Développeur Web & Automation passionné par la création de solutions innovantes.
               </p>
             </div>
-
             <div className="space-y-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" data-aos-once="true">
               <h4 className="font-bold text-foreground">Navigation</h4>
               <ul className="space-y-2">
@@ -460,7 +393,6 @@ export default function Home() {
                 <li data-aos="fade-up" data-aos-delay="300" data-aos-once="true"><a href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
               </ul>
             </div>
-
             <div className="space-y-4" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200" data-aos-once="true">
               <h4 className="font-bold text-foreground">Réseaux sociaux</h4>
               <div className="flex gap-4">
@@ -476,9 +408,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-
           <div className="border-t border-border my-8" data-aos="fade-up" data-aos-duration="600" data-aos-once="true"></div>
-
           <div className="text-center text-muted-foreground" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100" data-aos-once="true">
             <p>&copy; 2026 Falou Badiane. Tous les droits réservés.</p>
           </div>
