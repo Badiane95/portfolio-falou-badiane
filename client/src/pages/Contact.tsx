@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Mail, Linkedin, Github, Phone, MapPin, Clock } from "lucide-react";
-import { useLocation } from "wouter";
+import { Mail, Linkedin, Github, Phone, MapPin, Clock } from "lucide-react";
 import { useState, useEffect } from "react";
+import PillNav from "@/components/PillNav";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import AOS from "aos";
@@ -10,7 +10,6 @@ import "aos/dist/aos.css";
 import { Footer } from "@/components/Footer";
 
 export default function Contact() {
-  const [, setLocation] = useLocation();
 
   useEffect(() => {
     AOS.init({
@@ -107,37 +106,15 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-foreground">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-border">
-        <div className="container flex items-center justify-between h-16">
-          <a href="/" className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors cursor-pointer">Falou Badiane</a>
-          <div className="flex items-center gap-4">
-            <ul className="hidden md:flex gap-8">
-              <li><a href="/#competences" className="hover:text-primary transition-colors">Compétences</a></li>
-              <li><a href="/projects" className="hover:text-primary transition-colors">Projets</a></li>
-              <li><a href="/about" className="hover:text-primary transition-colors">À propos</a></li>
-              <li><a href="/contact" className="hover:text-primary transition-colors">Contact</a></li>
-            </ul>
-            <Button 
-              onClick={() => setLocation('/')}
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary/5 gap-2"
-            >
-              <ArrowLeft size={18} /> Retour
-            </Button>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen text-foreground pt-16">
+      <PillNav />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
-        <div className="container space-y-4" data-aos="fade-up">
-          <h1 className="text-5xl md:text-6xl font-bold">Contactez-moi</h1>
-          <p className="text-xl text-white/80 max-w-2xl">
-            Vous avez un projet intéressant ou des questions ? N'hésitez pas à me contacter. Je serais ravi de discuter avec vous.
-          </p>
-        </div>
+      <section className="py-16 text-center">
+        <h1 className="text-5xl md:text-6xl font-bold text-white" data-aos="fade-up">Contactez-moi</h1>
+        <p className="text-lg text-white/60 max-w-xl mx-auto mt-4" data-aos="fade-up" data-aos-delay="100">
+          Vous avez un projet ou des questions ? Je serais ravi de discuter avec vous.
+        </p>
       </section>
 
       {/* Contact Methods */}
@@ -145,7 +122,7 @@ export default function Contact() {
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Moyens de contact</h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-zinc-300">
               Plusieurs façons de me joindre pour discuter de vos projets ou collaborations.
             </p>
           </div>
@@ -164,7 +141,7 @@ export default function Contact() {
                 <Card className="p-8 h-full border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer">
                   <method.icon className="w-12 h-12 text-primary mb-6" />
                   <h3 className="text-2xl font-bold mb-2">{method.title}</h3>
-                  <p className="text-muted-foreground mb-4">{method.description}</p>
+                  <p className="text-zinc-300 mb-4">{method.description}</p>
                   <p className="text-primary font-semibold">{method.value}</p>
                 </Card>
               </a>
@@ -178,7 +155,7 @@ export default function Contact() {
         <div className="container max-w-3xl space-y-8">
           <div className="space-y-4" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Envoyez-moi un message</h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-zinc-300">
               Remplissez le formulaire ci-dessous et je vous répondrai dans les plus brefs délais.
             </p>
           </div>
@@ -247,7 +224,7 @@ export default function Contact() {
                     rows={6}
                     className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all resize-none"
                   />
-                  <span className="absolute bottom-3 right-3 text-xs text-muted-foreground">
+                  <span className="absolute bottom-3 right-3 text-xs text-zinc-300">
                     {formData.message.length}/500
                   </span>
                 </div>
@@ -273,14 +250,14 @@ export default function Contact() {
                   <Clock className="text-primary mt-1" size={20} />
                   <div>
                     <p className="font-semibold">Temps de réponse</p>
-                    <p className="text-muted-foreground">Je réponds généralement dans les 24-48 heures</p>
+                    <p className="text-zinc-300">Je réponds généralement dans les 24-48 heures</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Mail className="text-primary mt-1" size={20} />
                   <div>
                     <p className="font-semibold">Préférence de contact</p>
-                    <p className="text-muted-foreground">Email pour les demandes détaillées, LinkedIn pour les connexions professionnelles</p>
+                    <p className="text-zinc-300">Email pour les demandes détaillées, LinkedIn pour les connexions professionnelles</p>
                   </div>
                 </div>
               </div>

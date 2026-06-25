@@ -1,11 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfolio de Falou Badiane, Développeur Web & Automation spécialisé en React, TypeScript, Node.js, et solutions innovantes." />
+    <meta name="keywords" content="Falou Badiane, développeur web, automation, React, TypeScript, portfolio, BUT MMI" />
+    <meta name="author" content="Falou Badiane" />
+    <meta property="og:title" content="Falou Badiane | Portfolio Développeur Web & Automation" />
+    <meta property="og:description" content="Développeur Web & Automation passionné par la création de solutions web modernes et l'automatisation de processus." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://badiane95.github.io/portfolio-falou-badiane/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Falou Badiane | Portfolio" />
+    <meta name="twitter:description" content="Développeur Web & Automation" />
+    <link rel="canonical" href="https://badiane95.github.io/portfolio-falou-badiane/" />
     <title>Falou Badiane | Portfolio Développeur Web & Automation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,10 +24,19 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+    <script>
+      (function() {
+        var endpoint = "%VITE_ANALYTICS_ENDPOINT%";
+        var websiteId = "%VITE_ANALYTICS_WEBSITE_ID%";
+        if (endpoint && endpoint.indexOf("%") === -1 && websiteId && websiteId.indexOf("%") === -1) {
+          var s = document.createElement("script");
+          s.defer = true;
+          s.src = endpoint + "/umami";
+          s.setAttribute("data-website-id", websiteId);
+          document.body.appendChild(s);
+        }
+      })();
+    </script>
   </body>
 
 </html>

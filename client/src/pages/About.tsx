@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Mail, Linkedin, Github, Globe } from "lucide-react";
+import { Mail, Linkedin, Github, Globe, ArrowLeft } from "lucide-react";
 import { useLocation } from "wouter";
 import { useEffect } from "react";
+import PillNav from "@/components/PillNav";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Footer } from "@/components/Footer";
@@ -87,46 +88,22 @@ export default function About() {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-foreground">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-border">
-        <div className="container flex items-center justify-between h-16">
-          <a href="/" className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors cursor-pointer">Falou Badiane</a>
-          <div className="flex items-center gap-4">
-            <ul className="hidden md:flex gap-8">
-              <li><a href="/#competences" className="hover:text-primary transition-colors">Compétences</a></li>
-              <li><a href="/projects" className="hover:text-primary transition-colors">Projets</a></li>
-              <li><a href="/about" className="hover:text-primary transition-colors">À propos</a></li>
-              <li><a href="/#contact" className="hover:text-primary transition-colors">Contact</a></li>
-            </ul>
-            <Button 
-              onClick={() => setLocation('/')}
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary/5 gap-2"
-            >
-              <ArrowLeft size={18} /> Retour
-            </Button>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen text-foreground pt-16">
+      <PillNav />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
-        <div className="container space-y-6">
-          <div className="space-y-4" data-aos="fade-up" data-aos-duration="900">
-            <h1 className="text-5xl md:text-6xl font-bold">À propos de moi</h1>
-            <p className="text-xl text-white/80 max-w-2xl">
-              Développeur Web Full-Stack passioné par l'automatisation et l'intelligence artificielle, spécialisé dans la transformation des données en solutions innovantes.
-            </p>
-          </div>
-          <div className="flex gap-4" data-aos="fade-up" data-aos-delay="200">
-            <a href="mailto:badiane.falou95@gmail.com" className="inline-flex items-center gap-2 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors">
-              <Mail size={18} /> Me contacter
-            </a>
-            <a href="https://linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-white text-white rounded-lg hover:bg-white/10 transition-colors">
-              <Linkedin size={18} /> LinkedIn
-            </a>
-          </div>
+      <section className="py-16 text-center">
+        <h1 className="text-5xl md:text-6xl font-bold text-white" data-aos="fade-up">À propos de moi</h1>
+        <p className="text-lg text-white/60 max-w-xl mx-auto mt-4" data-aos="fade-up" data-aos-delay="100">
+          Développeur Web Full-Stack passioné par l'automatisation et l'intelligence artificielle
+        </p>
+        <div className="flex gap-4 justify-center mt-8" data-aos="fade-up" data-aos-delay="200">
+          <a href="mailto:badiane.falou95@gmail.com" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+            <Mail size={18} /> Me contacter
+          </a>
+          <a href="https://linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-primary-foreground/50 text-primary-foreground rounded-lg hover:bg-primary-foreground/10 transition-colors">
+            <Linkedin size={18} /> LinkedIn
+          </a>
         </div>
       </section>
 
@@ -135,10 +112,10 @@ export default function About() {
         <div className="container max-w-3xl space-y-8">
           <div className="space-y-4" data-aos="fade-up" data-aos-duration="800">
             <h2 className="text-4xl font-bold">Qui suis-je ?</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-zinc-300 leading-relaxed">
               Je suis Falou Badiane, étudiant en BUT MMI et développeur Full-Stack passioné par la création de solutions web innovantes. Ma spécialité réside dans l'optimisation des processus métiers par la donnée et l'automatisation via l'IA.
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-zinc-300 leading-relaxed">
               Expert en création d'interfaces modernes, je maîtrise l'automatisation via l'IA et le Web Scraping pour transformer les données brutes en leviers de croissance stratégiques. Mon approche combine expertise technique, vision produit et gestion de projet autonome.
             </p>
           </div>
@@ -150,7 +127,7 @@ export default function About() {
               <div className="flex items-center gap-3">
                 <Mail className="text-primary" size={24} />
                 <div>
-                  <p className="text-sm text-muted-foreground">Email</p>
+                  <p className="text-sm text-zinc-300">Email</p>
                   <a href="mailto:badiane.falou95@gmail.com" className="text-primary hover:underline font-semibold">
                     badiane.falou95@gmail.com
                   </a>
@@ -159,7 +136,7 @@ export default function About() {
               <div className="flex items-center gap-3">
                 <Linkedin className="text-primary" size={24} />
                 <div>
-                  <p className="text-sm text-muted-foreground">LinkedIn</p>
+                  <p className="text-sm text-zinc-300">LinkedIn</p>
                   <a href="https://linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
                     Falou Badiane
                   </a>
@@ -168,7 +145,7 @@ export default function About() {
               <div className="flex items-center gap-3">
                 <Github className="text-primary" size={24} />
                 <div>
-                  <p className="text-sm text-muted-foreground">GitHub</p>
+                  <p className="text-sm text-zinc-300">GitHub</p>
                   <a href="https://github.com/badiane95" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
                     github.com/badiane95
                   </a>
@@ -184,7 +161,7 @@ export default function About() {
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Mes Points Forts</h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-zinc-300">
               Une combinaison unique de compétences techniques et de vision stratégique pour transformer vos idées en réalité.
             </p>
           </div>
@@ -193,7 +170,7 @@ export default function About() {
             {strengths.map((strength, idx) => (
               <Card key={idx} className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay={idx * 100}>
                 <h3 className="text-xl font-bold mb-3">{strength.title}</h3>
-                <p className="text-muted-foreground">{strength.description}</p>
+                <p className="text-zinc-300">{strength.description}</p>
               </Card>
             ))}
           </div>
@@ -205,7 +182,7 @@ export default function About() {
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Compétences Techniques</h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-zinc-300">
               Une palette complète de technologies et de frameworks pour créer des solutions robustes et innovantes.
             </p>
           </div>
@@ -232,7 +209,7 @@ export default function About() {
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-right">
             <h2 className="text-4xl font-bold">Expérience</h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-zinc-300">
               Mon parcours professionnel et académique qui m'a permis de développer une expertise diversifiée.
             </p>
           </div>
@@ -242,12 +219,12 @@ export default function About() {
               <Card key={idx} className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300" data-aos="fade-left" data-aos-delay={idx * 150}>
                 <div className="space-y-2 mb-4">
                   <h3 className="text-2xl font-bold">{exp.title}</h3>
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-muted-foreground">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-zinc-300">
                     <span className="font-semibold text-primary">{exp.company}</span>
                     <span className="text-sm">{exp.period}</span>
                   </div>
                 </div>
-                <p className="text-muted-foreground leading-relaxed">{exp.description}</p>
+                <p className="text-zinc-300 leading-relaxed">{exp.description}</p>
               </Card>
             ))}
           </div>
@@ -260,7 +237,7 @@ export default function About() {
           <div className="space-y-4 max-w-2xl" data-aos="fade-right">
            
 <h2 className="text-4xl font-bold">Éducation</h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-zinc-300">
               Une formation solide en multimédia et informatique, complétée par des projets pratiques variés.
             </p>
           </div>
@@ -270,12 +247,12 @@ export default function About() {
               <Card key={idx} className="p-8 border-l-4 border-l-accent hover:shadow-lg transition-all duration-300" data-aos="fade-left" data-aos-delay={idx * 150}>
                 <div className="space-y-2 mb-4">
                   <h3 className="text-2xl font-bold">{edu.degree}</h3>
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-muted-foreground">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-zinc-300">
                     <span className="font-semibold text-accent">{edu.school}</span>
                     <span className="text-sm">{edu.period}</span>
                   </div>
                 </div>
-                <p className="text-muted-foreground">{edu.location}</p>
+                <p className="text-zinc-300">{edu.location}</p>
               </Card>
             ))}
           </div>
@@ -292,18 +269,18 @@ export default function About() {
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="p-8 border-l-4 border-l-primary" data-aos="zoom-in" data-aos-delay="100">
               <h3 className="text-xl font-bold mb-2">Français</h3>
-              <p className="text-muted-foreground">Langue maternelle</p>
+              <p className="text-zinc-300">Langue maternelle</p>
             </Card>
             <Card className="p-8 border-l-4 border-l-primary" data-aos="zoom-in" data-aos-delay="200">
               <h3 className="text-xl font-bold mb-2">Anglais</h3>
-              <p className="text-muted-foreground">Avancé</p>
+              <p className="text-zinc-300">Avancé</p>
             </Card>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-primary/80 text-white">
+      <section className="py-20 md:py-32 text-white">
         <div className="container max-w-2xl text-center space-y-8">
           <div className="space-y-4" data-aos="zoom-in">
             <h2 className="text-4xl md:text-5xl font-bold">Parlons de votre projet</h2>
@@ -313,14 +290,14 @@ export default function About() {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              className="bg-white text-primary hover:bg-white/90 gap-2"
+              className="              bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
               onClick={() => setLocation('/#contact')}
             >
               <Mail size={18} /> Me contacter
             </Button>
             <Button 
               variant="outline" 
-              className="border-white text-white hover:bg-white/10"
+              className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10"
               onClick={() => {
                 const link = document.createElement('a');
                 link.href = '/Falou-Badiane-CV.pdf';

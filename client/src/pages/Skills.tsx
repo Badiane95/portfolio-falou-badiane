@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Code, Zap, Globe, Palette, Brain, Database } from "lucide-react";
+import { Code, Zap, Globe, Palette, Brain, Database } from "lucide-react";
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
+import PillNav from "@/components/PillNav";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Footer } from "@/components/Footer";
@@ -109,39 +110,15 @@ export default function Skills() {
   const currentCategory = skillCategories.find(cat => cat.id === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-white text-foreground">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-border">
-        <div className="container flex items-center justify-between h-16">
-          <a href="/" className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors cursor-pointer">Falou Badiane</a>
-          <div className="flex items-center gap-4">
-            <ul className="hidden md:flex gap-8">
-              <li><a href="/skills" className="hover:text-primary transition-colors">Compétences</a></li>
-              <li><a href="/projects" className="hover:text-primary transition-colors">Projets</a></li>
-              <li><a href="/about" className="hover:text-primary transition-colors">À propos</a></li>
-              <li><a href="/contact" className="hover:text-primary transition-colors">Contact</a></li>
-            </ul>
-            <Button 
-              onClick={() => setLocation('/')}
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary/5 gap-2"
-            >
-              <ArrowLeft size={18} /> Retour
-            </Button>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen text-foreground pt-16">
+      <PillNav />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-20">
-        <div className="container space-y-4">
-          <div data-aos="fade-up" data-aos-duration="900">
-            <h1 className="text-5xl md:text-6xl font-bold">Mes Compétences</h1>
-            <p className="text-xl text-white/80 max-w-2xl mt-4">
-              Une palette complète de technologies et de compétences pour créer des solutions innovantes et performantes.
-            </p>
-          </div>
-        </div>
+      <section className="py-16 text-center">
+        <h1 className="text-5xl md:text-6xl font-bold text-white" data-aos="fade-up">Mes Compétences</h1>
+        <p className="text-lg text-white/60 max-w-xl mx-auto mt-4" data-aos="fade-up" data-aos-delay="100">
+          Une palette complète de technologies pour créer des solutions innovantes et performantes.
+        </p>
       </section>
 
       {/* Skills Content */}
@@ -182,7 +159,7 @@ export default function Skills() {
                   </div>
                   <div>
                     <h2 className="text-4xl font-bold">{currentCategory.title}</h2>
-                    <p className="text-lg text-muted-foreground">{currentCategory.description}</p>
+                    <p className="text-lg text-zinc-300">{currentCategory.description}</p>
                   </div>
                 </div>
               </div>
@@ -196,7 +173,7 @@ export default function Skills() {
                         <h3 className="text-xl font-bold">{skill.name}</h3>
                         <span className="text-sm font-semibold text-primary">{skill.level}%</span>
                       </div>
-                      <p className="text-muted-foreground text-sm">{skill.description}</p>
+                      <p className="text-zinc-300 text-sm">{skill.description}</p>
                       
                       {/* Progress Bar */}
                       <div className="w-full bg-secondary rounded-full h-2 overflow-hidden">
@@ -219,7 +196,7 @@ export default function Skills() {
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Résumé des compétences</h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-zinc-300">
               Une expertise diversifiée couvrant tous les aspects du développement web, des jeux vidéo et de l'automatisation IA.
             </p>
           </div>
@@ -227,22 +204,22 @@ export default function Skills() {
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
               <h3 className="text-2xl font-bold mb-4 text-primary">50+</h3>
-              <p className="text-muted-foreground">Technologies et outils maîtrisés</p>
+              <p className="text-zinc-300">Technologies et outils maîtrisés</p>
             </Card>
             <Card className="p-8 border-l-4 border-l-accent hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
               <h3 className="text-2xl font-bold mb-4 text-accent">6</h3>
-              <p className="text-muted-foreground">Projets majeurs complétés</p>
+              <p className="text-zinc-300">Projets majeurs complétés</p>
             </Card>
             <Card className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay="300">
               <h3 className="text-2xl font-bold mb-4 text-primary">2+</h3>
-              <p className="text-muted-foreground">Années d'expérience professionnelle</p>
+              <p className="text-zinc-300">Années d'expérience professionnelle</p>
             </Card>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-primary/80 text-white">
+      <section className="py-20 md:py-32 text-white">
         <div className="container max-w-2xl text-center space-y-8">
           <div className="space-y-4" data-aos="zoom-in">
             <h2 className="text-4xl md:text-5xl font-bold">Prêt à collaborer ?</h2>
@@ -252,14 +229,14 @@ export default function Skills() {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
             <Button 
-              className="bg-white text-primary hover:bg-white/90"
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={() => setLocation('/contact')}
             >
               Me contacter
             </Button>
             <Button 
               variant="outline" 
-              className="border-white text-white hover:bg-white/10"
+              className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10"
               onClick={() => {
                 const link = document.createElement('a');
                 link.href = '/Falou-Badiane-CV.pdf';

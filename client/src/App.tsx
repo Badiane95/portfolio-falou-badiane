@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
 import ErrorBoundary from "./components/ErrorBoundary";
+import Ballpit from "./components/Ballpit";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
@@ -35,8 +36,15 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
+      <Ballpit
+        count={100}
+        gravity={0.01}
+        friction={0.9975}
+        wallBounce={0.95}
+        followCursor={false}
+      />
       <ThemeProvider
-        defaultTheme="light"
+        defaultTheme="dark"
         // switchable
       >
         <TooltipProvider>
