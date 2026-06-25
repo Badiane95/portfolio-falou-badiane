@@ -133,6 +133,7 @@
   color: var(--hover-text, #fff);
   z-index: 3;
   display: inline-block;
+  opacity: 0;
   will-change: transform, opacity;
 }
 

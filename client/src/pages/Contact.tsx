@@ -151,7 +151,7 @@ export default function Contact() {
       </section>
 
       {/* Contact Form */}
-      <section className="py-20 md:py-32 bg-secondary/30">
+      <section className="py-20 md:py-32 bg-transparent">
         <div className="container max-w-3xl space-y-8">
           <div className="space-y-4" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Envoyez-moi un message</h2>

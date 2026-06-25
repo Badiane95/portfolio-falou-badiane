@@ -90,16 +90,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen text-foreground">
+    <div className="min-h-screen text-foreground pt-16">
       <PillNav />
 
       {/* Hero Section - Fullscreen */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-primary/5 to-accent/5">
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-br from-accent/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
-        
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="w-full max-w-4xl mx-auto px-4 md:px-8 py-20 text-center relative z-10">
           <div data-aos="fade-up">
             <div className="mb-4 inline-block px-4 py-1 border border-zinc-600 text-zinc-300 text-sm rounded-full">
@@ -127,7 +122,7 @@ export default function Home() {
       </section>
 
       {/* Section Compétences */}
-      <section id="competences" className="py-20 md:py-32 bg-secondary/30">
+      <section id="competences" className="py-20 md:py-32 bg-transparent">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-3xl md:text-5xl font-bold">Mes Compétences</h2>
@@ -192,7 +187,7 @@ export default function Home() {
       </section>
 
       {/* Section Aperçu Projets */}
-      <section className="py-20 md:py-32 bg-secondary/30">
+      <section className="py-20 md:py-32 bg-transparent">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
           <div className="space-y-12">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4" data-aos="fade-up">
@@ -283,7 +278,7 @@ export default function Home() {
                   key={idx}
                   data-aos="zoom-in"
                   data-aos-delay={idx * 100}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20"
+                  className="bg-white/10 rounded-2xl p-6 text-center border border-white/20"
                 >
                   <div className="text-3xl mb-2">{stat.icon}</div>
                   <div className="text-3xl font-bold text-white">{stat.value}</div>
@@ -296,7 +291,7 @@ export default function Home() {
       </section>
 
       {/* Section Contact */}
-      <section id="contact" className="py-20 md:py-32 bg-secondary/30">
+      <section id="contact" className="py-20 md:py-32 bg-transparent">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
           <div className="space-y-8">
             <div className="space-y-4 max-w-2xl" data-aos="fade-up">

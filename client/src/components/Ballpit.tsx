@@ -585,12 +585,12 @@ const defaultConfig = {
   gravity: 0.005,
   friction: 0.995,
   wallBounce: 0.9,
-  maxVelocity: 0.12,
+  maxVelocity: 0.4,
   maxX: 15,
   maxY: 10,
   maxZ: 8,
   controlSphere0: false,
-  followCursor: true
+  followCursor: false
 };
 
 const _dummy = new Object3D();
@@ -781,8 +781,7 @@ export default function Ballpit({
         width: '100%',
         height: '100%',
         display: 'block',
-        zIndex: -1,
-        pointerEvents: 'none'
+        zIndex: -1
       }}
     />
   );

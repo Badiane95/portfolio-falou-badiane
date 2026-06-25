@@ -192,7 +192,7 @@ export default function Skills() {
       </section>
 
       {/* Summary Section */}
-      <section className="py-20 md:py-32 bg-secondary/30">
+      <section className="py-20 md:py-32 bg-transparent">
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Résumé des compétences</h2>

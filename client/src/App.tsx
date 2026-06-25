@@ -4,7 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
 import ErrorBoundary from "./components/ErrorBoundary";
-import Ballpit from "./components/Ballpit";
+import Lightfall from "./components/Lightfall";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
@@ -36,12 +36,22 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
-      <Ballpit
-        count={100}
-        gravity={0.01}
-        friction={0.9975}
-        wallBounce={0.95}
-        followCursor={false}
+      <Lightfall
+        colors={['#A6C8FF', '#5227FF', '#FF9FFC']}
+        backgroundColor="#0A29FF"
+        speed={0.5}
+        streakCount={2}
+        streakWidth={1}
+        streakLength={1}
+        glow={1}
+        density={0.6}
+        twinkle={1}
+        zoom={3}
+        backgroundGlow={0.5}
+        opacity={1}
+        mouseInteraction
+        mouseStrength={0.5}
+        mouseRadius={1}
       />
       <ThemeProvider
         defaultTheme="dark"

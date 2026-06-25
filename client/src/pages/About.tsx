@@ -121,7 +121,7 @@ export default function About() {
           </div>
 
           {/* Informations de contact */}
-          <Card className="p-8 bg-secondary/30 border-l-4 border-l-primary" data-aos="fade-up" data-aos-delay="100">
+          <Card className="p-8 bg-transparent border-l-4 border-l-primary" data-aos="fade-up" data-aos-delay="100">
             <h3 className="text-2xl font-bold mb-6">Informations de contact</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
@@ -157,7 +157,7 @@ export default function About() {
       </section>
 
       {/* Points Forts */}
-      <section className="py-20 md:py-32 bg-secondary/30">
+      <section className="py-20 md:py-32 bg-transparent">
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Mes Points Forts</h2>
@@ -205,7 +205,7 @@ export default function About() {
       </section>
 
       {/* Expérience */}
-      <section className="py-20 md:py-32 bg-secondary/30">
+      <section className="py-20 md:py-32 bg-transparent">
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-right">
             <h2 className="text-4xl font-bold">Expérience</h2>
@@ -260,7 +260,7 @@ export default function About() {
       </section>
 
       {/* Langues */}
-      <section className="py-20 md:py-32 bg-secondary/30">
+      <section className="py-20 md:py-32 bg-transparent">
         <div className="container space-y-8">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold">Langues</h2>

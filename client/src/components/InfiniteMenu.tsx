@@ -747,13 +747,14 @@ class InfiniteGridMenu {
 interface InfiniteMenuProps {
   items?: InfiniteMenuItem[];
   scale?: number;
+  onItemSelect?: (item: InfiniteMenuItem | null) => void;
 }
 
 const defaultItems: InfiniteMenuItem[] = [
   { image: 'https://picsum.photos/900/900?grayscale', link: '#', title: '', description: '' }
 ];
 
-export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuProps) {
+export default function InfiniteMenu({ items = [], scale = 1.0, onItemSelect }: InfiniteMenuProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activeItem, setActiveItem] = useState<InfiniteMenuItem | null>(null);
   const [isMoving, setIsMoving] = useState(false);
@@ -764,7 +765,9 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
 
     const handleActiveItem = (index: number) => {
       const itemIndex = index % items.length;
-      setActiveItem(items[itemIndex]);
+      const selected = items[itemIndex];
+      setActiveItem(selected);
+      onItemSelect?.(selected || null);
     };
 
     if (canvas) {
@@ -797,15 +800,6 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <canvas id="infinite-grid-menu-canvas" ref={canvasRef} />
-      {activeItem && (
-        <>
-          <h2 className={`face-title ${isMoving ? 'inactive' : 'active'}`}>{activeItem.title}</h2>
-          <p className={`face-description ${isMoving ? 'inactive' : 'active'}`}>{activeItem.description}</p>
-          <div onClick={handleButtonClick} className={`action-button ${isMoving ? 'inactive' : 'active'}`}>
-            <p className="action-button-icon">&#x2197;</p>
-          </div>
-        </>
-      )}
     </div>
   );
 }
