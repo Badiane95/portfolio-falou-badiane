@@ -1,3 +1,4 @@
+import { CoolMode } from "@/components/ui/cool-mode";
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -229,26 +230,30 @@ export default function Skills() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
-            <Button 
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
-              onClick={() => setLocation('/contact')}
-            >
-              Me contacter
-            </Button>
-            <Button 
-              variant="outline" 
-              className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10"
-              onClick={() => {
-                const link = document.createElement('a');
-                link.href = '/Falou-Badiane-CV.pdf';
-                link.download = 'Falou-Badiane-CV.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-              }}
-            >
-              Télécharger mon CV
-            </Button>
+            <CoolMode>
+              <Button 
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                onClick={() => setLocation('/contact')}
+              >
+                Me contacter
+              </Button>
+            </CoolMode>
+            <CoolMode>
+              <Button 
+                variant="outline" 
+                className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10"
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = '/Falou-Badiane-CV.pdf';
+                  link.download = 'Falou-Badiane-CV.pdf';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+              >
+                Télécharger mon CV
+              </Button>
+            </CoolMode>
           </div>
         </div>
       </section>

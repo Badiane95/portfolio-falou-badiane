@@ -1,3 +1,4 @@
+import { CoolMode } from "@/components/ui/cool-mode";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle, Home } from "lucide-react";
@@ -37,13 +38,15 @@ export default function NotFound() {
             id="not-found-button-group"
             className="flex flex-col sm:flex-row gap-3 justify-center"
           >
-            <Button
-              onClick={handleGoHome}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
-            >
-              <Home className="w-4 h-4 mr-2" />
-              Go Home
-            </Button>
+            <CoolMode>
+              <Button
+                onClick={handleGoHome}
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+              >
+                <Home className="w-4 h-4 mr-2" />
+                Go Home
+              </Button>
+            </CoolMode>
           </div>
         </CardContent>
       </Card>

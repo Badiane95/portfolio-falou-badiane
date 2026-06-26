@@ -1,3 +1,4 @@
+import { CoolMode } from "@/components/ui/cool-mode";
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -232,13 +233,15 @@ export default function Contact() {
               </div>
 
               {/* Submit Button */}
-              <Button
-                type="submit"
-                disabled={sendContactMutation.isPending}
-                className="w-full bg-primary hover:bg-primary/90 text-white py-3 font-semibold"
-              >
-                {sendContactMutation.isPending ? "Envoi en cours..." : "Envoyer le message"}
-              </Button>
+              <CoolMode>
+                <Button
+                  type="submit"
+                  disabled={sendContactMutation.isPending}
+                  className="w-full bg-primary hover:bg-primary/90 text-white py-3 font-semibold"
+                >
+                  {sendContactMutation.isPending ? "Envoi en cours..." : "Envoyer le message"}
+                </Button>
+              </CoolMode>
             </form>
           </Card>
 

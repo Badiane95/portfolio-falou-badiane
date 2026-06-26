@@ -1,3 +1,4 @@
+import { CoolMode } from "@/components/ui/cool-mode";
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import Folder from "@/components/Folder";
 import { Card } from "@/components/ui/card";
@@ -112,12 +113,16 @@ export default function Home() {
               Étudiant en BUT MMI passionné par la création de solutions web modernes et l'automatisation de processus.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/projects" className="bg-primary hover:bg-primary/90 text-white gap-2 px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center text-lg">
-                Découvrir mon travail <ArrowRight size={20} />
-              </a>
-              <a href="/CV-Falou-Badiane.pdf" download className="border border-zinc-500 text-zinc-200 hover:bg-white/10 px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2 text-lg">
-                <Download size={20} /> Télécharger CV
-              </a>
+              <CoolMode>
+                <a href="#/projects" className="bg-primary hover:bg-primary/90 text-white gap-2 px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center text-lg">
+                  Découvrir mon travail <ArrowRight size={20} />
+                </a>
+              </CoolMode>
+              <CoolMode>
+                <a href="/CV-Falou-Badiane.pdf" download className="border border-zinc-500 text-zinc-200 hover:bg-white/10 px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2 text-lg">
+                  <Download size={20} /> Télécharger CV
+                </a>
+              </CoolMode>
             </div>
           </div>
         </div>
@@ -181,7 +186,7 @@ export default function Home() {
           </div>
 
           <div className="pt-8" data-aos="fade-up">
-            <a href="/skills" className="text-primary hover:text-primary/80 font-medium inline-flex items-center gap-2 transition-colors">
+            <a href="#/skills" className="text-primary hover:text-primary/80 font-medium inline-flex items-center gap-2 transition-colors">
               Voir toutes les compétences <ArrowRight size={18} />
             </a>
           </div>
@@ -200,7 +205,7 @@ export default function Home() {
                   Des projets concrets alliant créativité, technique et innovation.
                 </p>
               </div>
-              <a href="/projects" className="shrink-0 inline-flex items-center gap-2 text-primary font-medium hover:text-primary/80 transition-colors">
+              <a href="#/projects" className="shrink-0 inline-flex items-center gap-2 text-primary font-medium hover:text-primary/80 transition-colors">
                 Voir tous les projets <ArrowRight size={18} />
               </a>
             </div>
@@ -211,19 +216,19 @@ export default function Home() {
                   title: "Webdocumentaire Interactif",
                   description: "Webdocumentaire immersif avec navigation non-linéaire, animations CSS avancées et intégration multimédia.",
                   tags: ["HTML/CSS", "JavaScript", "UX Design"],
-                  href: "/projects"
+                  href: "#/projects"
                 },
                 {
                   title: "Jeu Vidéo Unity",
                   description: "Jeu de plateforme 2D développé avec Unity et C#, avec physique, animations et système de score.",
                   tags: ["Unity", "C#", "Game Design"],
-                  href: "/projects"
+                  href: "#/projects"
                 },
                 {
                   title: "Data Visualization",
                   description: "Tableau de bord interactif avec géolocalisation et visualisation de données en temps réel.",
                   tags: ["JavaScript", "Charts.js", "API"],
-                  href: "/projects"
+                  href: "#/projects"
                 }
               ].map((project, idx) => (
                 <a
@@ -263,12 +268,14 @@ export default function Home() {
               <p className="text-white/80 text-base md:text-lg leading-relaxed">
                 Étudiant en BUT MMI, passionné par le développement web et l'automatisation. Je combine créativité et expertise technique pour créer des expériences numériques mémorables.
               </p>
-              <a
-                href="/about"
-                className="inline-flex items-center gap-2 bg-white text-primary hover:bg-white/90 px-6 py-3 rounded-lg font-medium transition-colors"
-              >
-                En savoir plus <ArrowRight size={18} />
-              </a>
+              <CoolMode>
+                <a
+                  href="#/about"
+                  className="inline-flex items-center gap-2 bg-white text-primary hover:bg-white/90 px-6 py-3 rounded-lg font-medium transition-colors"
+                >
+                  En savoir plus <ArrowRight size={18} />
+                </a>
+              </CoolMode>
             </div>
             <div className="grid grid-cols-2 gap-4" data-aos="fade-left">
               {[
@@ -360,20 +367,22 @@ export default function Home() {
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={sendContactMutation.isPending}
-                className="w-full bg-primary text-white hover:bg-primary/90 disabled:opacity-50 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2"
-              >
-                {sendContactMutation.isPending ? (
-                  <>
-                    <Loader2 size={18} className="animate-spin" />
-                    Envoi en cours...
-                  </>
-                ) : (
-                  "Envoyer le message"
-                )}
-              </button>
+              <CoolMode>
+                <button
+                  type="submit"
+                  disabled={sendContactMutation.isPending}
+                  className="w-full bg-primary text-white hover:bg-primary/90 disabled:opacity-50 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2"
+                >
+                  {sendContactMutation.isPending ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Envoi en cours...
+                    </>
+                  ) : (
+                    "Envoyer le message"
+                  )}
+                </button>
+              </CoolMode>
               </form>
             </Card>
           </div>

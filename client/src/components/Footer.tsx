@@ -22,9 +22,9 @@ export function Footer() {
             <h4 className="font-bold text-white">Navigation</h4>
             <ul className="space-y-2">
               <li data-aos="fade-up" data-aos-delay="150" data-aos-once="true"><a href="/#competences" className="text-zinc-400 hover:text-white transition-colors">Compétences</a></li>
-              <li data-aos="fade-up" data-aos-delay="200" data-aos-once="true"><a href="/projects" className="text-zinc-400 hover:text-white transition-colors">Projets</a></li>
-              <li data-aos="fade-up" data-aos-delay="250" data-aos-once="true"><a href="/about" className="text-zinc-400 hover:text-white transition-colors">À propos</a></li>
-              <li data-aos="fade-up" data-aos-delay="300" data-aos-once="true"><a href="/contact" className="text-zinc-400 hover:text-white transition-colors">Contact</a></li>
+              <li data-aos="fade-up" data-aos-delay="200" data-aos-once="true"><a href="#/projects" className="text-zinc-400 hover:text-white transition-colors">Projets</a></li>
+              <li data-aos="fade-up" data-aos-delay="250" data-aos-once="true"><a href="#/about" className="text-zinc-400 hover:text-white transition-colors">À propos</a></li>
+              <li data-aos="fade-up" data-aos-delay="300" data-aos-once="true"><a href="#/contact" className="text-zinc-400 hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
 

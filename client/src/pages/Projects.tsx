@@ -1,3 +1,4 @@
+import { CoolMode } from "@/components/ui/cool-mode";
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
 import { Github, Globe } from "lucide-react";
@@ -169,14 +170,18 @@ export default function Projects() {
                   </div>
                   <div className="flex flex-wrap gap-3 mt-6">
                     {selectedProject.link && selectedProject.link !== "#" && (
-                      <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center gap-2 transition-colors">
-                        <Globe size={16} /> Voir le projet
-                      </a>
+                      <CoolMode>
+                        <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center gap-2 transition-colors">
+                          <Globe size={16} /> Voir le projet
+                        </a>
+                      </CoolMode>
                     )}
                     {selectedProject.codeLink && selectedProject.codeLink !== "#" && (
-                      <a href={selectedProject.codeLink} target="_blank" rel="noopener noreferrer" className="border border-zinc-600 text-zinc-200 hover:bg-zinc-800 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center gap-2 transition-colors">
-                        <Github size={16} /> Code source
-                      </a>
+                      <CoolMode>
+                        <a href={selectedProject.codeLink} target="_blank" rel="noopener noreferrer" className="border border-zinc-600 text-zinc-200 hover:bg-zinc-800 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center gap-2 transition-colors">
+                          <Github size={16} /> Code source
+                        </a>
+                      </CoolMode>
                     )}
                   </div>
                 </div>
@@ -196,26 +201,30 @@ export default function Projects() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
-              onClick={() => setLocation('/#contact')}
-            >
-              Me contacter
-            </Button>
-            <Button 
-              variant="outline" 
-              className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10"
-              onClick={() => {
-                const link = document.createElement('a');
-                link.href = '/Falou-Badiane-CV.pdf';
-                link.download = 'Falou-Badiane-CV.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-              }}
-            >
-              Télécharger mon CV
-            </Button>
+            <CoolMode>
+              <Button 
+                className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
+                onClick={() => setLocation('/#contact')}
+              >
+                Me contacter
+              </Button>
+            </CoolMode>
+            <CoolMode>
+              <Button 
+                variant="outline" 
+                className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10"
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = '/Falou-Badiane-CV.pdf';
+                  link.download = 'Falou-Badiane-CV.pdf';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+              >
+                Télécharger mon CV
+              </Button>
+            </CoolMode>
           </div>
         </div>
       </section>

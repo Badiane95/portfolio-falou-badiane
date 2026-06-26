@@ -1,3 +1,4 @@
+import { CoolMode } from "@/components/ui/cool-mode";
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -99,12 +100,16 @@ export default function About() {
           Développeur Web Full-Stack passioné par l'automatisation et l'intelligence artificielle
         </p>
         <div className="flex gap-4 justify-center mt-8" data-aos="fade-up" data-aos-delay="200">
-          <a href="mailto:badiane.falou95@gmail.com" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
-            <Mail size={18} /> Me contacter
-          </a>
-          <a href="https://linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-primary-foreground/50 text-primary-foreground rounded-lg hover:bg-primary-foreground/10 transition-colors">
-            <Linkedin size={18} /> LinkedIn
-          </a>
+          <CoolMode>
+            <a href="mailto:badiane.falou95@gmail.com" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+              <Mail size={18} /> Me contacter
+            </a>
+          </CoolMode>
+          <CoolMode>
+            <a href="https://linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-primary-foreground/50 text-primary-foreground rounded-lg hover:bg-primary-foreground/10 transition-colors">
+              <Linkedin size={18} /> LinkedIn
+            </a>
+          </CoolMode>
         </div>
       </section>
 
@@ -290,26 +295,30 @@ export default function About() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              className="              bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
-              onClick={() => setLocation('/#contact')}
-            >
-              <Mail size={18} /> Me contacter
-            </Button>
-            <Button 
-              variant="outline" 
-              className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10"
-              onClick={() => {
-                const link = document.createElement('a');
-                link.href = '/Falou-Badiane-CV.pdf';
-                link.download = 'Falou-Badiane-CV.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-              }}
-            >
-              Télécharger mon CV
-            </Button>
+            <CoolMode>
+              <Button 
+                className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
+                onClick={() => setLocation('/#contact')}
+              >
+                <Mail size={18} /> Me contacter
+              </Button>
+            </CoolMode>
+            <CoolMode>
+              <Button 
+                variant="outline" 
+                className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10"
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = '/Falou-Badiane-CV.pdf';
+                  link.download = 'Falou-Badiane-CV.pdf';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+              >
+                Télécharger mon CV
+              </Button>
+            </CoolMode>
           </div>
         </div>
       </section>
