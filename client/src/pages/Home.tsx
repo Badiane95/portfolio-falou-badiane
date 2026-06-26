@@ -1,13 +1,14 @@
 import { CoolMode } from "@/components/ui/cool-mode";
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
-import Folder from "@/components/Folder";
+import { ShineBorder } from "@/components/ui/shine-border";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Loader2, Download } from "lucide-react";
+import { ArrowRight, Loader2, Download, Code, Server, Palette } from "lucide-react";
+import BorderGlow from "@/components/BorderGlow";
 import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
-import PillNav from "@/components/PillNav";
+import GooeyNav from "@/components/GooeyNav";
 import { Footer } from "@/components/Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -23,6 +24,7 @@ import "aos/dist/aos.css";
 
 export default function Home() {
   useEffect(() => {
+    window.scrollTo(0, 0);
     AOS.init({
       duration: 800,
       offset: 100,
@@ -92,9 +94,36 @@ export default function Home() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const [location] = useLocation();
+
+  const navItems = [
+    { label: 'Accueil', href: '/' },
+    { label: 'Compétences', href: '/skills' },
+    { label: 'Projets', href: '/projects' },
+    { label: 'À propos', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
+  const navIndexMap: Record<string, number> = {
+    '/': 0,
+    '/skills': 1,
+    '/projects': 2,
+    '/about': 3,
+    '/contact': 4,
+  };
+
   return (
     <div className="min-h-screen text-foreground pt-16">
-      <PillNav />
+      <GooeyNav
+        items={navItems}
+        activeIndex={navIndexMap[location] ?? 0}
+        particleCount={15}
+        particleDistances={[90, 10]}
+        particleR={100}
+        animationTime={600}
+        timeVariance={300}
+        colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+      />
 
       {/* Hero Section - Fullscreen */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
@@ -119,7 +148,7 @@ export default function Home() {
                 </a>
               </CoolMode>
               <CoolMode>
-                <a href="/CV-Falou-Badiane.pdf" download className="border border-zinc-500 text-zinc-200 hover:bg-white/10 px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2 text-lg">
+                <a href="/CV_Badiane.pdf" download className="border border-zinc-500 text-zinc-200 hover:bg-white/10 px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2 text-lg">
                   <Download size={20} /> Télécharger CV
                 </a>
               </CoolMode>
@@ -138,54 +167,55 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Grille de compétences avec dossiers interactifs */}
-          <div className="flex flex-wrap justify-center gap-12 md:gap-16 py-8">
+          <div className="grid md:grid-cols-3 gap-8" data-aos="fade-up">
             {[
               {
-                color: "#0052CC",
+                icon: Code,
                 title: "Développement Web",
                 items: ["HTML/CSS", "JavaScript", "React", "TypeScript", "PHP", "MySQL", "Bootstrap"]
               },
               {
-                color: "#5227FF",
+                icon: Server,
                 title: "Automation & DevOps",
                 items: ["Scripts", "Gestion Projets", "CI/CD", "Outils Collaboratifs"]
               },
               {
-                color: "#06B6D4",
+                icon: Palette,
                 title: "Design & UX",
                 items: ["Figma", "Adobe Suite", "SEO", "Web Marketing", "Responsive Design"]
               }
             ].map((skill, idx) => (
-              <div key={idx} className="flex flex-col items-center gap-3" data-aos="fade-up" data-aos-delay={idx * 100}>
-                <Folder
-                  color={skill.color}
-                  size={2.2}
-                  items={skill.items.map((tech, i) => (
-                    <span key={i} className="text-[7px] font-medium text-zinc-800 block text-center leading-tight px-0.5">{tech}</span>
-                  ))}
-                />
-                <span className="text-sm font-medium text-zinc-300">{skill.title}</span>
-              </div>
+              <BorderGlow
+                key={idx}
+                edgeSensitivity={30}
+                glowColor="40 80 80"
+                backgroundColor="#0a0a0f"
+                borderRadius={28}
+                glowRadius={40}
+                glowIntensity={1}
+                coneSpread={25}
+                colors={['#c084fc', '#f472b6', '#38bdf8']}
+              >
+                <div className="p-8 space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <skill.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white">{skill.title}</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    {skill.items.map((tech, i) => (
+                      <span key={i} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm text-zinc-300 hover:border-primary/50 transition-colors">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </BorderGlow>
             ))}
           </div>
 
-          {/* Indicateurs de progression */}
-          <div className="grid md:grid-cols-2 gap-8 pt-8">
-            {[
-              { label: "Projets Réalisés", value: "8+" },
-              { label: "Années d'Expérience", value: "2+" },
-              { label: "Technologies", value: "15+" },
-              { label: "Satisfaction Client", value: "100%" }
-            ].map((stat, idx) => (
-              <div key={idx} className="space-y-2" data-aos="zoom-in" data-aos-delay={idx * 100}>
-                <p className="text-zinc-400">{stat.label}</p>
-                <p className="text-3xl md:text-4xl font-bold text-primary">{stat.value}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="pt-8" data-aos="fade-up">
+          <div className="text-center" data-aos="fade-up">
             <a href="#/skills" className="text-primary hover:text-primary/80 font-medium inline-flex items-center gap-2 transition-colors">
               Voir toutes les compétences <ArrowRight size={18} />
             </a>
@@ -238,15 +268,26 @@ export default function Home() {
                   data-aos-delay={idx * 100}
                   className="group block"
                 >
-                  <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-t-primary cursor-pointer">
-                    <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
-                    <p className="text-zinc-400 text-sm mb-4 leading-relaxed">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, i) => (
-                        <span key={i} className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full font-medium">{tag}</span>
-                      ))}
+                  <BorderGlow
+                    edgeSensitivity={30}
+                    glowColor="40 80 80"
+                    backgroundColor="#0a0a0f"
+                    borderRadius={28}
+                    glowRadius={40}
+                    glowIntensity={1}
+                    coneSpread={25}
+                    colors={['#c084fc', '#f472b6', '#38bdf8']}
+                  >
+                    <div className="p-6 space-y-4">
+                      <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors">{project.title}</h3>
+                      <p className="text-zinc-400 text-sm leading-relaxed">{project.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.map((tag, i) => (
+                          <span key={i} className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full font-medium">{tag}</span>
+                        ))}
+                      </div>
                     </div>
-                  </Card>
+                  </BorderGlow>
                 </a>
               ))}
             </div>
@@ -311,9 +352,10 @@ export default function Home() {
               </p>
             </div>
 
-            <Card className="p-8 md:p-12" data-aos="fade-up">
+            <Card className="relative overflow-hidden p-8 md:p-12" data-aos="fade-up">
+              <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} borderWidth={2} />
               {/* Formulaire */}
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div>
                 <label className="block text-sm font-medium mb-2 text-foreground">Nom (min. 2 caractères)</label>
                 <input

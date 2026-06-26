@@ -1,10 +1,11 @@
 import { CoolMode } from "@/components/ui/cool-mode";
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
+import BorderGlow from "@/components/BorderGlow";
 import { Github, Globe } from "lucide-react";
 import { useLocation } from "wouter";
-import { useState } from "react";
-import PillNav from "@/components/PillNav";
+import { useEffect, useState } from "react";
+import GooeyNav from "@/components/GooeyNav";
 import InfiniteMenu from "@/components/InfiniteMenu";
 import { Footer } from "@/components/Footer";
 
@@ -108,8 +109,30 @@ const infiniteMenuItems = projects.map(p => ({
 }));
 
 export default function Projects() {
+  const [location] = useLocation();
   const [, setLocation] = useLocation();
+
+  const navItems = [
+    { label: 'Accueil', href: '/' },
+    { label: 'Compétences', href: '/skills' },
+    { label: 'Projets', href: '/projects' },
+    { label: 'À propos', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
+  const navIndexMap: Record<string, number> = {
+    '/': 0,
+    '/skills': 1,
+    '/projects': 2,
+    '/about': 3,
+    '/contact': 4,
+  };
+
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleItemSelect = (item: { title: string; description: string; image: string; link: string } | null) => {
     if (!item) { setSelectedProject(null); return; }
@@ -119,7 +142,16 @@ export default function Projects() {
 
   return (
     <div className="min-h-screen text-foreground pt-16">
-      <PillNav />
+      <GooeyNav
+        items={navItems}
+        activeIndex={navIndexMap[location] ?? 0}
+        particleCount={15}
+        particleDistances={[90, 10]}
+        particleR={100}
+        animationTime={600}
+        timeVariance={300}
+        colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+      />
 
       {/* Header */}
       <section className="relative py-8 text-center">
@@ -141,7 +173,16 @@ export default function Projects() {
       {selectedProject && (
         <section className="py-8 md:py-12" data-aos="fade-up">
           <div className="w-full max-w-5xl mx-auto px-4 md:px-8">
-            <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl overflow-hidden">
+            <BorderGlow
+              edgeSensitivity={30}
+              glowColor="40 80 80"
+              backgroundColor="#0a0a0f"
+              borderRadius={28}
+              glowRadius={40}
+              glowIntensity={1}
+              coneSpread={25}
+              colors={['#c084fc', '#f472b6', '#38bdf8']}
+            >
               <div className="grid md:grid-cols-2 gap-0">
                 <div className="relative min-h-[250px] md:min-h-[350px] bg-zinc-950">
                   <img
@@ -186,7 +227,7 @@ export default function Projects() {
                   </div>
                 </div>
               </div>
-            </div>
+            </BorderGlow>
           </div>
         </section>
       )}
@@ -215,8 +256,8 @@ export default function Projects() {
                 className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10"
                 onClick={() => {
                   const link = document.createElement('a');
-                  link.href = '/Falou-Badiane-CV.pdf';
-                  link.download = 'Falou-Badiane-CV.pdf';
+                  link.href = '/CV_Badiane.pdf';
+                  link.download = 'CV_Badiane.pdf';
                   document.body.appendChild(link);
                   link.click();
                   document.body.removeChild(link);

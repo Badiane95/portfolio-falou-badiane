@@ -2,9 +2,12 @@ import { CoolMode } from "@/components/ui/cool-mode";
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ShineBorder } from "@/components/ui/shine-border";
+import BorderGlow from "@/components/BorderGlow";
 import { Mail, Linkedin, Github, Phone, MapPin, Clock } from "lucide-react";
 import { useState, useEffect } from "react";
-import PillNav from "@/components/PillNav";
+import { useLocation } from "wouter";
+import GooeyNav from "@/components/GooeyNav";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import AOS from "aos";
@@ -12,8 +15,26 @@ import "aos/dist/aos.css";
 import { Footer } from "@/components/Footer";
 
 export default function Contact() {
+  const [location] = useLocation();
+
+  const navItems = [
+    { label: 'Accueil', href: '/' },
+    { label: 'Compétences', href: '/skills' },
+    { label: 'Projets', href: '/projects' },
+    { label: 'À propos', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
+  const navIndexMap: Record<string, number> = {
+    '/': 0,
+    '/skills': 1,
+    '/projects': 2,
+    '/about': 3,
+    '/contact': 4,
+  };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     AOS.init({
       duration: 800,
       once: false,
@@ -109,7 +130,16 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen text-foreground pt-16">
-      <PillNav />
+      <GooeyNav
+        items={navItems}
+        activeIndex={navIndexMap[location] ?? 0}
+        particleCount={15}
+        particleDistances={[90, 10]}
+        particleR={100}
+        animationTime={600}
+        timeVariance={300}
+        colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+      />
 
       {/* Hero Section */}
       <section className="py-16 text-center">
@@ -131,7 +161,7 @@ export default function Contact() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {contactMethods.map((method, idx) => (
-              <a 
+              <a
                 key={idx}
                 href={method.link}
                 target={method.link.startsWith('http') ? "_blank" : undefined}
@@ -140,12 +170,23 @@ export default function Contact() {
                 data-aos="fade-up"
                 data-aos-delay={idx * 100}
               >
-                <Card className="p-8 h-full border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer">
-                  <method.icon className="w-12 h-12 text-primary mb-6" />
-                  <h3 className="text-2xl font-bold mb-2">{method.title}</h3>
-                  <p className="text-zinc-300 mb-4">{method.description}</p>
-                  <p className="text-primary font-semibold">{method.value}</p>
-                </Card>
+                <BorderGlow
+                  edgeSensitivity={30}
+                  glowColor="40 80 80"
+                  backgroundColor="#0a0a0f"
+                  borderRadius={28}
+                  glowRadius={40}
+                  glowIntensity={1}
+                  coneSpread={25}
+                  colors={['#c084fc', '#f472b6', '#38bdf8']}
+                >
+                  <div className="p-8 h-full">
+                    <method.icon className="w-12 h-12 text-primary mb-6" />
+                    <h3 className="text-2xl font-bold mb-2">{method.title}</h3>
+                    <p className="text-zinc-300 mb-4">{method.description}</p>
+                    <p className="text-primary font-semibold">{method.value}</p>
+                  </div>
+                </BorderGlow>
               </a>
             ))}
           </div>
@@ -162,8 +203,9 @@ export default function Contact() {
             </p>
           </div>
 
-          <Card className="p-8 md:p-12" data-aos="fade-up" data-aos-delay="100">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <Card className="relative overflow-hidden p-8 md:p-12" data-aos="fade-up" data-aos-delay="100">
+            <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} borderWidth={2} />
+            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               {/* Nom */}
               <div className="space-y-2">
                 <label className="text-sm font-semibold uppercase tracking-wide">
@@ -246,8 +288,17 @@ export default function Contact() {
           </Card>
 
           {/* Info Box */}
-          <Card className="p-8 bg-primary/5 border-l-4 border-l-primary" data-aos="fade-up" data-aos-delay="200">
-            <div className="space-y-4">
+          <BorderGlow
+            edgeSensitivity={30}
+            glowColor="40 80 80"
+            backgroundColor="#0a0a0f"
+            borderRadius={28}
+            glowRadius={40}
+            glowIntensity={1}
+            coneSpread={25}
+            colors={['#c084fc', '#f472b6', '#38bdf8']}
+          >
+            <div className="p-8 space-y-4" data-aos="fade-up" data-aos-delay="200">
               <h3 className="text-xl font-bold">Informations utiles</h3>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
@@ -266,7 +317,7 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-          </Card>
+          </BorderGlow>
         </div>
       </section>
 

@@ -3,7 +3,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@property --shine-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes shine {
+  to {
+    --shine-angle: 360deg;
+  }
+}
+
 @theme inline {
+  --animate-shine: shine 14s linear infinite;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { useEffect } from "react";
+import { Link } from "wouter";
 import AOS from "aos";
 
 export function Footer() {
@@ -21,10 +22,10 @@ export function Footer() {
           <div className="space-y-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" data-aos-once="true">
             <h4 className="font-bold text-white">Navigation</h4>
             <ul className="space-y-2">
-              <li data-aos="fade-up" data-aos-delay="150" data-aos-once="true"><a href="/#competences" className="text-zinc-400 hover:text-white transition-colors">Compétences</a></li>
-              <li data-aos="fade-up" data-aos-delay="200" data-aos-once="true"><a href="#/projects" className="text-zinc-400 hover:text-white transition-colors">Projets</a></li>
-              <li data-aos="fade-up" data-aos-delay="250" data-aos-once="true"><a href="#/about" className="text-zinc-400 hover:text-white transition-colors">À propos</a></li>
-              <li data-aos="fade-up" data-aos-delay="300" data-aos-once="true"><a href="#/contact" className="text-zinc-400 hover:text-white transition-colors">Contact</a></li>
+              <li data-aos="fade-up" data-aos-delay="150" data-aos-once="true"><Link to="/skills" className="text-zinc-400 hover:text-white transition-colors">Compétences</Link></li>
+              <li data-aos="fade-up" data-aos-delay="200" data-aos-once="true"><Link to="/projects" className="text-zinc-400 hover:text-white transition-colors">Projets</Link></li>
+              <li data-aos="fade-up" data-aos-delay="250" data-aos-once="true"><Link to="/about" className="text-zinc-400 hover:text-white transition-colors">À propos</Link></li>
+              <li data-aos="fade-up" data-aos-delay="300" data-aos-once="true"><Link to="/contact" className="text-zinc-400 hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>
 

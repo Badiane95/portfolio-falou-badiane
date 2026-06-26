@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Code, Zap, Globe, Palette, Brain, Database } from "lucide-react";
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
-import PillNav from "@/components/PillNav";
+import GooeyNav from "@/components/GooeyNav";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Footer } from "@/components/Footer";
@@ -98,10 +98,29 @@ const skillCategories = [
 ];
 
 export default function Skills() {
+  const [location] = useLocation();
   const [, setLocation] = useLocation();
+
+  const navItems = [
+    { label: 'Accueil', href: '/' },
+    { label: 'Compétences', href: '/skills' },
+    { label: 'Projets', href: '/projects' },
+    { label: 'À propos', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
+  const navIndexMap: Record<string, number> = {
+    '/': 0,
+    '/skills': 1,
+    '/projects': 2,
+    '/about': 3,
+    '/contact': 4,
+  };
+
   const [selectedCategory, setSelectedCategory] = useState("web");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     AOS.init({
       duration: 800,
       once: false,
@@ -113,7 +132,16 @@ export default function Skills() {
 
   return (
     <div className="min-h-screen text-foreground pt-16">
-      <PillNav />
+      <GooeyNav
+        items={navItems}
+        activeIndex={navIndexMap[location] ?? 0}
+        particleCount={15}
+        particleDistances={[90, 10]}
+        particleR={100}
+        animationTime={600}
+        timeVariance={300}
+        colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+      />
 
       {/* Hero Section */}
       <section className="py-16 text-center">
@@ -244,8 +272,8 @@ export default function Skills() {
                 className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10"
                 onClick={() => {
                   const link = document.createElement('a');
-                  link.href = '/Falou-Badiane-CV.pdf';
-                  link.download = 'Falou-Badiane-CV.pdf';
+                  link.href = '/CV_Badiane.pdf';
+                  link.download = 'CV_Badiane.pdf';
                   document.body.appendChild(link);
                   link.click();
                   document.body.removeChild(link);

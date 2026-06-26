@@ -1,19 +1,37 @@
 import { CoolMode } from "@/components/ui/cool-mode";
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import BorderGlow from "@/components/BorderGlow";
 import { Mail, Linkedin, Github, Globe, ArrowLeft } from "lucide-react";
 import { useLocation } from "wouter";
 import { useEffect } from "react";
-import PillNav from "@/components/PillNav";
+import GooeyNav from "@/components/GooeyNav";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Footer } from "@/components/Footer";
 
 export default function About() {
+  const [location] = useLocation();
   const [, setLocation] = useLocation();
 
+  const navItems = [
+    { label: 'Accueil', href: '/' },
+    { label: 'Compétences', href: '/skills' },
+    { label: 'Projets', href: '/projects' },
+    { label: 'À propos', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
+  const navIndexMap: Record<string, number> = {
+    '/': 0,
+    '/skills': 1,
+    '/projects': 2,
+    '/about': 3,
+    '/contact': 4,
+  };
+
   useEffect(() => {
+    window.scrollTo(0, 0);
     AOS.init({
       duration: 800,
       once: false,
@@ -91,7 +109,16 @@ export default function About() {
 
   return (
     <div className="min-h-screen text-foreground pt-16">
-      <PillNav />
+      <GooeyNav
+        items={navItems}
+        activeIndex={navIndexMap[location] ?? 0}
+        particleCount={15}
+        particleDistances={[90, 10]}
+        particleR={100}
+        animationTime={600}
+        timeVariance={300}
+        colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+      />
 
       {/* Hero Section */}
       <section className="py-16 text-center">
@@ -127,38 +154,49 @@ export default function About() {
           </div>
 
           {/* Informations de contact */}
-          <Card className="p-8 bg-transparent border-l-4 border-l-primary" data-aos="fade-up" data-aos-delay="100">
-            <h3 className="text-2xl font-bold mb-6">Informations de contact</h3>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <Mail className="text-primary" size={24} />
-                <div>
-                  <p className="text-sm text-zinc-300">Email</p>
-                  <a href="mailto:badiane.falou95@gmail.com" className="text-primary hover:underline font-semibold">
-                    badiane.falou95@gmail.com
-                  </a>
+          <BorderGlow
+            edgeSensitivity={30}
+            glowColor="40 80 80"
+            backgroundColor="#0a0a0f"
+            borderRadius={28}
+            glowRadius={40}
+            glowIntensity={1}
+            coneSpread={25}
+            colors={['#c084fc', '#f472b6', '#38bdf8']}
+          >
+            <div className="p-8" data-aos="fade-up" data-aos-delay="100">
+              <h3 className="text-2xl font-bold mb-6">Informations de contact</h3>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Mail className="text-primary" size={24} />
+                  <div>
+                    <p className="text-sm text-zinc-300">Email</p>
+                    <a href="mailto:badiane.falou95@gmail.com" className="text-primary hover:underline font-semibold">
+                      badiane.falou95@gmail.com
+                    </a>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <Linkedin className="text-primary" size={24} />
-                <div>
-                  <p className="text-sm text-zinc-300">LinkedIn</p>
-                  <a href="https://linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
-                    Falou Badiane
-                  </a>
+                <div className="flex items-center gap-3">
+                  <Linkedin className="text-primary" size={24} />
+                  <div>
+                    <p className="text-sm text-zinc-300">LinkedIn</p>
+                    <a href="https://linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      Falou Badiane
+                    </a>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <Github className="text-primary" size={24} />
-                <div>
-                  <p className="text-sm text-zinc-300">GitHub</p>
-                  <a href="https://github.com/badiane95" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
-                    github.com/badiane95
-                  </a>
+                <div className="flex items-center gap-3">
+                  <Github className="text-primary" size={24} />
+                  <div>
+                    <p className="text-sm text-zinc-300">GitHub</p>
+                    <a href="https://github.com/badiane95" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      github.com/badiane95
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </Card>
+          </BorderGlow>
         </div>
       </section>
 
@@ -174,10 +212,22 @@ export default function About() {
 
           <div className="grid md:grid-cols-2 gap-8">
             {strengths.map((strength, idx) => (
-              <Card key={idx} className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay={idx * 100}>
-                <h3 className="text-xl font-bold mb-3">{strength.title}</h3>
-                <p className="text-zinc-300">{strength.description}</p>
-              </Card>
+              <BorderGlow
+                key={idx}
+                edgeSensitivity={30}
+                glowColor="40 80 80"
+                backgroundColor="#0a0a0f"
+                borderRadius={28}
+                glowRadius={40}
+                glowIntensity={1}
+                coneSpread={25}
+                colors={['#c084fc', '#f472b6', '#38bdf8']}
+              >
+                <div className="p-8" data-aos="fade-up" data-aos-delay={idx * 100}>
+                  <h3 className="text-xl font-bold mb-3">{strength.title}</h3>
+                  <p className="text-zinc-300">{strength.description}</p>
+                </div>
+              </BorderGlow>
             ))}
           </div>
         </div>
@@ -195,16 +245,28 @@ export default function About() {
 
           <div className="grid md:grid-cols-2 gap-8">
             {skills.map((skillGroup, idx) => (
-              <Card key={idx} className="p-8 hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay={idx * 100}>
-                <h3 className="text-xl font-bold mb-6 text-primary">{skillGroup.category}</h3>
-                <div className="flex flex-wrap gap-3">
-                  {skillGroup.items.map((skill, i) => (
-                    <span key={i} className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                      {skill}
-                    </span>
-                  ))}
+              <BorderGlow
+                key={idx}
+                edgeSensitivity={30}
+                glowColor="40 80 80"
+                backgroundColor="#0a0a0f"
+                borderRadius={28}
+                glowRadius={40}
+                glowIntensity={1}
+                coneSpread={25}
+                colors={['#c084fc', '#f472b6', '#38bdf8']}
+              >
+                <div className="p-8" data-aos="fade-up" data-aos-delay={idx * 100}>
+                  <h3 className="text-xl font-bold mb-6 text-primary">{skillGroup.category}</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {skillGroup.items.map((skill, i) => (
+                      <span key={i} className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </Card>
+              </BorderGlow>
             ))}
           </div>
         </div>
@@ -222,16 +284,28 @@ export default function About() {
 
           <div className="space-y-6">
             {experience.map((exp, idx) => (
-              <Card key={idx} className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300" data-aos="fade-left" data-aos-delay={idx * 150}>
-                <div className="space-y-2 mb-4">
-                  <h3 className="text-2xl font-bold">{exp.title}</h3>
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-zinc-300">
-                    <span className="font-semibold text-primary">{exp.company}</span>
-                    <span className="text-sm">{exp.period}</span>
+              <BorderGlow
+                key={idx}
+                edgeSensitivity={30}
+                glowColor="40 80 80"
+                backgroundColor="#0a0a0f"
+                borderRadius={28}
+                glowRadius={40}
+                glowIntensity={1}
+                coneSpread={25}
+                colors={['#c084fc', '#f472b6', '#38bdf8']}
+              >
+                <div className="p-8" data-aos="fade-left" data-aos-delay={idx * 150}>
+                  <div className="space-y-2 mb-4">
+                    <h3 className="text-2xl font-bold">{exp.title}</h3>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-zinc-300">
+                      <span className="font-semibold text-primary">{exp.company}</span>
+                      <span className="text-sm">{exp.period}</span>
+                    </div>
                   </div>
+                  <p className="text-zinc-300 leading-relaxed">{exp.description}</p>
                 </div>
-                <p className="text-zinc-300 leading-relaxed">{exp.description}</p>
-              </Card>
+              </BorderGlow>
             ))}
           </div>
         </div>
@@ -250,16 +324,28 @@ export default function About() {
 
           <div className="space-y-6">
             {education.map((edu, idx) => (
-              <Card key={idx} className="p-8 border-l-4 border-l-accent hover:shadow-lg transition-all duration-300" data-aos="fade-left" data-aos-delay={idx * 150}>
-                <div className="space-y-2 mb-4">
-                  <h3 className="text-2xl font-bold">{edu.degree}</h3>
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-zinc-300">
-                    <span className="font-semibold text-accent">{edu.school}</span>
-                    <span className="text-sm">{edu.period}</span>
+              <BorderGlow
+                key={idx}
+                edgeSensitivity={30}
+                glowColor="40 80 80"
+                backgroundColor="#0a0a0f"
+                borderRadius={28}
+                glowRadius={40}
+                glowIntensity={1}
+                coneSpread={25}
+                colors={['#c084fc', '#f472b6', '#38bdf8']}
+              >
+                <div className="p-8" data-aos="fade-left" data-aos-delay={idx * 150}>
+                  <div className="space-y-2 mb-4">
+                    <h3 className="text-2xl font-bold">{edu.degree}</h3>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-zinc-300">
+                      <span className="font-semibold text-accent">{edu.school}</span>
+                      <span className="text-sm">{edu.period}</span>
+                    </div>
                   </div>
+                  <p className="text-zinc-300">{edu.location}</p>
                 </div>
-                <p className="text-zinc-300">{edu.location}</p>
-              </Card>
+              </BorderGlow>
             ))}
           </div>
         </div>
@@ -273,14 +359,36 @@ export default function About() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 border-l-4 border-l-primary" data-aos="zoom-in" data-aos-delay="100">
-              <h3 className="text-xl font-bold mb-2">Français</h3>
-              <p className="text-zinc-300">Langue maternelle</p>
-            </Card>
-            <Card className="p-8 border-l-4 border-l-primary" data-aos="zoom-in" data-aos-delay="200">
-              <h3 className="text-xl font-bold mb-2">Anglais</h3>
-              <p className="text-zinc-300">Avancé</p>
-            </Card>
+            <BorderGlow
+              edgeSensitivity={30}
+              glowColor="40 80 80"
+              backgroundColor="#0a0a0f"
+              borderRadius={28}
+              glowRadius={40}
+              glowIntensity={1}
+              coneSpread={25}
+              colors={['#c084fc', '#f472b6', '#38bdf8']}
+            >
+              <div className="p-8" data-aos="zoom-in" data-aos-delay="100">
+                <h3 className="text-xl font-bold mb-2">Français</h3>
+                <p className="text-zinc-300">Langue maternelle</p>
+              </div>
+            </BorderGlow>
+            <BorderGlow
+              edgeSensitivity={30}
+              glowColor="40 80 80"
+              backgroundColor="#0a0a0f"
+              borderRadius={28}
+              glowRadius={40}
+              glowIntensity={1}
+              coneSpread={25}
+              colors={['#c084fc', '#f472b6', '#38bdf8']}
+            >
+              <div className="p-8" data-aos="zoom-in" data-aos-delay="200">
+                <h3 className="text-xl font-bold mb-2">Anglais</h3>
+                <p className="text-zinc-300">Avancé</p>
+              </div>
+            </BorderGlow>
           </div>
         </div>
       </section>
