@@ -1,3 +1,4 @@
+import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, Linkedin, Github, Globe, ArrowLeft } from "lucide-react";
@@ -93,7 +94,7 @@ export default function About() {
 
       {/* Hero Section */}
       <section className="py-16 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-white" data-aos="fade-up">À propos de moi</h1>
+        <h1 className="text-5xl md:text-6xl font-bold text-white" data-aos="fade-up"><DiaTextReveal text="À propos de moi" textColor="white" /></h1>
         <p className="text-lg text-white/60 max-w-xl mx-auto mt-4" data-aos="fade-up" data-aos-delay="100">
           Développeur Web Full-Stack passioné par l'automatisation et l'intelligence artificielle
         </p>
@@ -111,7 +112,7 @@ export default function About() {
       <section className="py-20 md:py-32">
         <div className="container max-w-3xl space-y-8">
           <div className="space-y-4" data-aos="fade-up" data-aos-duration="800">
-            <h2 className="text-4xl font-bold">Qui suis-je ?</h2>
+            <h2 className="text-4xl font-bold"><DiaTextReveal text="Qui suis-je ?" /></h2>
             <p className="text-lg text-zinc-300 leading-relaxed">
               Je suis Falou Badiane, étudiant en BUT MMI et développeur Full-Stack passioné par la création de solutions web innovantes. Ma spécialité réside dans l'optimisation des processus métiers par la donnée et l'automatisation via l'IA.
             </p>
@@ -160,7 +161,7 @@ export default function About() {
       <section className="py-20 md:py-32 bg-transparent">
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
-            <h2 className="text-4xl font-bold">Mes Points Forts</h2>
+            <h2 className="text-4xl font-bold"><DiaTextReveal text="Mes Points Forts" /></h2>
             <p className="text-lg text-zinc-300">
               Une combinaison unique de compétences techniques et de vision stratégique pour transformer vos idées en réalité.
             </p>
@@ -181,7 +182,7 @@ export default function About() {
       <section className="py-20 md:py-32">
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
-            <h2 className="text-4xl font-bold">Compétences Techniques</h2>
+            <h2 className="text-4xl font-bold"><DiaTextReveal text="Compétences Techniques" /></h2>
             <p className="text-lg text-zinc-300">
               Une palette complète de technologies et de frameworks pour créer des solutions robustes et innovantes.
             </p>
@@ -208,7 +209,7 @@ export default function About() {
       <section className="py-20 md:py-32 bg-transparent">
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-right">
-            <h2 className="text-4xl font-bold">Expérience</h2>
+            <h2 className="text-4xl font-bold"><DiaTextReveal text="Expérience" /></h2>
             <p className="text-lg text-zinc-300">
               Mon parcours professionnel et académique qui m'a permis de développer une expertise diversifiée.
             </p>
@@ -236,7 +237,7 @@ export default function About() {
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-right">
            
-<h2 className="text-4xl font-bold">Éducation</h2>
+<h2 className="text-4xl font-bold"><DiaTextReveal text="Éducation" /></h2>
             <p className="text-lg text-zinc-300">
               Une formation solide en multimédia et informatique, complétée par des projets pratiques variés.
             </p>
@@ -263,7 +264,7 @@ export default function About() {
       <section className="py-20 md:py-32 bg-transparent">
         <div className="container space-y-8">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
-            <h2 className="text-4xl font-bold">Langues</h2>
+            <h2 className="text-4xl font-bold"><DiaTextReveal text="Langues" /></h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -283,7 +284,7 @@ export default function About() {
       <section className="py-20 md:py-32 text-white">
         <div className="container max-w-2xl text-center space-y-8">
           <div className="space-y-4" data-aos="zoom-in">
-            <h2 className="text-4xl md:text-5xl font-bold">Parlons de votre projet</h2>
+            <h2 className="text-4xl md:text-5xl font-bold"><DiaTextReveal text="Parlons de votre projet" textColor="white" /></h2>
             <p className="text-lg text-white/80">
               Vous cherchez un développeur passionné pour votre équipe ? Contactez-moi pour discuter de vos besoins.
             </p>

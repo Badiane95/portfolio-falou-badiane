@@ -1,3 +1,4 @@
+import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Code, Zap, Globe, Palette, Brain, Database } from "lucide-react";
@@ -115,7 +116,7 @@ export default function Skills() {
 
       {/* Hero Section */}
       <section className="py-16 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-white" data-aos="fade-up">Mes Compétences</h1>
+        <h1 className="text-5xl md:text-6xl font-bold text-white" data-aos="fade-up"><DiaTextReveal text="Mes Compétences" textColor="white" /></h1>
         <p className="text-lg text-white/60 max-w-xl mx-auto mt-4" data-aos="fade-up" data-aos-delay="100">
           Une palette complète de technologies pour créer des solutions innovantes et performantes.
         </p>
@@ -195,7 +196,7 @@ export default function Skills() {
       <section className="py-20 md:py-32 bg-transparent">
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
-            <h2 className="text-4xl font-bold">Résumé des compétences</h2>
+            <h2 className="text-4xl font-bold"><DiaTextReveal text="Résumé des compétences" /></h2>
             <p className="text-lg text-zinc-300">
               Une expertise diversifiée couvrant tous les aspects du développement web, des jeux vidéo et de l'automatisation IA.
             </p>
@@ -222,7 +223,7 @@ export default function Skills() {
       <section className="py-20 md:py-32 text-white">
         <div className="container max-w-2xl text-center space-y-8">
           <div className="space-y-4" data-aos="zoom-in">
-            <h2 className="text-4xl md:text-5xl font-bold">Prêt à collaborer ?</h2>
+            <h2 className="text-4xl md:text-5xl font-bold"><DiaTextReveal text="Prêt à collaborer ?" textColor="white" /></h2>
             <p className="text-lg text-white/80">
               Utilisez mes compétences pour transformer votre projet en réalité.
             </p>

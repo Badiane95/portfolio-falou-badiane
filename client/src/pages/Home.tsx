@@ -1,5 +1,7 @@
+import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
+import Folder from "@/components/Folder";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Code, Zap, Globe, Loader2, Download } from "lucide-react";
+import { ArrowRight, Loader2, Download } from "lucide-react";
 import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
@@ -100,8 +102,8 @@ export default function Home() {
             <div className="mb-4 inline-block px-4 py-1 border border-zinc-600 text-zinc-300 text-sm rounded-full">
               Développeur Fullstack
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white mb-6">
-              Falou <span className="text-primary">Badiane</span>
+            <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+              <DiaTextReveal text="Falou Badiane" textColor="white" />
             </h1>
             <p className="text-xl md:text-2xl text-zinc-300 max-w-2xl mx-auto mb-4">
               Développeur Web & Automation
@@ -125,41 +127,41 @@ export default function Home() {
       <section id="competences" className="py-20 md:py-32 bg-transparent">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
-            <h2 className="text-3xl md:text-5xl font-bold">Mes Compétences</h2>
+            <h2 className="text-3xl md:text-5xl font-bold"><DiaTextReveal text="Mes Compétences" /></h2>
             <p className="text-base md:text-lg text-zinc-400">
               La boîte à outils d'un développeur, alliant maîtrise technique et créativité pour donner vie à vos projets web.
             </p>
           </div>
 
-          {/* Grille de compétences avec cartes flottantes */}
-          <div className="grid md:grid-cols-3 gap-6">
+          {/* Grille de compétences avec dossiers interactifs */}
+          <div className="flex flex-wrap justify-center gap-12 md:gap-16 py-8">
             {[
               {
-                icon: Code,
+                color: "#0052CC",
                 title: "Développement Web",
-                description: "HTML, CSS, JavaScript, React, TypeScript, PHP, MySQL, Bootstrap"
+                items: ["HTML/CSS", "JavaScript", "React", "TypeScript", "PHP", "MySQL", "Bootstrap"]
               },
               {
-                icon: Zap,
+                color: "#5227FF",
                 title: "Automation & DevOps",
-                description: "Scripts d'automatisation, gestion de projets, CI/CD, outils collaboratifs"
+                items: ["Scripts", "Gestion Projets", "CI/CD", "Outils Collaboratifs"]
               },
               {
-                icon: Globe,
+                color: "#06B6D4",
                 title: "Design & UX",
-                description: "Figma, Adobe Suite, SEO, Web Marketing, Responsive Design"
+                items: ["Figma", "Adobe Suite", "SEO", "Web Marketing", "Responsive Design"]
               }
             ].map((skill, idx) => (
-              <Card
-                data-aos="fade-up"
-                data-aos-delay={idx * 100} 
-                key={idx}
-                className="p-6 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-card"
-              >
-                <skill.icon className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-xl font-bold mb-2">{skill.title}</h3>
-                <p className="text-zinc-400 text-sm">{skill.description}</p>
-              </Card>
+              <div key={idx} className="flex flex-col items-center gap-3" data-aos="fade-up" data-aos-delay={idx * 100}>
+                <Folder
+                  color={skill.color}
+                  size={2.2}
+                  items={skill.items.map((tech, i) => (
+                    <span key={i} className="text-[7px] font-medium text-zinc-800 block text-center leading-tight px-0.5">{tech}</span>
+                  ))}
+                />
+                <span className="text-sm font-medium text-zinc-300">{skill.title}</span>
+              </div>
             ))}
           </div>
 
@@ -193,7 +195,7 @@ export default function Home() {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4" data-aos="fade-up">
               <div className="space-y-4 max-w-2xl">
                 <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">Mes Projets</span>
-                <h2 className="text-3xl md:text-5xl font-bold">Quelques Réalisations</h2>
+                <h2 className="text-3xl md:text-5xl font-bold"><DiaTextReveal text="Quelques Réalisations" /></h2>
                 <p className="text-base md:text-lg text-zinc-400">
                   Des projets concrets alliant créativité, technique et innovation.
                 </p>
@@ -254,7 +256,8 @@ export default function Home() {
             <div className="space-y-6" data-aos="fade-right">
               <span className="inline-block px-3 py-1 bg-white/20 text-white text-sm font-medium rounded-full">À Propos</span>
               <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
-                Qui suis-je ?<br />
+                <DiaTextReveal text="Qui suis-je ?" textColor="white" />
+                <br />
                 <span className="text-cyan-300">Falou Badiane</span>
               </h2>
               <p className="text-white/80 text-base md:text-lg leading-relaxed">
@@ -295,7 +298,7 @@ export default function Home() {
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
           <div className="space-y-8">
             <div className="space-y-4 max-w-2xl" data-aos="fade-up">
-              <h2 className="text-3xl md:text-5xl font-bold">Vous avez un projet ?</h2>
+              <h2 className="text-3xl md:text-5xl font-bold"><DiaTextReveal text="Vous avez un projet ?" /></h2>
                 <p className="text-base md:text-lg text-zinc-400">
                   N'hésitez pas à me contacter pour discuter de vos besoins en développement web ou automatisation.
               </p>

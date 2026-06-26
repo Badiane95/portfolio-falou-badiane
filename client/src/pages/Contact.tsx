@@ -1,3 +1,4 @@
+import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, Linkedin, Github, Phone, MapPin, Clock } from "lucide-react";
@@ -111,7 +112,7 @@ export default function Contact() {
 
       {/* Hero Section */}
       <section className="py-16 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-white" data-aos="fade-up">Contactez-moi</h1>
+        <h1 className="text-5xl md:text-6xl font-bold text-white" data-aos="fade-up"><DiaTextReveal text="Contactez-moi" textColor="white" /></h1>
         <p className="text-lg text-white/60 max-w-xl mx-auto mt-4" data-aos="fade-up" data-aos-delay="100">
           Vous avez un projet ou des questions ? Je serais ravi de discuter avec vous.
         </p>
@@ -121,7 +122,7 @@ export default function Contact() {
       <section className="py-20 md:py-32">
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
-            <h2 className="text-4xl font-bold">Moyens de contact</h2>
+            <h2 className="text-4xl font-bold"><DiaTextReveal text="Moyens de contact" /></h2>
             <p className="text-lg text-zinc-300">
               Plusieurs façons de me joindre pour discuter de vos projets ou collaborations.
             </p>
@@ -154,7 +155,7 @@ export default function Contact() {
       <section className="py-20 md:py-32 bg-transparent">
         <div className="container max-w-3xl space-y-8">
           <div className="space-y-4" data-aos="fade-up">
-            <h2 className="text-4xl font-bold">Envoyez-moi un message</h2>
+            <h2 className="text-4xl font-bold"><DiaTextReveal text="Envoyez-moi un message" /></h2>
             <p className="text-lg text-zinc-300">
               Remplissez le formulaire ci-dessous et je vous répondrai dans les plus brefs délais.
             </p>

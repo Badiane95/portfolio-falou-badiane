@@ -1,3 +1,4 @@
+import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
 import { Github, Globe } from "lucide-react";
 import { useLocation } from "wouter";
@@ -121,7 +122,7 @@ export default function Projects() {
 
       {/* Header */}
       <section className="relative py-8 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-white" data-aos="fade-up">Mes Projets</h1>
+        <h1 className="text-5xl md:text-6xl font-bold text-white" data-aos="fade-up"><DiaTextReveal text="Mes Projets" textColor="white" /></h1>
         <p className="text-lg text-white/60 max-w-xl mx-auto mt-4" data-aos="fade-up" data-aos-delay="100">
           Explorez mes réalisations en développement web, jeux vidéo, data et automatisation
         </p>
@@ -189,7 +190,7 @@ export default function Projects() {
       <section className="py-20 md:py-32 text-white">
         <div className="container max-w-2xl text-center space-y-8">
           <div className="space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold">Intéressé par mon travail ?</h2>
+            <h2 className="text-4xl md:text-5xl font-bold"><DiaTextReveal text="Intéressé par mon travail ?" textColor="white" /></h2>
             <p className="text-lg text-white/80">
               N'hésitez pas à me contacter pour discuter de vos projets ou d'une collaboration.
             </p>
