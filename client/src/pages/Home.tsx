@@ -7,7 +7,7 @@ import BorderGlow from "@/components/BorderGlow";
 import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
 import GooeyNav from "@/components/GooeyNav";
 import { Footer } from "@/components/Footer";
 import AOS from "aos";
@@ -143,9 +143,9 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CoolMode>
-                <a href="#/projects" className="bg-primary hover:bg-primary/90 text-white gap-2 px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center text-lg">
+                <Link href="/projects" className="bg-primary hover:bg-primary/90 text-white gap-2 px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center text-lg">
                   Découvrir mon travail <ArrowRight size={20} />
-                </a>
+                </Link>
               </CoolMode>
               <CoolMode>
                 <a href="/CV_Badiane.pdf" download className="border border-zinc-500 text-zinc-200 hover:bg-white/10 px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2 text-lg">
@@ -158,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* Section Compétences */}
-      <section id="competences" className="py-20 md:py-32 bg-transparent">
+      <section id="competences" className="py-20 md:py-32 bg-transparent relative z-10">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8 space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-3xl md:text-5xl font-bold"><DiaTextReveal text="Mes Compétences" /></h2>
@@ -196,7 +196,7 @@ export default function Home() {
                 coneSpread={25}
                 colors={['#c084fc', '#f472b6', '#38bdf8']}
               >
-                <div className="p-8 space-y-6">
+                <div className="p-6 sm:p-8 space-y-6">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                       <skill.icon className="w-6 h-6 text-primary" />
@@ -216,28 +216,28 @@ export default function Home() {
           </div>
 
           <div className="text-center" data-aos="fade-up">
-            <a href="#/skills" className="text-primary hover:text-primary/80 font-medium inline-flex items-center gap-2 transition-colors">
-              Voir toutes les compétences <ArrowRight size={18} />
-            </a>
+            <Link href="/skills" className="text-white bg-primary/20 hover:bg-primary/30 font-semibold inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-colors text-lg">
+              Voir toutes les compétences <ArrowRight size={20} />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Section Aperçu Projets */}
-      <section className="py-20 md:py-32 bg-transparent">
+      <section className="py-20 md:py-32 bg-transparent relative z-10">
         <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
           <div className="space-y-12">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4" data-aos="fade-up">
               <div className="space-y-4 max-w-2xl">
-                <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">Mes Projets</span>
+                <span className="inline-block px-4 py-1.5 bg-primary/20 text-white text-sm font-semibold rounded-full">Mes Projets</span>
                 <h2 className="text-3xl md:text-5xl font-bold"><DiaTextReveal text="Quelques Réalisations" /></h2>
                 <p className="text-base md:text-lg text-zinc-400">
                   Des projets concrets alliant créativité, technique et innovation.
                 </p>
               </div>
-              <a href="#/projects" className="shrink-0 inline-flex items-center gap-2 text-primary font-medium hover:text-primary/80 transition-colors">
-                Voir tous les projets <ArrowRight size={18} />
-              </a>
+              <Link href="/projects" className="shrink-0 inline-flex items-center gap-2 bg-primary/20 hover:bg-primary/30 text-white font-semibold px-6 py-3 rounded-lg transition-colors text-lg">
+                Voir tous les projets <ArrowRight size={20} />
+              </Link>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
@@ -258,6 +258,18 @@ export default function Home() {
                   title: "Data Visualization",
                   description: "Tableau de bord interactif avec géolocalisation et visualisation de données en temps réel.",
                   tags: ["JavaScript", "Charts.js", "API"],
+                  href: "#/projects"
+                },
+                {
+                  title: "ParkViz — Stationnement Intelligent",
+                  description: "Plateforme de gestion de stationnement urbain avec IA et réalité augmentée.",
+                  tags: ["IA", "AR", "Smart City"],
+                  href: "#/projects"
+                },
+                {
+                  title: "OpenSport",
+                  description: "Plateforme intelligente de gestion et réservation d'équipements sportifs municipaux.",
+                  tags: ["Smart City", "Sport", "Écologie"],
                   href: "#/projects"
                 }
               ].map((project, idx) => (
@@ -310,15 +322,15 @@ export default function Home() {
                 Étudiant en BUT MMI, passionné par le développement web et l'automatisation. Je combine créativité et expertise technique pour créer des expériences numériques mémorables.
               </p>
               <CoolMode>
-                <a
-                  href="#/about"
+                <Link
+                  href="/about"
                   className="inline-flex items-center gap-2 bg-white text-primary hover:bg-white/90 px-6 py-3 rounded-lg font-medium transition-colors"
                 >
                   En savoir plus <ArrowRight size={18} />
-                </a>
+                </Link>
               </CoolMode>
             </div>
-            <div className="grid grid-cols-2 gap-4" data-aos="fade-left">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4" data-aos="fade-left">
               {[
                 { label: "Projets Réalisés", value: "6+", icon: "🚀" },
                 { label: "Technologies", value: "15+", icon: "⚡" },
@@ -329,7 +341,7 @@ export default function Home() {
                   key={idx}
                   data-aos="zoom-in"
                   data-aos-delay={idx * 100}
-                  className="bg-white/10 rounded-2xl p-6 text-center border border-white/20"
+                  className="bg-white/10 rounded-2xl p-4 sm:p-6 text-center border border-white/20"
                 >
                   <div className="text-3xl mb-2">{stat.icon}</div>
                   <div className="text-3xl font-bold text-white">{stat.value}</div>

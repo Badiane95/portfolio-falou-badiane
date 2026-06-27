@@ -1,7 +1,6 @@
 import { CoolMode } from "@/components/ui/cool-mode";
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Code, Zap, Globe, Palette, Brain, Database } from "lucide-react";
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
@@ -9,11 +8,13 @@ import GooeyNav from "@/components/GooeyNav";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Footer } from "@/components/Footer";
+import BorderGlow from "@/components/BorderGlow";
 
 const skillCategories = [
   {
     id: "web",
     title: "Développement Web",
+    shortTitle: "Web",
     icon: Code,
     color: "from-blue-500 to-cyan-500",
     description: "Création d'applications web modernes et performantes",
@@ -33,6 +34,7 @@ const skillCategories = [
   {
     id: "gamedev",
     title: "Développement Jeux Vidéo",
+    shortTitle: "Jeux Vidéo",
     icon: Zap,
     color: "from-purple-500 to-pink-500",
     description: "Création de jeux avec Unity et C#",
@@ -48,6 +50,7 @@ const skillCategories = [
   {
     id: "data",
     title: "Data & Automatisation",
+    shortTitle: "Data",
     icon: Brain,
     color: "from-orange-500 to-red-500",
     description: "Transformation de données et automatisation IA",
@@ -65,6 +68,7 @@ const skillCategories = [
   {
     id: "design",
     title: "Design & Multimedia",
+    shortTitle: "Design",
     icon: Palette,
     color: "from-green-500 to-teal-500",
     description: "Design créatif et production multimedia",
@@ -81,6 +85,7 @@ const skillCategories = [
   {
     id: "tools",
     title: "Outils & Méthodologies",
+    shortTitle: "Outils",
     icon: Database,
     color: "from-indigo-500 to-blue-500",
     description: "Outils de développement et bonnes pratiques",
@@ -152,7 +157,7 @@ export default function Skills() {
       </section>
 
       {/* Skills Content */}
-      <section className="py-20 md:py-32">
+      <section className="py-20 md:py-32 relative z-10">
         <div className="container space-y-12">
           {/* Category Tabs */}
           <div className="space-y-8" data-aos="fade-up">
@@ -172,7 +177,7 @@ export default function Skills() {
                     }`}
                   >
                     <Icon className="w-6 h-6 mx-auto mb-2" />
-                    <p className="text-sm font-semibold text-center">{category.title.split(" ")[0]}</p>
+                    <p className="text-sm font-semibold text-center">{category.shortTitle}</p>
                   </button>
                 );
               })}
@@ -197,8 +202,18 @@ export default function Skills() {
               {/* Skills Grid */}
               <div className="grid md:grid-cols-2 gap-8">
                 {currentCategory.skills.map((skill, idx) => (
-                  <Card key={idx} className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay={idx * 80}>
-                    <div className="space-y-4">
+                  <div key={idx} data-aos="fade-up" data-aos-delay={idx * 80} className="relative">
+                  <BorderGlow
+                    edgeSensitivity={30}
+                    glowColor="40 80 80"
+                    backgroundColor="#0a0a0f"
+                    borderRadius={28}
+                    glowRadius={40}
+                    glowIntensity={1}
+                    coneSpread={25}
+                    colors={['#c084fc', '#f472b6', '#38bdf8']}
+                  >
+                    <div className="p-6 space-y-4">
                       <div className="flex items-center justify-between">
                         <h3 className="text-xl font-bold">{skill.name}</h3>
                         <span className="text-sm font-semibold text-primary">{skill.level}%</span>
@@ -213,7 +228,8 @@ export default function Skills() {
                         />
                       </div>
                     </div>
-                  </Card>
+                  </BorderGlow>
+                  </div>
                 ))}
               </div>
             </div>
@@ -222,7 +238,7 @@ export default function Skills() {
       </section>
 
       {/* Summary Section */}
-      <section className="py-20 md:py-32 bg-transparent">
+      <section className="py-20 md:py-32 bg-transparent relative z-10">
         <div className="container space-y-12">
           <div className="space-y-4 max-w-2xl" data-aos="fade-up">
             <h2 className="text-4xl font-bold"><DiaTextReveal text="Résumé des compétences" /></h2>
@@ -232,18 +248,57 @@ export default function Skills() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
-              <h3 className="text-2xl font-bold mb-4 text-primary">50+</h3>
-              <p className="text-zinc-300">Technologies et outils maîtrisés</p>
-            </Card>
-            <Card className="p-8 border-l-4 border-l-accent hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
-              <h3 className="text-2xl font-bold mb-4 text-accent">6</h3>
-              <p className="text-zinc-300">Projets majeurs complétés</p>
-            </Card>
-            <Card className="p-8 border-l-4 border-l-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay="300">
-              <h3 className="text-2xl font-bold mb-4 text-primary">2+</h3>
-              <p className="text-zinc-300">Années d'expérience professionnelle</p>
-            </Card>
+            <div data-aos="fade-up" data-aos-delay="100" className="relative">
+              <BorderGlow
+                edgeSensitivity={30}
+                glowColor="40 80 80"
+                backgroundColor="#0a0a0f"
+                borderRadius={28}
+                glowRadius={40}
+                glowIntensity={1}
+                coneSpread={25}
+                colors={['#c084fc', '#f472b6', '#38bdf8']}
+              >
+                <div className="p-6 sm:p-8">
+                  <h3 className="text-2xl font-bold mb-4 text-primary">50+</h3>
+                  <p className="text-zinc-300">Technologies et outils maîtrisés</p>
+                </div>
+              </BorderGlow>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200" className="relative">
+              <BorderGlow
+                edgeSensitivity={30}
+                glowColor="40 80 80"
+                backgroundColor="#0a0a0f"
+                borderRadius={28}
+                glowRadius={40}
+                glowIntensity={1}
+                coneSpread={25}
+                colors={['#c084fc', '#f472b6', '#38bdf8']}
+              >
+                <div className="p-6 sm:p-8">
+                  <h3 className="text-2xl font-bold mb-4 text-white">6</h3>
+                  <p className="text-zinc-300">Projets majeurs complétés</p>
+                </div>
+              </BorderGlow>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="300" className="relative">
+              <BorderGlow
+                edgeSensitivity={30}
+                glowColor="40 80 80"
+                backgroundColor="#0a0a0f"
+                borderRadius={28}
+                glowRadius={40}
+                glowIntensity={1}
+                coneSpread={25}
+                colors={['#c084fc', '#f472b6', '#38bdf8']}
+              >
+                <div className="p-6 sm:p-8">
+                  <h3 className="text-2xl font-bold mb-4 text-primary">2+</h3>
+                  <p className="text-zinc-300">Années d'expérience professionnelle</p>
+                </div>
+              </BorderGlow>
+            </div>
           </div>
         </div>
       </section>

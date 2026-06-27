@@ -3,7 +3,7 @@ import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
 import BorderGlow from "@/components/BorderGlow";
 import { Mail, Linkedin, Github, Globe, ArrowLeft } from "lucide-react";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useEffect } from "react";
 import GooeyNav from "@/components/GooeyNav";
 import AOS from "aos";
@@ -128,12 +128,12 @@ export default function About() {
         </p>
         <div className="flex gap-4 justify-center mt-8" data-aos="fade-up" data-aos-delay="200">
           <CoolMode>
-            <a href="mailto:badiane.falou95@gmail.com" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+            <Link href="/contact" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
               <Mail size={18} /> Me contacter
-            </a>
+            </Link>
           </CoolMode>
           <CoolMode>
-            <a href="https://linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-primary-foreground/50 text-primary-foreground rounded-lg hover:bg-primary-foreground/10 transition-colors">
+            <a href="https://www.linkedin.com/in/falou-badiane-b555422a9/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-primary-foreground/50 text-primary-foreground rounded-lg hover:bg-primary-foreground/10 transition-colors">
               <Linkedin size={18} /> LinkedIn
             </a>
           </CoolMode>
@@ -164,7 +164,7 @@ export default function About() {
             coneSpread={25}
             colors={['#c084fc', '#f472b6', '#38bdf8']}
           >
-            <div className="p-8" data-aos="fade-up" data-aos-delay="100">
+            <div className="p-6 sm:p-8" data-aos="fade-up" data-aos-delay="100">
               <h3 className="text-2xl font-bold mb-6">Informations de contact</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
@@ -180,7 +180,7 @@ export default function About() {
                   <Linkedin className="text-primary" size={24} />
                   <div>
                     <p className="text-sm text-zinc-300">LinkedIn</p>
-                    <a href="https://linkedin.com/in/falou-badiane" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                    <a href="https://www.linkedin.com/in/falou-badiane-b555422a9/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
                       Falou Badiane
                     </a>
                   </div>
@@ -223,7 +223,7 @@ export default function About() {
                 coneSpread={25}
                 colors={['#c084fc', '#f472b6', '#38bdf8']}
               >
-                <div className="p-8" data-aos="fade-up" data-aos-delay={idx * 100}>
+                <div className="p-6 sm:p-8" data-aos="fade-up" data-aos-delay={idx * 100}>
                   <h3 className="text-xl font-bold mb-3">{strength.title}</h3>
                   <p className="text-zinc-300">{strength.description}</p>
                 </div>
@@ -256,7 +256,7 @@ export default function About() {
                 coneSpread={25}
                 colors={['#c084fc', '#f472b6', '#38bdf8']}
               >
-                <div className="p-8" data-aos="fade-up" data-aos-delay={idx * 100}>
+                <div className="p-6 sm:p-8" data-aos="fade-up" data-aos-delay={idx * 100}>
                   <h3 className="text-xl font-bold mb-6 text-primary">{skillGroup.category}</h3>
                   <div className="flex flex-wrap gap-3">
                     {skillGroup.items.map((skill, i) => (
@@ -295,7 +295,7 @@ export default function About() {
                 coneSpread={25}
                 colors={['#c084fc', '#f472b6', '#38bdf8']}
               >
-                <div className="p-8" data-aos="fade-left" data-aos-delay={idx * 150}>
+                <div className="p-6 sm:p-8" data-aos="fade-left" data-aos-delay={idx * 150}>
                   <div className="space-y-2 mb-4">
                     <h3 className="text-2xl font-bold">{exp.title}</h3>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-zinc-300">
@@ -335,16 +335,16 @@ export default function About() {
                 coneSpread={25}
                 colors={['#c084fc', '#f472b6', '#38bdf8']}
               >
-                <div className="p-8" data-aos="fade-left" data-aos-delay={idx * 150}>
-                  <div className="space-y-2 mb-4">
-                    <h3 className="text-2xl font-bold">{edu.degree}</h3>
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-zinc-300">
-                      <span className="font-semibold text-accent">{edu.school}</span>
-                      <span className="text-sm">{edu.period}</span>
+                  <div className="p-6 sm:p-8" data-aos="fade-left" data-aos-delay={idx * 150}>
+                    <div className="space-y-2 mb-4">
+                      <h3 className="text-2xl font-bold text-white">{edu.degree}</h3>
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
+                        <span className="font-semibold text-primary">{edu.school}</span>
+                        <span className="text-sm text-zinc-300">{edu.period}</span>
+                      </div>
                     </div>
+                    <p className="text-primary/80">{edu.location}</p>
                   </div>
-                  <p className="text-zinc-300">{edu.location}</p>
-                </div>
               </BorderGlow>
             ))}
           </div>
@@ -369,7 +369,7 @@ export default function About() {
               coneSpread={25}
               colors={['#c084fc', '#f472b6', '#38bdf8']}
             >
-              <div className="p-8" data-aos="zoom-in" data-aos-delay="100">
+              <div className="p-6 sm:p-8" data-aos="zoom-in" data-aos-delay="100">
                 <h3 className="text-xl font-bold mb-2">Français</h3>
                 <p className="text-zinc-300">Langue maternelle</p>
               </div>
@@ -384,7 +384,7 @@ export default function About() {
               coneSpread={25}
               colors={['#c084fc', '#f472b6', '#38bdf8']}
             >
-              <div className="p-8" data-aos="zoom-in" data-aos-delay="200">
+              <div className="p-6 sm:p-8" data-aos="zoom-in" data-aos-delay="200">
                 <h3 className="text-xl font-bold mb-2">Anglais</h3>
                 <p className="text-zinc-300">Avancé</p>
               </div>
@@ -406,7 +406,7 @@ export default function About() {
             <CoolMode>
               <Button 
                 className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
-                onClick={() => setLocation('/#contact')}
+                onClick={() => setLocation('/contact')}
               >
                 <Mail size={18} /> Me contacter
               </Button>

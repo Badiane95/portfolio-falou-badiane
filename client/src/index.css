@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html, body {
+  overflow-x: hidden;
+}
+
 @property --shine-angle {
   syntax: "<angle>";
   initial-value: 0deg;

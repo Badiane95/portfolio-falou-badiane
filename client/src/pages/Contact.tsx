@@ -117,7 +117,7 @@ export default function Contact() {
       title: "LinkedIn",
       description: "Connectez-vous avec moi",
       value: "Falou Badiane",
-      link: "https://linkedin.com/in/falou-badiane"
+      link: "https://www.linkedin.com/in/falou-badiane-b555422a9/"
     },
     {
       icon: Github,
@@ -180,7 +180,7 @@ export default function Contact() {
                   coneSpread={25}
                   colors={['#c084fc', '#f472b6', '#38bdf8']}
                 >
-                  <div className="p-8 h-full">
+                  <div className="p-6 sm:p-8 h-full">
                     <method.icon className="w-12 h-12 text-primary mb-6" />
                     <h3 className="text-2xl font-bold mb-2">{method.title}</h3>
                     <p className="text-zinc-300 mb-4">{method.description}</p>

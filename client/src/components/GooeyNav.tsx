@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import './GooeyNav.css';
 
@@ -27,6 +27,7 @@ const GooeyNav = ({
   const textRef = useRef<HTMLSpanElement>(null);
   const liRefs = useRef<(HTMLLIElement | null)[]>([]);
   const [, navigate] = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const noise = (n = 1) => n / 2 - Math.random() * n;
 
@@ -128,7 +129,13 @@ const GooeyNav = ({
 
     setTimeout(() => {
       navigate(href);
+      setMobileOpen(false);
     }, 350);
+  };
+
+  const handleMobileNav = (href: string) => {
+    setMobileOpen(false);
+    setTimeout(() => navigate(href), 50);
   };
 
   useEffect(() => {
@@ -164,6 +171,15 @@ const GooeyNav = ({
 
   return (
     <div className="gooey-nav-container" ref={containerRef}>
+      <button
+        className="gooey-nav-hamburger"
+        onClick={() => setMobileOpen(!mobileOpen)}
+        aria-label="Menu"
+      >
+        <span className={`hamburger-line ${mobileOpen ? 'open' : ''}`} />
+        <span className={`hamburger-line ${mobileOpen ? 'open' : ''}`} />
+        <span className={`hamburger-line ${mobileOpen ? 'open' : ''}`} />
+      </button>
       <nav>
         <ul ref={navRef}>
           {items.map((item, index) => (
@@ -181,6 +197,21 @@ const GooeyNav = ({
           ))}
         </ul>
       </nav>
+      {mobileOpen && (
+        <div className="gooey-nav-mobile-overlay" onClick={() => setMobileOpen(false)} />
+      )}
+      <div className={`gooey-nav-mobile-menu ${mobileOpen ? 'open' : ''}`}>
+        {items.map((item, index) => (
+          <button
+            key={index}
+            className={`gooey-nav-mobile-item ${index === activeIndex ? 'active' : ''}`}
+            onClick={() => handleMobileNav(item.href)}
+            style={{ transitionDelay: `${index * 0.06}s` }}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
       <span className="effect filter" ref={filterRef} />
       <span className="effect text" ref={textRef} />
     </div>

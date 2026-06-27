@@ -20,7 +20,7 @@ const projects = [
     technologies: ["React", "Node.js", "tRPC", "Puppeteer", "Drizzle ORM", "Tailwind CSS", "TypeScript", "Vitest"],
     date: "2026",
     link: "#",
-    codeLink: "https://github.com/Badiane95/ai-web-scraper-falou"
+    codeLink: "#"
   },
   {
     id: 1,
@@ -98,6 +98,30 @@ const projects = [
       { id: "I5p-20UYyGU", title: "Pastille 2" },
       { id: "ZuY8DOnWmGA", title: "Pastille 3" }
     ]
+  },
+  {
+    id: 8,
+    title: "ParkViz — Stationnement Intelligent",
+    description: "Plateforme innovante de gestion de stationnement urbain utilisant l'intelligence artificielle et la réalité augmentée pour transformer l'expérience des conducteurs et des exploitants de parkings.",
+    longDescription: "ParkViz est une plateforme innovante de gestion de stationnement urbain qui utilise l'intelligence artificielle et la réalité augmentée pour transformer l'expérience des conducteurs et des exploitants de parkings. L'application offre une visualisation en temps réel des places disponibles, un guidage AR vers le stationnement, et des analytics prédictifs basés sur l'IA pour optimiser la gestion du trafic et du stationnement en milieu urbain.",
+    image: "/image.png",
+    tags: ["IA", "Réalité Augmentée", "Smart City", "Fullstack"],
+    technologies: ["React", "Vite", "Tailwind CSS", "Node.js", "Express", "TypeScript"],
+    date: "2026",
+    link: "https://vizp-ozizrf57q-badianefalou95-8616s-projects.vercel.app/",
+    codeLink: "https://github.com/Badiane95/vizp"
+  },
+  {
+    id: 9,
+    title: "OpenSport — Gestion d'Équipements Sportifs",
+    description: "Plateforme intelligente de gestion et de réservation d'équipements sportifs municipaux. Réduisez le gaspillage énergétique, améliorez l'accès au sport et suivez votre impact environnemental.",
+    longDescription: "OpenSport est une plateforme intelligente de gestion et de réservation d'équipements sportifs municipaux développée dans le cadre d'un projet universitaire à l'IUT de Cergy-Pontoise. Elle permet la réservation annuelle pour les établissements scolaires et ponctuelle pour les particuliers et entreprises, avec un suivi environnemental complet (consommation électrique, impact CO2, gestion de l'eau). La plateforme intègre un tableau de bord pour les gestionnaires municipaux avec des rapports détaillés et des alertes de surconsommation.",
+    image: "/assets/projects/open.png",
+    tags: ["Smart City", "Sport", "Écologie", "Fullstack", "Projet Universitaire"],
+    technologies: ["React", "TypeScript", "Node.js", "Tailwind CSS", "Express"],
+    date: "2026",
+    link: "https://opensport-axudfwtq.manus.space/",
+    codeLink: "https://github.com/Badiane95/Opensport"
   }
 ];
 
@@ -245,7 +269,7 @@ export default function Projects() {
             <CoolMode>
               <Button 
                 className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
-                onClick={() => setLocation('/#contact')}
+                onClick={() => setLocation('/contact')}
               >
                 Me contacter
               </Button>
