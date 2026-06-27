@@ -1,15 +1,27 @@
 import { CoolMode } from "@/components/ui/cool-mode";
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Button } from "@/components/ui/button";
-import BorderGlow from "@/components/BorderGlow";
-import { Github, Globe } from "lucide-react";
 import { useLocation } from "wouter";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import GooeyNav from "@/components/GooeyNav";
-import InfiniteMenu from "@/components/InfiniteMenu";
+import ThreeDCarousel, { ThreeDCarouselItem } from "@/components/lightswind/3d-carousel";
 import { Footer } from "@/components/Footer";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const projects = [
+  {
+    id: 8,
+    title: "ParkViz — Stationnement Intelligent",
+    description: "Plateforme innovante de gestion de stationnement urbain utilisant l'intelligence artificielle et la réalité augmentée pour transformer l'expérience des conducteurs et des exploitants de parkings.",
+    longDescription: "ParkViz est une plateforme innovante de gestion de stationnement urbain qui utilise l'intelligence artificielle et la réalité augmentée pour transformer l'expérience des conducteurs et des exploitants de parkings. L'application offre une visualisation en temps réel des places disponibles, un guidage AR vers le stationnement, et des analytics prédictifs basés sur l'IA pour optimiser la gestion du trafic et du stationnement en milieu urbain.",
+    image: "/image.png",
+    tags: ["IA", "Réalité Augmentée", "Smart City", "Fullstack"],
+    technologies: ["React", "Vite", "Tailwind CSS", "Node.js", "Express", "TypeScript"],
+    date: "2026",
+    link: "https://vizp-ozizrf57q-badianefalou95-8616s-projects.vercel.app/",
+    codeLink: "https://github.com/Badiane95/vizp"
+  },
   {
     id: 0,
     title: "AI-Powered Web Scraper & Data Analyzer (En cours)",
@@ -100,18 +112,6 @@ const projects = [
     ]
   },
   {
-    id: 8,
-    title: "ParkViz — Stationnement Intelligent",
-    description: "Plateforme innovante de gestion de stationnement urbain utilisant l'intelligence artificielle et la réalité augmentée pour transformer l'expérience des conducteurs et des exploitants de parkings.",
-    longDescription: "ParkViz est une plateforme innovante de gestion de stationnement urbain qui utilise l'intelligence artificielle et la réalité augmentée pour transformer l'expérience des conducteurs et des exploitants de parkings. L'application offre une visualisation en temps réel des places disponibles, un guidage AR vers le stationnement, et des analytics prédictifs basés sur l'IA pour optimiser la gestion du trafic et du stationnement en milieu urbain.",
-    image: "/image.png",
-    tags: ["IA", "Réalité Augmentée", "Smart City", "Fullstack"],
-    technologies: ["React", "Vite", "Tailwind CSS", "Node.js", "Express", "TypeScript"],
-    date: "2026",
-    link: "https://vizp-ozizrf57q-badianefalou95-8616s-projects.vercel.app/",
-    codeLink: "https://github.com/Badiane95/vizp"
-  },
-  {
     id: 9,
     title: "OpenSport — Gestion d'Équipements Sportifs",
     description: "Plateforme intelligente de gestion et de réservation d'équipements sportifs municipaux. Réduisez le gaspillage énergétique, améliorez l'accès au sport et suivez votre impact environnemental.",
@@ -125,11 +125,18 @@ const projects = [
   }
 ];
 
-const infiniteMenuItems = projects.map(p => ({
-  image: p.image,
-  link: p.link,
+const carouselItems: ThreeDCarouselItem[] = projects.map(p => ({
+  id: p.id,
   title: p.title,
-  description: p.description
+  brand: p.tags[0] || "",
+  description: p.description,
+  longDescription: p.longDescription,
+  tags: p.tags,
+  technologies: p.technologies,
+  imageUrl: p.image,
+  link: p.link,
+  codeLink: p.codeLink,
+  date: p.date
 }));
 
 export default function Projects() {
@@ -152,17 +159,14 @@ export default function Projects() {
     '/contact': 4,
   };
 
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
-
   useEffect(() => {
     window.scrollTo(0, 0);
+    AOS.init({
+      duration: 800,
+      offset: 100,
+      once: false
+    });
   }, []);
-
-  const handleItemSelect = (item: { title: string; description: string; image: string; link: string } | null) => {
-    if (!item) { setSelectedProject(null); return; }
-    const project = projects.find(p => p.title === item.title);
-    setSelectedProject(project || null);
-  };
 
   return (
     <div className="min-h-screen text-foreground pt-16">
@@ -185,76 +189,10 @@ export default function Projects() {
         </p>
       </section>
 
-      {/* Infinite Menu */}
-      <section style={{ height: '400px', position: 'relative' }} className="mb-4 group">
-        <p className="text-center text-zinc-500 text-sm mb-2">
-          <span className="inline-flex items-center gap-1">🖱 Glissez pour tourner · Molette pour zoomer · Cliquez sur un disque pour voir les détails</span>
-        </p>
-        <InfiniteMenu items={infiniteMenuItems} scale={0.5} onItemSelect={handleItemSelect} />
+      {/* Carrousel 3D */}
+      <section className="py-8">
+        <ThreeDCarousel items={carouselItems} autoRotate={true} rotateInterval={5000} cardHeight={620} />
       </section>
-
-      {/* Détail du projet sélectionné */}
-      {selectedProject && (
-        <section className="py-8 md:py-12" data-aos="fade-up">
-          <div className="w-full max-w-5xl mx-auto px-4 md:px-8">
-            <BorderGlow
-              edgeSensitivity={30}
-              glowColor="40 80 80"
-              backgroundColor="#0a0a0f"
-              borderRadius={28}
-              glowRadius={40}
-              glowIntensity={1}
-              coneSpread={25}
-              colors={['#c084fc', '#f472b6', '#38bdf8']}
-            >
-              <div className="grid md:grid-cols-2 gap-0">
-                <div className="relative min-h-[250px] md:min-h-[350px] bg-zinc-950">
-                  <img
-                    src={selectedProject.image}
-                    alt={selectedProject.title}
-                    className="w-full h-full object-cover absolute inset-0"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-6 md:p-8 flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProject.tags.slice(0, 4).map((tag, i) => (
-                        <span key={i} className="px-2 py-0.5 bg-primary/20 text-primary text-xs rounded-full font-medium">{tag}</span>
-                      ))}
-                    </div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-white">{selectedProject.title}</h2>
-                    <p className="text-zinc-300 text-sm md:text-base leading-relaxed">{selectedProject.longDescription || selectedProject.description}</p>
-                    {selectedProject.technologies && (
-                      <div className="flex flex-wrap gap-1.5">
-                        {selectedProject.technologies.map((tech, i) => (
-                          <span key={i} className="px-2 py-0.5 bg-zinc-800 text-zinc-300 text-xs rounded">{tech}</span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-wrap gap-3 mt-6">
-                    {selectedProject.link && selectedProject.link !== "#" && (
-                      <CoolMode>
-                        <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center gap-2 transition-colors">
-                          <Globe size={16} /> Voir le projet
-                        </a>
-                      </CoolMode>
-                    )}
-                    {selectedProject.codeLink && selectedProject.codeLink !== "#" && (
-                      <CoolMode>
-                        <a href={selectedProject.codeLink} target="_blank" rel="noopener noreferrer" className="border border-zinc-600 text-zinc-200 hover:bg-zinc-800 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center gap-2 transition-colors">
-                          <Github size={16} /> Code source
-                        </a>
-                      </CoolMode>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </BorderGlow>
-          </div>
-        </section>
-      )}
 
       {/* CTA Section */}
       <section className="py-20 md:py-32 text-white">

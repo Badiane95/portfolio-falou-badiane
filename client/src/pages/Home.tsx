@@ -130,16 +130,16 @@ export default function Home() {
         <div className="w-full max-w-4xl mx-auto px-4 md:px-8 py-20 text-center relative z-10">
           <div data-aos="fade-up">
             <div className="mb-4 inline-block px-4 py-1 border border-zinc-600 text-zinc-300 text-sm rounded-full">
-              Développeur Fullstack
+              Développeur Full-Stack | Candidat Master Informatique
             </div>
             <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
               <DiaTextReveal text="Falou Badiane" textColor="white" />
             </h1>
             <p className="text-xl md:text-2xl text-zinc-300 max-w-2xl mx-auto mb-4">
-              Développeur Web & Automation
+              Développeur Full-Stack & Automatisation IA
             </p>
             <p className="text-base md:text-lg text-zinc-400 max-w-xl mx-auto mb-8">
-              Étudiant en BUT MMI passionné par la création de solutions web modernes et l'automatisation de processus.
+              Étudiant en BUT MMI, passionné par le développement web, l'automatisation IA et le scraping. Je vise un Master MIAGE pour approfondir architecture et rigueur logicielle.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CoolMode>
@@ -172,17 +172,17 @@ export default function Home() {
               {
                 icon: Code,
                 title: "Développement Web",
-                items: ["HTML/CSS", "JavaScript", "React", "TypeScript", "PHP", "MySQL", "Bootstrap"]
+                items: ["React", "Node.js", "TypeScript", "HTML/CSS", "PHP", "JavaScript", "MySQL"]
               },
               {
                 icon: Server,
-                title: "Automation & DevOps",
-                items: ["Scripts", "Gestion Projets", "CI/CD", "Outils Collaboratifs"]
+                title: "Données & Automatisation",
+                items: ["Python", "Web Scraping", "Automatisation IA", "API REST & JWT", "Git"]
               },
               {
                 icon: Palette,
-                title: "Design & UX",
-                items: ["Figma", "Adobe Suite", "SEO", "Web Marketing", "Responsive Design"]
+                title: "Design & Outils",
+                items: ["Figma", "Kotlin", "C#", "API REST", "Git"]
               }
             ].map((skill, idx) => (
               <BorderGlow
@@ -243,6 +243,12 @@ export default function Home() {
             <div className="grid md:grid-cols-3 gap-6">
               {[
                 {
+                  title: "ParkViz — Stationnement Intelligent",
+                  description: "Plateforme de gestion de stationnement urbain avec IA et réalité augmentée.",
+                  tags: ["IA", "AR", "Smart City"],
+                  href: "#/projects"
+                },
+                {
                   title: "Webdocumentaire Interactif",
                   description: "Webdocumentaire immersif avec navigation non-linéaire, animations CSS avancées et intégration multimédia.",
                   tags: ["HTML/CSS", "JavaScript", "UX Design"],
@@ -258,12 +264,6 @@ export default function Home() {
                   title: "Data Visualization",
                   description: "Tableau de bord interactif avec géolocalisation et visualisation de données en temps réel.",
                   tags: ["JavaScript", "Charts.js", "API"],
-                  href: "#/projects"
-                },
-                {
-                  title: "ParkViz — Stationnement Intelligent",
-                  description: "Plateforme de gestion de stationnement urbain avec IA et réalité augmentée.",
-                  tags: ["IA", "AR", "Smart City"],
                   href: "#/projects"
                 },
                 {
@@ -332,7 +332,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4" data-aos="fade-left">
               {[
-                { label: "Projets Réalisés", value: "6+", icon: "🚀" },
+                { label: "Projets Réalisés", value: "9", icon: "🚀" },
                 { label: "Technologies", value: "15+", icon: "⚡" },
                 { label: "Années d'études", value: "3", icon: "🎓" },
                 { label: "Langues", value: "2", icon: "🌍" }

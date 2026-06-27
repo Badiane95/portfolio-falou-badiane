@@ -42,34 +42,34 @@ export default function About() {
   const skills = [
     {
       category: "Développement Web",
-      items: ["React", "TypeScript", "Node.js", "PHP", "MySQL", "HTML/CSS", "JavaScript", "Bootstrap", "Tailwind CSS"]
+      items: ["React", "Node.js", "HTML/CSS", "PHP", "JavaScript", "TypeScript", "MySQL", "Kotlin"]
     },
     {
-      category: "Jeux Vidéo & 3D",
-      items: ["Unity", "C#", "Game Design", "Physics Engine", "Game States", "Architecture de Jeu"]
+      category: "Données & Automatisation",
+      items: ["Python", "Web Scraping", "Automatisation IA", "API REST & JWT", "MySQL/SQL", "Git"]
     },
     {
-      category: "Data & Automatisation",
-      items: ["Python", "Web Scraping", "IA/ML", "Data Visualization", "APIs", "Automation", "Google Maps API", "D3.js"]
+      category: "Design & Prototypage",
+      items: ["Figma", "UI/UX Design", "Responsive Design"]
     },
     {
-      category: "Design & Multimedia",
-      items: ["Figma", "Adobe Suite", "DaVinci Resolve", "Adobe Premiere", "Klynt", "UI/UX Design"]
+      category: "Langages & Frameworks",
+      items: ["React (JSX)", "Node.js", "Python", "C#", "PHP", "Kotlin", "JavaScript"]
     }
   ];
 
   const experience = [
     {
-      title: "Développeur Web & Automation",
-      company: "Unitee",
-      period: "09/2025 - Présent",
-      description: "Conception et déploiement de 5 workflows automatisés via IA, réduisant de 20% le temps opérationnel. Développement d'applications interactives et architecture de solutions full-stack."
+      title: "Développeur Full-Stack & Automatisation IA",
+      company: "Unitee — Alternance",
+      period: "10/2025 - 09/2026",
+      description: "Conception et développement d'une application de gestion d'entreprise complète (ERP) en architecture React/Node.js/MySQL. Mise en place d'un système d'authentification JWT sécurisé. Développement de modules métiers complets (Prospects/CRM, factures, commandes, employés, RH, R&D). Implémentation d'un pipeline commercial avec vue Kanban et tableau de bord KPI. Création d'un système de relances email automatisées et d'un scanner de marchés publics (BOAMP) pour détection d'opportunités."
     },
     {
-      title: "Étudiant Développeur",
-      company: "IUT Cergy-Pontoise",
-      period: "09/2023 - 06/2026",
-      description: "Formation en BUT Métiers du Multimédia et de l'Internet (MMI). Réalisation de projets variés en développement web, jeux vidéo, data visualization et automatisation."
+      title: "Développeur Full-Stack",
+      company: "Unitee — Stage",
+      period: "04/2025 - 06/2025",
+      description: "Conception et déploiement de 5 workflows automatisés via IA, réduisant de 20% le temps opérationnel. Architecture complète d'un site web full-stack avec gestion de base SQL supportant 100 utilisateurs mensuels. Création de 7 maquettes interactives sur Figma et intégration responsive. Développement et maintien de 10 scripts de web scraping pour l'analyse concurrentielle sur 3 marchés clés."
     }
   ];
 
@@ -90,20 +90,20 @@ export default function About() {
 
   const strengths = [
     {
-      title: "Automatisation & Intelligence Artificielle",
-      description: "Transformation efficace des données via web scraping et optimisation des processus par IA pour créer des solutions intelligentes et scalables."
+      title: "Automatisation & IA",
+      description: "Conception et déploiement de workflows automatisés via IA, développement de scripts de web scraping pour l'analyse concurrentielle et optimisation des processus métiers."
     },
     {
-      title: "Polyvalence Technique",
-      description: "Compétences variées en gestion de bases de données, géolocalisation, création de back-offices, jeux vidéo et data visualization."
+      title: "Architecture Full-Stack",
+      description: "Maîtrise du développement frontend (React, TypeScript) et backend (Node.js, PHP, MySQL) avec une expertise en APIs REST, JWT et architecture d'applications ERP."
     },
     {
-      title: "Gestion de Projet & Vision Produit",
-      description: "Pilotage autonome du cycle de vie des projets, de la conception UI/UX sur Figma au déploiement d'architectures Full-Stack."
+      title: "Rigueur Logicielle & Scalabilité",
+      description: "Souci permanent de la qualité du code, de l'architecture logicielle et de la scalabilité des solutions. Objectif d'approfondir ces principes en Master MIAGE."
     },
     {
-      title: "Développement Full-Stack",
-      description: "Maîtrise complète du développement frontend et backend avec une expertise particulière en création d'interfaces modernes et performantes."
+      title: "Vision Produit & Autonomie",
+      description: "Pilotage autonome de projets complets, de la conception UI/UX sur Figma au déploiement, avec une approche orientée résultats et méthodologie Agile."
     }
   ];
 
@@ -146,10 +146,10 @@ export default function About() {
           <div className="space-y-4" data-aos="fade-up" data-aos-duration="800">
             <h2 className="text-4xl font-bold"><DiaTextReveal text="Qui suis-je ?" /></h2>
             <p className="text-lg text-zinc-300 leading-relaxed">
-              Je suis Falou Badiane, étudiant en BUT MMI et développeur Full-Stack passioné par la création de solutions web innovantes. Ma spécialité réside dans l'optimisation des processus métiers par la donnée et l'automatisation via l'IA.
+              Je suis Falou Badiane, étudiant en BUT MMI (parcours développement web) et candidat à un Master Informatique, idéalement MIAGE. Je suis à l'aise sur plusieurs facettes du développement web, du traitement de données et de l'automatisation.
             </p>
             <p className="text-lg text-zinc-300 leading-relaxed">
-              Expert en création d'interfaces modernes, je maîtrise l'automatisation via l'IA et le Web Scraping pour transformer les données brutes en leviers de croissance stratégiques. Mon approche combine expertise technique, vision produit et gestion de projet autonome.
+              J'ai notamment travaillé sur du scraping et de l'automatisation IA — des sujets que je souhaite approfondir, surtout côté architecture et rigueur logicielle. Mon objectif est de concevoir des solutions robustes, scalables et intelligentes.
             </p>
           </div>
 
@@ -176,6 +176,7 @@ export default function About() {
                     </a>
                   </div>
                 </div>
+
                 <div className="flex items-center gap-3">
                   <Linkedin className="text-primary" size={24} />
                   <div>
@@ -224,7 +225,7 @@ export default function About() {
                 colors={['#c084fc', '#f472b6', '#38bdf8']}
               >
                 <div className="p-6 sm:p-8" data-aos="fade-up" data-aos-delay={idx * 100}>
-                  <h3 className="text-xl font-bold mb-3">{strength.title}</h3>
+                  <h3 className="text-xl font-bold mb-3 text-primary">{strength.title}</h3>
                   <p className="text-zinc-300">{strength.description}</p>
                 </div>
               </BorderGlow>
@@ -370,8 +371,8 @@ export default function About() {
               colors={['#c084fc', '#f472b6', '#38bdf8']}
             >
               <div className="p-6 sm:p-8" data-aos="zoom-in" data-aos-delay="100">
-                <h3 className="text-xl font-bold mb-2">Français</h3>
-                <p className="text-zinc-300">Langue maternelle</p>
+                <h3 className="text-xl font-bold mb-2 text-primary">Français</h3>
+                <p className="text-zinc-300">Maternelle</p>
               </div>
             </BorderGlow>
             <BorderGlow
@@ -385,8 +386,8 @@ export default function About() {
               colors={['#c084fc', '#f472b6', '#38bdf8']}
             >
               <div className="p-6 sm:p-8" data-aos="zoom-in" data-aos-delay="200">
-                <h3 className="text-xl font-bold mb-2">Anglais</h3>
-                <p className="text-zinc-300">Avancé</p>
+                <h3 className="text-xl font-bold mb-2 text-primary">Anglais</h3>
+                <p className="text-zinc-300">Niveau B1</p>
               </div>
             </BorderGlow>
           </div>
