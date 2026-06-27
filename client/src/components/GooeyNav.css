@@ -115,11 +115,13 @@
 
 .gooey-nav-container .effect.text {
   color: white;
-  transition: color 0.3s ease;
+  opacity: 0;
+  transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 .gooey-nav-container .effect.text.active {
   color: black;
+  opacity: 1;
 }
 
 .gooey-nav-container .effect.filter {
