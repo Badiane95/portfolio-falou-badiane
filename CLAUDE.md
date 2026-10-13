@@ -1,70 +1,70 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Ce fichier guide Claude Code (claude.ai/code) lorsqu'il travaille sur le code de ce dépôt.
 
-## Project
+## Projet
 
-Personal portfolio for Falou Badiane (BUT MMI student, web developer / automation). All user-facing text, validation messages and code comments are in **French**; keep new UI copy in French.
+Portfolio personnel de Falou Badiane (étudiant en BUT MMI, développeur web et automatisation). Tous les textes visibles par l'utilisateur, les messages de validation et les commentaires du code sont en **français** ; rédige aussi en français tout nouveau texte d'interface.
 
-The repo was scaffolded from a **Manus full-stack web template** (React + Vite client, Express + tRPC server, Drizzle/MySQL). Much of `server/_core/` is template infrastructure (Manus OAuth, LLM chat, image generation, S3 storage, maps, voice transcription) that the portfolio does not use. The only feature-specific backend code is the `contact` router in `server/routers.ts`.
+Le dépôt a été généré à partir d'un **template web full-stack Manus** (client React + Vite, serveur Express + tRPC, Drizzle/MySQL). Une grande partie de `server/_core/` est de l'infrastructure de template que le portfolio n'utilise pas (OAuth Manus, chat LLM, génération d'images, stockage S3, cartes, transcription vocale). Le seul code backend propre au portfolio est le routeur `contact` dans `server/routers.ts`.
 
-## Commands
+## Commandes
 
-Package manager is **pnpm**. `pnpm-lock.yaml` is out of sync with `package.json`, so a frozen install fails. Use `pnpm install --no-frozen-lockfile`, which is also what `vercel.json` runs.
+Le gestionnaire de paquets est **pnpm**. `pnpm-lock.yaml` est désynchronisé de `package.json`, donc une installation avec lockfile figé échoue. Utilise `pnpm install --no-frozen-lockfile`, qui est aussi la commande lancée par `vercel.json`.
 
 ```bash
-pnpm dev        # tsx watch server/_core/index.ts — Express + Vite middleware (HMR), port 3000 or next free port
-pnpm build      # vite build → dist/public, then esbuild server/_core/index.ts → dist/index.js
-pnpm start      # NODE_ENV=production node dist/index.js (serves dist/public + API)
-pnpm check      # tsc --noEmit (client, server and shared in one project)
-pnpm test       # vitest run — only server/**/*.test.ts / *.spec.ts, node environment
-pnpm format     # prettier --write . (no ESLint in this repo)
-pnpm db:push    # drizzle-kit generate && migrate — requires DATABASE_URL
+pnpm dev        # tsx watch server/_core/index.ts — Express + middleware Vite (HMR), port 3000 ou le suivant libre
+pnpm build      # vite build → dist/public, puis esbuild server/_core/index.ts → dist/index.js
+pnpm start      # NODE_ENV=production node dist/index.js (sert dist/public + l'API)
+pnpm check      # tsc --noEmit (client, serveur et shared dans un seul projet)
+pnpm test       # vitest run — uniquement server/**/*.test.ts / *.spec.ts, environnement node
+pnpm format     # prettier --write . (pas d'ESLint dans ce dépôt)
+pnpm db:push    # drizzle-kit generate && migrate — nécessite DATABASE_URL
 
-# Single test file / single test by name
+# Un seul fichier de test / un seul test par son nom
 pnpm exec vitest run server/contact.test.ts
 pnpm exec vitest run server/contact.test.ts -t "invalid email"
 ```
 
-The README mentions `pnpm preview`, but no such script exists.
+Le README mentionne `pnpm preview`, mais ce script n'existe pas.
 
-`dist/` is committed to git, so running `pnpm build` produces tracked changes.
+`dist/` est versionné dans git : lancer `pnpm build` produit donc des modifications suivies.
 
 ## Architecture
 
-### Server entry points (keep in sync)
-There are three Express entry points. When you add an API route, register it in both of the first two:
-- `server/_core/index.ts` is used by `pnpm dev`/`pnpm start`. It mounts OAuth (`/api/oauth/callback`), chat (`/api/chat`) and tRPC (`/api/trpc`), then either Vite middleware (dev) or static `dist/public` with an SPA fallback (prod).
-- `api/index.ts` is the **Vercel serverless function**. It holds the same API wiring with no static serving and exports the app. `vercel.json` rewrites `/api/*` to it and every other non-asset path to `/index.html`.
-- `server/index.ts` is a legacy static-only server. No script references it.
+### Points d'entrée du serveur (à garder synchronisés)
+Il y a trois points d'entrée Express. Quand tu ajoutes une route API, déclare-la dans les deux premiers :
+- `server/_core/index.ts` est utilisé par `pnpm dev`/`pnpm start`. Il monte l'OAuth (`/api/oauth/callback`), le chat (`/api/chat`) et tRPC (`/api/trpc`), puis soit le middleware Vite (dev), soit `dist/public` en statique avec un repli SPA (prod).
+- `api/index.ts` est la **fonction serverless Vercel**. Il reprend le même câblage de l'API, sans servir de fichiers statiques, et exporte l'app. `vercel.json` redirige `/api/*` vers ce fichier et tous les autres chemins (hors assets) vers `/index.html`.
+- `server/index.ts` est un ancien serveur purement statique. Aucun script ne l'utilise.
 
-### tRPC (end-to-end types)
-- Procedures are defined in `server/routers.ts` (`appRouter`), using `publicProcedure` / `protectedProcedure` / `adminProcedure` from `server/_core/trpc.ts`. The superjson transformer is used on both sides.
-- `server/_core/context.ts` tries Manus SDK auth on every request; `ctx.user` is `null` when unauthenticated.
-- The client imports the `AppRouter` **type** directly from `server/routers.ts` (`client/src/lib/trpc.ts`). `client/src/main.tsx` sets up `httpBatchLink` to `/api/trpc` and redirects to the Manus login when a query or mutation fails with `UNAUTHED_ERR_MSG`.
-- Tests call procedures with `appRouter.createCaller(ctx)` and a hand-built context, mocking `./_core/notification` (see `server/contact.test.ts`).
+### tRPC (typage de bout en bout)
+- Les procédures sont définies dans `server/routers.ts` (`appRouter`), avec `publicProcedure` / `protectedProcedure` / `adminProcedure` issus de `server/_core/trpc.ts`. Le transformeur superjson est utilisé des deux côtés.
+- `server/_core/context.ts` tente une authentification via le SDK Manus à chaque requête ; `ctx.user` vaut `null` si l'utilisateur n'est pas authentifié.
+- Le client importe directement le **type** `AppRouter` depuis `server/routers.ts` (`client/src/lib/trpc.ts`). `client/src/main.tsx` configure `httpBatchLink` vers `/api/trpc` et redirige vers la connexion Manus quand une requête ou une mutation échoue avec `UNAUTHED_ERR_MSG`.
+- Les tests appellent les procédures avec `appRouter.createCaller(ctx)` et un contexte construit à la main, en mockant `./_core/notification` (voir `server/contact.test.ts`).
 
-### Contact form flow
-The form in `client/src/pages/Home.tsx` validates on the client, then calls `trpc.contact.send`. That procedure runs zod validation (French messages) and then:
-1. `notifyOwner()` sends a Manus notification.
-2. `sendEmail()` (`server/_core/emailService.ts`) sends a confirmation to the visitor.
-3. `sendEmail()` sends a message to `OWNER_EMAIL`.
+### Flux du formulaire de contact
+Le formulaire de `client/src/pages/Home.tsx` valide les champs côté client, puis appelle `trpc.contact.send`. Cette procédure applique une validation zod (messages en français), puis :
+1. `notifyOwner()` envoie une notification Manus.
+2. `sendEmail()` (`server/_core/emailService.ts`) envoie une confirmation au visiteur.
+3. `sendEmail()` envoie le message à `OWNER_EMAIL`.
 
-Both send helpers POST to the Manus Forge API (`BUILT_IN_FORGE_API_URL` / `BUILT_IN_FORGE_API_KEY`). A delivery failure is only logged as a warning, and the mutation still returns success. Without the Forge env vars, `sendEmail` returns `false`, which is why tests pass without network access.
+Ces deux fonctions d'envoi font un POST vers l'API Manus Forge (`BUILT_IN_FORGE_API_URL` / `BUILT_IN_FORGE_API_KEY`). Un échec d'envoi est seulement journalisé comme avertissement, et la mutation renvoie quand même un succès. Sans les variables d'environnement Forge, `sendEmail` renvoie `false`, ce qui explique que les tests passent sans accès réseau.
 
-### Environment
-`server/_core/env.ts` reads: `VITE_APP_ID`, `JWT_SECRET`, `DATABASE_URL`, `OAUTH_SERVER_URL`, `OWNER_OPEN_ID`, `BUILT_IN_FORGE_API_URL`, `BUILT_IN_FORGE_API_KEY`, `OWNER_EMAIL`. The client reads `VITE_*` vars (e.g. `VITE_OAUTH_PORTAL_URL`), and Vite's `envDir` is the repo root. The database is optional: `getDb()` in `server/db.ts` returns `null` without `DATABASE_URL`. The Drizzle schema (`drizzle/schema.ts`) contains only the template `users` table.
+### Environnement
+`server/_core/env.ts` lit : `VITE_APP_ID`, `JWT_SECRET`, `DATABASE_URL`, `OAUTH_SERVER_URL`, `OWNER_OPEN_ID`, `BUILT_IN_FORGE_API_URL`, `BUILT_IN_FORGE_API_KEY`, `OWNER_EMAIL`. Le client lit les variables `VITE_*` (par ex. `VITE_OAUTH_PORTAL_URL`), et l'`envDir` de Vite est la racine du dépôt. La base de données est facultative : `getDb()` dans `server/db.ts` renvoie `null` sans `DATABASE_URL`. Le schéma Drizzle (`drizzle/schema.ts`) ne contient que la table `users` du template.
 
 ### Client
-- Vite root is `client/`. Path aliases are `@/` → `client/src/` and `@shared/` → `shared/`; they are defined in `vite.config.ts`, `vitest.config.ts` and `tsconfig.json`.
-- Routing uses **wouter 3.7.1 with a pnpm patch** (`patches/wouter@3.7.1.patch`, which records route paths on `window.__WOUTER_ROUTES__`). Routes are declared in `client/src/App.tsx`. `App.tsx` calls `useHashLocation()` but never passes it to a `<Router>`, so routing is actually path-based (`/projects`, `/about`, …). Deep links work only because of the server and Vercel SPA fallbacks. `Navbar.tsx` uses plain `<a href>` (full page loads), not wouter `<Link>`.
-- Each page renders its own `<Navbar />`; there is no shared layout component. `ComponentShowcase.tsx` is an unrouted template demo page.
-- Styling uses Tailwind CSS v4 through `@tailwindcss/vite`. Theme tokens live in `client/src/index.css`. shadcn/ui components ("new-york" style, `components.json`) are generated into `client/src/components/ui/`. Pages also use hard-coded brand hex colors: primary `#0052CC` and accent cyan `#06B6D4`. The font is Rubik. Design rationale is in `ideas.md` (approach 1, "Minimalisme Moderne Technologique").
-- Scroll animations use AOS: `data-aos` attributes, with `AOS.init` in `Home.tsx` and `AOS.refresh` in `Footer.tsx`.
-- Static files (CV PDFs, project images) live in `client/public/`.
-- `vite.config.ts` includes Manus-specific plugins: a runtime plugin, jsx-loc, and a debug collector that writes browser logs to `.manus-logs/` in dev. They are template plumbing.
+- La racine Vite est `client/`. Les alias de chemin sont `@/` → `client/src/` et `@shared/` → `shared/` ; ils sont définis dans `vite.config.ts`, `vitest.config.ts` et `tsconfig.json`.
+- Le routage utilise **wouter 3.7.1 avec un patch pnpm** (`patches/wouter@3.7.1.patch`, qui enregistre les chemins des routes dans `window.__WOUTER_ROUTES__`). Les routes sont déclarées dans `client/src/App.tsx`. `App.tsx` appelle `useHashLocation()` sans jamais le passer à un `<Router>` : le routage se fait donc en réalité par chemins (`/projects`, `/about`, …). Les liens directs vers une page ne fonctionnent que grâce aux replis SPA du serveur et de Vercel. `Navbar.tsx` utilise de simples `<a href>` (rechargement complet de la page), pas le `<Link>` de wouter.
+- Chaque page affiche sa propre `<Navbar />` ; il n'y a pas de composant de mise en page partagé. `ComponentShowcase.tsx` est une page de démonstration du template, sans route.
+- Le style utilise Tailwind CSS v4 via `@tailwindcss/vite`. Les tokens du thème sont dans `client/src/index.css`. Les composants shadcn/ui (style « new-york », `components.json`) sont générés dans `client/src/components/ui/`. Les pages utilisent aussi des couleurs de marque codées en dur en hexadécimal : primaire `#0052CC` et accent cyan `#06B6D4`. La police est Rubik. Les choix de design sont expliqués dans `ideas.md` (approche 1, « Minimalisme Moderne Technologique »).
+- Les animations au scroll utilisent AOS : attributs `data-aos`, avec `AOS.init` dans `Home.tsx` et `AOS.refresh` dans `Footer.tsx`.
+- Les fichiers statiques (CV en PDF, images des projets) se trouvent dans `client/public/`.
+- `vite.config.ts` inclut des plugins propres à Manus : un plugin runtime, jsx-loc et un collecteur de debug qui écrit les logs du navigateur dans `.manus-logs/` en dev. C'est de la plomberie de template.
 
-### Deployment
-Vercel is the active target (`vercel.json`; output directory `dist/public`, API in `api/index.ts`). The GitHub Pages workflow sits at `github/workflows/deploy.yml`, **not** `.github/`, so GitHub Actions never runs it. A static GitHub Pages deploy could not serve the tRPC API in any case.
+### Déploiement
+Vercel est la cible active (`vercel.json` ; dossier de sortie `dist/public`, API dans `api/index.ts`). Le workflow GitHub Pages se trouve dans `github/workflows/deploy.yml`, **et non** dans `.github/`, donc GitHub Actions ne l'exécute jamais. De toute façon, un déploiement statique sur GitHub Pages ne pourrait pas servir l'API tRPC.
 
-`todo.md` holds the feature checklist (in French).
+`todo.md` contient la liste des fonctionnalités (en français).
