@@ -16,7 +16,7 @@ Le gestionnaire de paquets est **pnpm**. `pnpm-lock.yaml` est désynchronisé de
 pnpm dev        # tsx watch server/_core/index.ts — Express + middleware Vite (HMR), port 3000 ou le suivant libre
 pnpm build      # vite build → dist/public, puis esbuild server/_core/index.ts → dist/index.js
 pnpm start      # NODE_ENV=production node dist/index.js (sert dist/public + l'API)
-pnpm check      # tsc --noEmit (client, serveur et shared dans un seul projet)
+pnpm check      # tsc --noEmit (client, api, serveur et shared dans un seul projet)
 pnpm test       # vitest run — uniquement server/**/*.test.ts / *.spec.ts, environnement node
 pnpm format     # prettier --write . (pas d'ESLint dans ce dépôt)
 pnpm db:push    # drizzle-kit generate && migrate — nécessite DATABASE_URL
@@ -33,24 +33,26 @@ Le README mentionne `pnpm preview`, mais ce script n'existe pas.
 ## Architecture
 
 ### Points d'entrée du serveur (à garder synchronisés)
-Il y a trois points d'entrée Express. Quand tu ajoutes une route API, déclare-la dans les deux premiers :
-- `server/_core/index.ts` est utilisé par `pnpm dev`/`pnpm start`. Il monte l'OAuth (`/api/oauth/callback`), le chat (`/api/chat`) et tRPC (`/api/trpc`), puis soit le middleware Vite (dev), soit `dist/public` en statique avec un repli SPA (prod).
+Il y a trois points d'entrée Express. Quand tu ajoutes une route API, déclare-la dans les deux premiers, avec les mêmes middlewares (`express.json({ limit: "100kb" })`, tRPC avec `allowBatching: false`) :
+- `server/_core/index.ts` est utilisé par `pnpm dev`/`pnpm start`. Il monte l'OAuth (`/api/oauth/callback`) et tRPC (`/api/trpc`), puis soit le middleware Vite (dev), soit `dist/public` en statique avec un repli SPA (prod).
 - `api/index.ts` est la **fonction serverless Vercel**. Il reprend le même câblage de l'API, sans servir de fichiers statiques, et exporte l'app. `vercel.json` redirige `/api/*` vers ce fichier et tous les autres chemins (hors assets) vers `/index.html`.
 - `server/index.ts` est un ancien serveur purement statique. Aucun script ne l'utilise.
+
+**Imports côté serveur (`api/`, `server/`, `shared/`, `drizzle/`) : toujours relatifs et avec l'extension `.js`** (`import { appRouter } from "../server/routers.js"`), jamais d'alias `@shared/…`. La fonction Vercel est compilée fichier par fichier par @vercel/node et chargée en ESM natif (`"type": "module"`) : un import sans extension ou un alias fait échouer son chargement (`ERR_MODULE_NOT_FOUND`), et `pnpm check` ne le détecte pas (`moduleResolution: "bundler"`). Pour vérifier, lance `vercel build` dans une copie du dépôt et charge `.vercel/output/functions/api/index.func/api/index.js`. Le code client garde les alias `@/` et `@shared/`.
 
 ### tRPC (typage de bout en bout)
 - Les procédures sont définies dans `server/routers.ts` (`appRouter`), avec `publicProcedure` / `protectedProcedure` / `adminProcedure` issus de `server/_core/trpc.ts`. Le transformeur superjson est utilisé des deux côtés.
 - `server/_core/context.ts` tente une authentification via le SDK Manus à chaque requête ; `ctx.user` vaut `null` si l'utilisateur n'est pas authentifié.
-- Le client importe directement le **type** `AppRouter` depuis `server/routers.ts` (`client/src/lib/trpc.ts`). `client/src/main.tsx` configure `httpBatchLink` vers `/api/trpc` et redirige vers la connexion Manus quand une requête ou une mutation échoue avec `UNAUTHED_ERR_MSG`.
-- Les tests appellent les procédures avec `appRouter.createCaller(ctx)` et un contexte construit à la main, en mockant `./_core/notification` (voir `server/contact.test.ts`).
+- Le client importe directement le **type** `AppRouter` depuis `server/routers.ts` (`client/src/lib/trpc.ts`). `client/src/main.tsx` configure `httpLink` (pas de batching : le serveur le refuse) vers `/api/trpc` et redirige vers la connexion Manus quand une requête ou une mutation échoue avec `UNAUTHED_ERR_MSG`.
+- Les tests appellent les procédures avec `appRouter.createCaller(ctx)` et un contexte construit à la main, en simulant `notifyOwner`, `sendEmail` et `fetch` : aucun test n'appelle le réseau (voir `server/contact.test.ts`, `server/emailService.test.ts`, `server/rateLimit.test.ts`).
 
 ### Flux du formulaire de contact
-Le formulaire (`client/src/components/ContactForm.tsx`, page `/contact`) valide les champs côté client avec les mêmes règles que le serveur, puis appelle `trpc.contact.send`. Cette procédure applique une validation zod (messages en français), puis :
-1. `notifyOwner()` envoie une notification Manus.
-2. `sendEmail()` (`server/_core/emailService.ts`) envoie une confirmation au visiteur.
-3. `sendEmail()` envoie le message à `OWNER_EMAIL`.
+Le formulaire (`client/src/components/ContactForm.tsx`, page `/contact`) et la procédure `contact.send` (`server/routers.ts`) valident avec le **même schéma zod**, `shared/contact.ts` (champs `.trim()`, longueurs maximales, sujet sur une ligne, messages en français). La procédure :
+1. applique une limitation de débit par IP (5 tentatives / 10 min, `server/rateLimit.ts`), en mémoire donc propre à chaque instance serverless : la vraie protection est une règle de limitation du pare-feu Vercel ;
+2. renvoie un faux succès sans rien envoyer si le champ piège `website` est rempli ou si le formulaire est envoyé moins de 3 s après son ouverture (`elapsedMs`) ;
+3. appelle `notifyOwner()` (notification Manus) puis `sendEmail()` vers `OWNER_EMAIL`, avec un gabarit dont **toutes les valeurs sont échappées** (`server/_core/emailService.ts`). Aucun e-mail n'est envoyé à l'adresse saisie par le visiteur : n'en rajoute pas, cela ferait du formulaire un relais d'e-mails.
 
-Ces deux fonctions d'envoi font un POST vers l'API Manus Forge (`BUILT_IN_FORGE_API_URL` / `BUILT_IN_FORGE_API_KEY`). Sans ces variables, `notifyOwner` lève une erreur et la mutation renvoie une erreur 500 : le formulaire ne fonctionne pas. Avec les variables, un envoi qui échoue chez Forge est seulement journalisé et la mutation renvoie quand même un succès. Les tests passent sans réseau parce que `server/contact.test.ts` mocke `notifyOwner`.
+Ces envois passent par l'API Manus Forge (`BUILT_IN_FORGE_API_URL` / `BUILT_IN_FORGE_API_KEY`). Sans ces variables, `notifyOwner` lève une erreur et la mutation renvoie une erreur 500 : le formulaire ne fonctionne pas.
 
 ### Environnement
 `server/_core/env.ts` lit : `VITE_APP_ID`, `JWT_SECRET`, `DATABASE_URL`, `OAUTH_SERVER_URL`, `OWNER_OPEN_ID`, `BUILT_IN_FORGE_API_URL`, `BUILT_IN_FORGE_API_KEY`, `OWNER_EMAIL`. Le client lit les variables `VITE_*` (par ex. `VITE_OAUTH_PORTAL_URL`), et l'`envDir` de Vite est la racine du dépôt. La base de données est facultative : `getDb()` dans `server/db.ts` renvoie `null` sans `DATABASE_URL`. Le schéma Drizzle (`drizzle/schema.ts`) ne contient que la table `users` du template.
@@ -64,9 +66,9 @@ Ces deux fonctions d'envoi font un POST vers l'API Manus Forge (`BUILT_IN_FORGE_
 - Les animations utilisent Framer Motion. Les briques réutilisables sont dans `components/motion/` : révélations par masque, texte qui se décode, compteurs, et la grille de points en canvas du hero. `<MotionConfig reducedMotion="user">` dans `App.tsx` et une règle CSS dans `index.css` respectent le réglage « réduire les animations » ; tout nouvel effet basé sur `requestAnimationFrame` doit vérifier `useReducedMotion()` lui-même.
 - Le style utilise Tailwind CSS v4 via `@tailwindcss/vite`, avec **trois thèmes de couleur** (clair, bleu nuit, noir) choisis par le visiteur. Les couleurs sont des tokens CSS définis par thème dans `client/src/index.css` ; les composants n'utilisent que les classes de tokens, jamais de couleur en dur. Avant toute modification de couleur ou de thème, utilise le skill `.claude/skills/theme-system` et lance son script `node .claude/skills/theme-system/scripts/check-themes.mjs`. Les classes `.eyebrow` / `.link-underline` sont aussi dans `index.css`. Les polices sont Geist et Geist Mono (Google Fonts). Les composants shadcn/ui (style « new-york », `components.json`) sont générés dans `client/src/components/ui/`.
 - Les fichiers statiques (CV en PDF, images des projets) se trouvent dans `client/public/`. Plusieurs images de projets sont hébergées sur des CDN externes ; `ProjectImage.tsx` affiche un visuel de secours si elles ne se chargent pas.
-- `vite.config.ts` inclut des plugins propres à Manus : un plugin runtime, jsx-loc et un collecteur de debug qui écrit les logs du navigateur dans `.manus-logs/` en dev. C'est de la plomberie de template.
+- `vite.config.ts` ne garde que deux plugins Manus, limités au serveur de dev (`apply: "serve"`) : jsx-loc et un collecteur de debug qui écrit les logs du navigateur dans `.manus-logs/`. Le runtime Manus a été retiré : il ouvrait une faille XSS par `postMessage`. N'ajoute aucun script tiers qui écoute `message` sans vérifier `event.origin`.
 
 ### Déploiement
-Vercel est la cible active (`vercel.json` ; dossier de sortie `dist/public`, API dans `api/index.ts`). Le workflow GitHub Pages se trouve dans `github/workflows/deploy.yml`, **et non** dans `.github/`, donc GitHub Actions ne l'exécute jamais. De toute façon, un déploiement statique sur GitHub Pages ne pourrait pas servir l'API tRPC.
+Vercel est la cible active (`vercel.json` ; dossier de sortie `dist/public`, API dans `api/index.ts`). `vercel.json` pose sur toutes les pages des en-têtes de sécurité (`frame-ancestors 'none'`, `X-Frame-Options`, `Cross-Origin-Opener-Policy`, `nosniff`, `Referrer-Policy`) ; ils ne s'appliquent pas à `pnpm start`. La CSP ne contient que `frame-ancestors` : une CSP de scripts devra autoriser le script de thème en ligne de `index.html` par son hash. Le workflow GitHub Pages se trouve dans `github/workflows/deploy.yml`, **et non** dans `.github/`, donc GitHub Actions ne l'exécute jamais. De toute façon, un déploiement statique sur GitHub Pages ne pourrait pas servir l'API tRPC.
 
 `todo.md` contient la liste des fonctionnalités (en français).

@@ -19,7 +19,9 @@
 
 ## 1. Verdict
 
-**NO-GO.** Le constat bloquant suivant est confirmé par un `vercel build` réel : l'API ne se charge pas sur Vercel, donc le formulaire de contact ne marche pas en production. Il y a en plus une faille XSS exploitable, confirmée par une preuve d'exploitation.
+> **Mise à jour du 13/10/2026 :** les 4 bloquants sont corrigés et vérifiés (voir la section 8). Le verdict **après corrections** est **GO AVEC RÉSERVES**. Les réserves sont listées en section 8. Le verdict d'origine, sur la version `2cd7c4c`, est conservé ci-dessous.
+
+**NO-GO (version `2cd7c4c`).** Le constat bloquant suivant est confirmé par un `vercel build` réel : l'API ne se charge pas sur Vercel, donc le formulaire de contact ne marche pas en production. Il y a en plus une faille XSS exploitable, confirmée par une preuve d'exploitation.
 
 ## 2. Synthèse par domaine
 
@@ -334,3 +336,52 @@ Build de production généré hors du dépôt, avec `vite build --outDir <scratc
 | 13 | Mineurs restants (SEO, accessibilité, `dist/`, `.gitignore`, formatage, nettoyage) | MIN-* | M |
 
 **Effort total estimé :** environ **6 à 8 jours-personne**, soit 6 tâches S (environ 1 jour en tout), 6 tâches M (environ 4 à 5 jours) et 1 tâche L (1 à 2 jours), plus une marge pour les vérifications. Les étapes 1 à 4 suffisent à lever les bloquants, en environ 3 à 4 jours.
+
+## 8. Suivi des corrections des bloquants (13/10/2026)
+
+Chaque bloquant a été corrigé par un sous-agent dédié, dans un worktree isolé. Les corrections ont ensuite été fusionnées sur `claude/fervent-goodall-kw4isa`, et le tout a été revérifié ensemble :
+- `pnpm check` passe ;
+- `pnpm test` : 34 tests sur 34 ;
+- `check-themes.mjs` passe ;
+- build de production servi en local, avec un faux service Forge local qui enregistre les requêtes ;
+- vrai `vercel build` (vercel 63.1.2) d'une copie du dépôt, puis appel de la fonction produite.
+
+| Bloquant | Commit | Correctif | Vérification |
+|---|---|---|---|
+| BLQ-1 · API Vercel non chargeable | `758f12c` | Imports relatifs en `.js` et plus d'alias `@shared` dans `api/`, `server/`, `shared/` et `drizzle/` ; `api/` ajouté à `tsconfig.json`. | `vercel build` → `"status": "ok"`. La fonction `index.func` importe `../server/routers.js` et contient `shared/`. Chargée sous Node 22 : `system.health` → 200 `{"ok":true}` ; un message valide → 200, relayé au propriétaire ; une entrée invalide → 400 sans pile d'appels (`NODE_ENV=production`). L'agent a aussi validé le chargement sous Node 24, et la contre-épreuve sur l'ancienne version donne `ERR_MODULE_NOT_FOUND`. |
+| BLQ-2 · XSS du runtime Manus | `5c737a8` | `vitePluginManusRuntime` supprimé ; jsx-loc et le collecteur de debug limités au dev ; dans `vercel.json`, `frame-ancestors 'none'`, `X-Frame-Options: DENY`, `Cross-Origin-Opener-Policy: same-origin`, `nosniff` et `Referrer-Policy`. | `index.html` passe de 368 539 à 2 512 octets ; `manus-runtime` : 0 ; `data-loc` : 0. Preuve d'exploitation rejouée : titre inchangé (`Contact — Falou Badiane`). Les en-têtes sont présents dans `.vercel/output/config.json`. L'agent a vérifié qu'une iframe tierce est refusée et que COOP suffit seul à bloquer l'attaque par popup. |
+| BLQ-3 · `/api/chat` ouvert | `a0d4e52` | Route, `chat.ts` et `patchedFetch.ts` supprimés des deux points d'entrée. | `POST /api/chat` avec la clé Forge définie : 0 requête `/v1/chat/completions` reçue par le faux service (le repli SPA renvoie 200 HTML en `pnpm start`, 404 sur la fonction Vercel). |
+| BLQ-4 · Relais d'e-mails | `325c7fc` | Voir le détail ci-dessous. | Voir le détail ci-dessous. |
+
+**Détail de BLQ-4.**
+- **Correctif :**
+  - plus d'e-mail de confirmation au visiteur ;
+  - HTML échappé dans l'e-mail au propriétaire ;
+  - CR/LF retirés de l'objet ;
+  - schéma zod partagé entre le client et le serveur (`shared/contact.ts`, avec `.trim()` et des longueurs maximales) ;
+  - champ piège et contrôle d'un temps de remplissage d'au moins 3 s ;
+  - limitation à 5 envois par IP sur 10 min ;
+  - batching désactivé côté serveur (`httpLink` côté client) ;
+  - corps limité à 100 ko.
+- **Vérification :**
+  - Playwright : « Message envoyé ». Le faux service reçoit 1 notification et **1 seul** e-mail, adressé au propriétaire, avec `Audit &lt;b&gt;Test&lt;/b&gt;` et sans `<script>` brut.
+  - Un envoi groupé est refusé (400), un corps de 200 ko aussi (413).
+  - Champ piège rempli : 0 requête envoyée.
+  - 6 envois depuis la même IP : 200 ×5 puis **429**, et 0 e-mail vers l'adresse saisie.
+  - Avec `a@b.c`, le message d'erreur s'affiche sous le champ, sans JSON brut.
+
+**Réserves avant la mise en ligne (non bloquantes, à traiter par le propriétaire) :**
+1. **Variables Forge sur Vercel.** Sans `BUILT_IN_FORGE_API_URL` et `BUILT_IN_FORGE_API_KEY`, le formulaire renvoie toujours 500 (IMP-B1, testé en local). L'API Forge est propre à Manus et son accès depuis Vercel n'est pas vérifié. Solution durable : un fournisseur d'e-mail indépendant (Resend, Postmark, SMTP).
+2. **Limitation de débit.** Elle est en mémoire, donc propre à chaque instance serverless. Il faut configurer une règle de limitation du pare-feu Vercel sur `POST /api/trpc/contact.send`.
+3. **Validation sur un déploiement de prévisualisation.** Appeler `/api/trpc/system.health` et envoyer un message de test. Le lanceur Lambda réel n'a pas pu être testé d'ici.
+4. **Constats Importants restants** (sections 4 et 7), en particulier :
+   - IMP-S3 : ancien CV avec téléphone toujours publié ;
+   - IMP-D2 : lockfile ;
+   - IMP-S2 : dépendances, avec `ai`, `@ai-sdk/*` et `vite-plugin-manus-runtime` désormais inutilisés ;
+   - IMP-D3 : CI ;
+   - IMP-F1 : Umami cassé ;
+   - IMP-F2 : mentions légales ;
+   - IMP-B4 : OAuth du template.
+
+   Par rapport au plan d'action, les étapes 1 à 3 sont faites, et l'étape 4 l'est en partie : le fournisseur d'e-mail reste à remplacer, et IMP-B3 (délais d'attente) reste à faire.
+
