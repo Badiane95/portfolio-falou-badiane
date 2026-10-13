@@ -45,7 +45,7 @@ Il y a trois points d'entrée Express. Quand tu ajoutes une route API, déclare-
 - Les tests appellent les procédures avec `appRouter.createCaller(ctx)` et un contexte construit à la main, en mockant `./_core/notification` (voir `server/contact.test.ts`).
 
 ### Flux du formulaire de contact
-Le formulaire de `client/src/pages/Home.tsx` valide les champs côté client, puis appelle `trpc.contact.send`. Cette procédure applique une validation zod (messages en français), puis :
+Le formulaire (`client/src/components/ContactForm.tsx`, page `/contact`) valide les champs côté client avec les mêmes règles que le serveur, puis appelle `trpc.contact.send`. Cette procédure applique une validation zod (messages en français), puis :
 1. `notifyOwner()` envoie une notification Manus.
 2. `sendEmail()` (`server/_core/emailService.ts`) envoie une confirmation au visiteur.
 3. `sendEmail()` envoie le message à `OWNER_EMAIL`.
@@ -57,11 +57,13 @@ Ces deux fonctions d'envoi font un POST vers l'API Manus Forge (`BUILT_IN_FORGE_
 
 ### Client
 - La racine Vite est `client/`. Les alias de chemin sont `@/` → `client/src/` et `@shared/` → `shared/` ; ils sont définis dans `vite.config.ts`, `vitest.config.ts` et `tsconfig.json`.
-- Le routage utilise **wouter 3.7.1 avec un patch pnpm** (`patches/wouter@3.7.1.patch`, qui enregistre les chemins des routes dans `window.__WOUTER_ROUTES__`). Les routes sont déclarées dans `client/src/App.tsx`. `App.tsx` appelle `useHashLocation()` sans jamais le passer à un `<Router>` : le routage se fait donc en réalité par chemins (`/projects`, `/about`, …). Les liens directs vers une page ne fonctionnent que grâce aux replis SPA du serveur et de Vercel. `Navbar.tsx` utilise de simples `<a href>` (rechargement complet de la page), pas le `<Link>` de wouter.
-- Chaque page affiche sa propre `<Navbar />` ; il n'y a pas de composant de mise en page partagé. `ComponentShowcase.tsx` est une page de démonstration du template, sans route.
-- Le style utilise Tailwind CSS v4 via `@tailwindcss/vite`. Les tokens du thème sont dans `client/src/index.css`. Les composants shadcn/ui (style « new-york », `components.json`) sont générés dans `client/src/components/ui/`. Les pages utilisent aussi des couleurs de marque codées en dur en hexadécimal : primaire `#0052CC` et accent cyan `#06B6D4`. La police est Rubik. Les choix de design sont expliqués dans `ideas.md` (approche 1, « Minimalisme Moderne Technologique »).
-- Les animations au scroll utilisent AOS : attributs `data-aos`, avec `AOS.init` dans `Home.tsx` et `AOS.refresh` dans `Footer.tsx`.
-- Les fichiers statiques (CV en PDF, images des projets) se trouvent dans `client/public/`.
+- **Tout le contenu** (profil, projets, compétences, expérience, formation, chiffres) vit dans `client/src/data/portfolio.ts`. Les pages ne contiennent pas de texte de contenu en dur. L'explorateur de compétences relie une techno aux projets via le tableau `stack` de chaque projet : les noms doivent correspondre exactement à ceux de `skillGroups`.
+- Le routage utilise **wouter 3.7.1 avec un patch pnpm** (`patches/wouter@3.7.1.patch`, qui enregistre les chemins des routes dans `window.__WOUTER_ROUTES__`). Il se fait par chemins (`/projects`, `/about`, …), et les liens directs fonctionnent grâce aux replis SPA du serveur et de Vercel. Les routes sont déclarées dans `client/src/App.tsx`. La navigation interne passe par `<Link>` de wouter.
+- `components/Layout.tsx` enveloppe toutes les pages : barre de navigation, pied de page, palette de commandes (⌘K / Ctrl+K, `CommandPalette.tsx`) et transitions de page. `App.tsx` passe la même `location` à `<Layout>` et à `<Switch>` pour que la page sortante garde son contenu pendant l'animation de sortie (`AnimatePresence mode="wait"`).
+- L'état « projet ouvert » de `/projects` est porté par le fragment d'URL (`/projects#slug`, lu par `hooks/useHash.ts`). Les autres pages et la palette y renvoient avec ce format.
+- Les animations utilisent Framer Motion. Les briques réutilisables sont dans `components/motion/` : révélations par masque, texte qui se décode, compteurs, et la grille de points en canvas du hero. `<MotionConfig reducedMotion="user">` dans `App.tsx` et une règle CSS dans `index.css` respectent le réglage « réduire les animations » ; tout nouvel effet basé sur `requestAnimationFrame` doit vérifier `useReducedMotion()` lui-même.
+- Le style utilise Tailwind CSS v4 via `@tailwindcss/vite`. Les tokens du thème (papier `#f6f6f3`, encre `#111110`, un seul accent bleu `#2b3fe0`) et les classes `.eyebrow` / `.link-underline` sont dans `client/src/index.css`. Les polices sont Geist et Geist Mono (Google Fonts). Les composants shadcn/ui (style « new-york », `components.json`) sont générés dans `client/src/components/ui/`.
+- Les fichiers statiques (CV en PDF, images des projets) se trouvent dans `client/public/`. Plusieurs images de projets sont hébergées sur des CDN externes ; `ProjectImage.tsx` affiche un visuel de secours si elles ne se chargent pas.
 - `vite.config.ts` inclut des plugins propres à Manus : un plugin runtime, jsx-loc et un collecteur de debug qui écrit les logs du navigateur dans `.manus-logs/` en dev. C'est de la plomberie de template.
 
 ### Déploiement
