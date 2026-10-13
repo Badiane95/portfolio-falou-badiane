@@ -30,9 +30,10 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
-  // Configure body parser with larger size limit for file uploads
-  app.use(express.json({ limit: "50mb" }));
-  app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  // Corps limité à 100 ko : le formulaire de contact n'a pas besoin de plus
+  // (au-delà, Express répond 413).
+  app.use(express.json({ limit: "100kb" }));
+  app.use(express.urlencoded({ limit: "100kb", extended: true }));
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
   // tRPC API
@@ -41,6 +42,9 @@ async function startServer() {
     createExpressMiddleware({
       router: appRouter,
       createContext,
+      // Pas de lots : une requête HTTP = un appel, sinon un seul POST pourrait
+      // déclencher des dizaines d'envois (le client utilise httpLink).
+      allowBatching: false,
     })
   );
   // development mode uses Vite, production mode uses static files

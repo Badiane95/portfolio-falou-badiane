@@ -7,8 +7,10 @@ import { registerOAuthRoutes } from "../server/_core/oauth.js";
 
 const app = express();
 
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+// Corps limité à 100 ko : le formulaire de contact n'a pas besoin de plus
+// (au-delà, Express répond 413).
+app.use(express.json({ limit: "100kb" }));
+app.use(express.urlencoded({ limit: "100kb", extended: true }));
 
 // OAuth
 registerOAuthRoutes(app);
@@ -19,6 +21,9 @@ app.use(
   createExpressMiddleware({
     router: appRouter,
     createContext,
+    // Pas de lots : une requête HTTP = un appel, sinon un seul POST pourrait
+    // déclencher des dizaines d'envois (le client utilise httpLink).
+    allowBatching: false,
   })
 );
 

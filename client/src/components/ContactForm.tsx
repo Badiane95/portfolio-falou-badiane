@@ -1,86 +1,142 @@
 import { trpc } from "@/lib/trpc";
+import { CONTACT_LIMITS, contactFieldsSchema, type ContactField } from "@shared/contact";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { EASE_OUT } from "./motion/Reveal";
 
-type Field = "name" | "email" | "subject" | "message";
+type Field = ContactField;
 type Values = Record<Field, string>;
+type FieldErrors = Partial<Record<Field, string>>;
 
-// Mêmes règles que la validation zod du serveur (server/routers.ts).
-const RULES: Record<Field, { label: string; min: number; check?: (v: string) => boolean; message: string }> = {
-  name: { label: "Nom", min: 2, message: "Le nom doit contenir au moins 2 caractères." },
-  email: {
-    label: "E-mail",
-    min: 1,
-    check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
-    message: "Saisissez une adresse e-mail valide.",
-  },
-  subject: { label: "Sujet", min: 5, message: "Le sujet doit contenir au moins 5 caractères." },
-  message: { label: "Message", min: 10, message: "Le message doit contenir au moins 10 caractères." },
-};
-
+const FIELDS: Field[] = ["name", "email", "subject", "message"];
+const LABELS: Record<Field, string> = { name: "Nom", email: "E-mail", subject: "Sujet", message: "Message" };
 const EMPTY: Values = { name: "", email: "", subject: "", message: "" };
+const GENERIC_ERROR = "L'envoi a échoué. Réessayez dans un instant.";
 
+// Même schéma zod que le serveur (shared/contact.ts) : mêmes règles, mêmes messages.
 function validate(field: Field, value: string): string | null {
-  const rule = RULES[field];
-  const v = value.trim();
-  if (v.length < rule.min) return rule.message;
-  if (rule.check && !rule.check(v)) return rule.message;
-  return null;
+  const result = contactFieldsSchema.shape[field].safeParse(value);
+  return result.success ? null : (result.error.issues[0]?.message ?? "Valeur invalide.");
+}
+
+const isField = (value: unknown): value is Field => FIELDS.includes(value as Field);
+
+/**
+ * Traduit une erreur du serveur en message lisible. Une erreur de validation
+ * arrive sous forme de JSON (liste des problèmes zod) : on en extrait les
+ * messages par champ au lieu d'afficher le JSON brut.
+ */
+function readServerError(error: { message: string; data?: { code?: string } | null }): {
+  message: string;
+  fields: FieldErrors;
+} {
+  const code = error.data?.code;
+  if (code === "TOO_MANY_REQUESTS") {
+    return { message: error.message || "Trop de messages envoyés. Réessayez plus tard.", fields: {} };
+  }
+  if (code === "BAD_REQUEST") {
+    const fields: FieldErrors = {};
+    try {
+      const issues: unknown = JSON.parse(error.message);
+      if (Array.isArray(issues)) {
+        for (const issue of issues) {
+          const field = issue?.path?.[0];
+          if (isField(field) && typeof issue.message === "string" && !fields[field]) fields[field] = issue.message;
+        }
+      }
+    } catch {
+      // Pas du JSON : on garde le message générique ci-dessous.
+    }
+    return { message: "Certains champs ne sont pas valides. Corrigez-les puis renvoyez le message.", fields };
+  }
+  return { message: GENERIC_ERROR, fields: {} };
 }
 
 export function ContactForm() {
   const [values, setValues] = useState<Values>(EMPTY);
   const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({});
   const [serverError, setServerError] = useState<string | null>(null);
+  const [serverFieldErrors, setServerFieldErrors] = useState<FieldErrors>({});
   const [sent, setSent] = useState(false);
+  // Champ piège : invisible pour un humain, rempli par les robots naïfs.
+  const [trap, setTrap] = useState("");
+  // Instant d'ouverture du formulaire : le serveur ignore un envoi trop rapide.
+  const openedAt = useRef(0);
+
+  useEffect(() => {
+    openedAt.current = Date.now();
+  }, []);
 
   const mutation = trpc.contact.send.useMutation({
     onSuccess: () => {
       setSent(true);
       setValues(EMPTY);
       setTouched({});
+      setTrap("");
+      openedAt.current = Date.now();
       setTimeout(() => setSent(false), 4000);
     },
-    onError: error => setServerError(error.message || "L'envoi a échoué. Réessayez dans un instant."),
+    onError: error => {
+      const { message, fields } = readServerError(error);
+      setServerError(message);
+      setServerFieldErrors(fields);
+    },
   });
 
-  const errors = Object.fromEntries(
-    (Object.keys(RULES) as Field[]).map(f => [f, validate(f, values[f])])
-  ) as Record<Field, string | null>;
+  const errors = Object.fromEntries(FIELDS.map(f => [f, validate(f, values[f])])) as Record<Field, string | null>;
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const field = e.target.name as Field;
     setServerError(null);
-    setValues(v => ({ ...v, [e.target.name]: e.target.value }));
+    setServerFieldErrors(s => ({ ...s, [field]: undefined }));
+    setValues(v => ({ ...v, [field]: e.target.value }));
   };
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     setTouched({ name: true, email: true, subject: true, message: true });
-    const firstInvalid = (Object.keys(RULES) as Field[]).find(f => errors[f]);
-    if (firstInvalid) {
-      document.getElementById(`contact-${firstInvalid}`)?.focus();
+    const parsed = contactFieldsSchema.safeParse(values);
+    if (!parsed.success) {
+      const firstInvalid = FIELDS.find(f => errors[f]);
+      if (firstInvalid) document.getElementById(`contact-${firstInvalid}`)?.focus();
       return;
     }
     mutation.mutate({
-      name: values.name.trim(),
-      email: values.email.trim(),
-      subject: values.subject.trim(),
-      message: values.message.trim(),
+      ...parsed.data,
+      website: trap,
+      elapsedMs: Math.max(0, Math.round(Date.now() - openedAt.current)),
     });
   };
 
   const state = mutation.isPending ? "pending" : sent ? "sent" : "idle";
+  const shownErrors = Object.fromEntries(
+    FIELDS.map(f => [f, (touched[f] ? errors[f] : null) ?? serverFieldErrors[f] ?? null])
+  ) as Record<Field, string | null>;
+  const inputProps = { values, errors: shownErrors, onChange, setTouched };
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-6">
       <div className="grid gap-6 sm:grid-cols-2">
-        <Input field="name" autoComplete="name" values={values} errors={errors} touched={touched} onChange={onChange} setTouched={setTouched} />
-        <Input field="email" type="email" autoComplete="email" values={values} errors={errors} touched={touched} onChange={onChange} setTouched={setTouched} />
+        <Input field="name" autoComplete="name" {...inputProps} />
+        <Input field="email" type="email" autoComplete="email" {...inputProps} />
       </div>
-      <Input field="subject" values={values} errors={errors} touched={touched} onChange={onChange} setTouched={setTouched} />
-      <Input field="message" multiline values={values} errors={errors} touched={touched} onChange={onChange} setTouched={setTouched} />
+      <Input field="subject" {...inputProps} />
+      <Input field="message" multiline {...inputProps} />
+
+      {/* Champ piège anti-spam : hors écran, ignoré des lecteurs d'écran et hors du parcours clavier. */}
+      <div aria-hidden="true" className="pointer-events-none absolute -left-[10000px] h-px w-px overflow-hidden opacity-0">
+        <label htmlFor="contact-website">Site web (laisser vide)</label>
+        <input
+          id="contact-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={trap}
+          onChange={e => setTrap(e.target.value)}
+        />
+      </div>
 
       {serverError && (
         <p role="alert" className="rounded-md border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive">
@@ -142,7 +198,6 @@ function Input({
   autoComplete,
   values,
   errors,
-  touched,
   onChange,
   setTouched,
 }: {
@@ -152,13 +207,11 @@ function Input({
   autoComplete?: string;
   values: Values;
   errors: Record<Field, string | null>;
-  touched: Partial<Record<Field, boolean>>;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   setTouched: (fn: (t: Partial<Record<Field, boolean>>) => Partial<Record<Field, boolean>>) => void;
 }) {
   const id = `contact-${field}`;
-  const error = touched[field] ? errors[field] : null;
-  const rule = RULES[field];
+  const error = errors[field];
   const shared = {
     id,
     name: field,
@@ -173,15 +226,20 @@ function Input({
       error ? "border-destructive" : "border-border"
     }`,
   };
+  const length = values.message.trim().length;
 
   return (
     <div>
       <div className="flex items-baseline justify-between">
         <label htmlFor={id} className="eyebrow">
-          {rule.label}
+          {LABELS[field]}
         </label>
         {field === "message" && (
-          <span className="font-mono text-[11px] text-muted-foreground">{values.message.trim().length} car.</span>
+          <span
+            className={`font-mono text-[11px] ${length > CONTACT_LIMITS.message.max ? "text-destructive" : "text-muted-foreground"}`}
+          >
+            {length} / {CONTACT_LIMITS.message.max} car.
+          </span>
         )}
       </div>
       <div className="relative">
