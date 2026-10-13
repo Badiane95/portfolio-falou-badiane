@@ -237,6 +237,8 @@ export const skillsAtWork: Record<string, string[]> = {
 export const experience = [
   {
     period: "10/2026 — aujourd'hui",
+    start: "2026-10",
+    current: true,
     title: "Forward Deployed Engineer – Ingénieur IA",
     place: "Randstad Digital — alternance",
     location: "Issy-les-Moulineaux (92), sur site, équipe AI-SDLC",
@@ -247,6 +249,7 @@ export const experience = [
   },
   {
     period: "10/2025 — 09/2026",
+    start: "2025-10",
     title: "Développeur full-stack & data",
     place: "Unitee — alternance",
     location: "Gonesse (95), entreprise du BTP",
@@ -260,6 +263,7 @@ export const experience = [
   },
   {
     period: "04/2025 — 06/2025",
+    start: "2025-04",
     title: "Développeur full-stack",
     place: "Unitee — stage",
     location: "Gonesse (95)",
@@ -273,25 +277,31 @@ export const experience = [
 export const education = [
   {
     period: "09/2026 — 06/2028",
+    start: "2026-09",
+    current: true,
     title: "Master Informatique et Ingénierie des Données (IID)",
     place: "Université Paris 8 — Saint-Denis",
     note: "En alternance : 3 jours à l'école, 2 jours en entreprise en M1.",
+    rhythm: { ecole: 3, entreprise: 2 },
   },
   {
     period: "09/2023 — 06/2026",
+    start: "2023-09",
     title: "BUT Métiers du Multimédia et de l'Internet (MMI), parcours développement web",
     place: "IUT de Cergy-Pontoise",
   },
   {
     period: "09/2021 — 06/2023",
+    start: "2021-09",
     title: "Baccalauréat STMG — management et gestion",
     place: "Lycée Léonard de Vinci — Saint-Witz",
   },
 ];
 
+// `cefr` : niveau sur l'échelle européenne (A1 → C2) ; `native` pour la langue maternelle.
 export const languages = [
-  { name: "Français", level: "langue maternelle" },
-  { name: "Anglais", level: "B1, en progression" },
+  { name: "Français", level: "langue maternelle", cefr: "C2", native: true },
+  { name: "Anglais", level: "B1, en progression", cefr: "B1", native: false },
 ];
 
 export const qualities = ["Analyse et synthèse", "Rigueur", "Curiosité data et IA", "Vulgarisation"];
