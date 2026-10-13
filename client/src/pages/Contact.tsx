@@ -11,7 +11,7 @@ export default function Contact() {
 
   const channels = [
     { label: "GitHub", value: "Badiane95", href: profile.github },
-    { label: "LinkedIn", value: "falou-badiane", href: profile.linkedin },
+    { label: "LinkedIn", value: "Falou Badiane", href: profile.linkedin },
   ];
 
   return (

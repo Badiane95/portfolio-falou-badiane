@@ -127,7 +127,7 @@ portfolio-falou-badiane/
 ## 📧 Contact
 
 - **Email** : [À ajouter]
-- **LinkedIn** : [À ajouter]
+- **LinkedIn** : https://www.linkedin.com/in/falou-badiane-b555422a9/
 - **GitHub** : https://github.com/Badiane95
 - **Portfolio** : https://badiane95.github.io/portfolio-falou-badiane
 

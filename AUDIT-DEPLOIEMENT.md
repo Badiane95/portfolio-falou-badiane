@@ -383,5 +383,7 @@ Chaque bloquant a été corrigé par un sous-agent dédié, dans un worktree iso
    - IMP-F2 : mentions légales ;
    - IMP-B4 : OAuth du template.
 
+   IMP-F6 est résolu depuis : les images des projets sont toutes locales (illustrations SVG et captures), plus aucune ne dépend des CDN Manus.
+
    Par rapport au plan d'action, les étapes 1 à 3 sont faites, et l'étape 4 l'est en partie : le fournisseur d'e-mail reste à remplacer, et IMP-B3 (délais d'attente) reste à faire.
 

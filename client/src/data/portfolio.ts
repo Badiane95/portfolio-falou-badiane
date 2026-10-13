@@ -9,7 +9,7 @@ export const profile = {
   email: "badiane.falou95@gmail.com",
   cv: "/CV-Falou-Badiane.pdf",
   github: "https://github.com/Badiane95",
-  linkedin: "https://linkedin.com/in/falou-badiane",
+  linkedin: "https://www.linkedin.com/in/falou-badiane-b555422a9/",
   pitch:
     "Étudiant en Master Informatique et Ingénierie des Données, en alternance comme Forward Deployed Engineer – Ingénieur IA chez Randstad Digital. Je produis des indicateurs, j'automatise des reportings et je mets en production des cas d'usage IA.",
   interests:
@@ -68,6 +68,7 @@ export const projects: Project[] = [
     details:
       "Collecte de données via API, nettoyage et normalisation, classification NLP puis scoring des opportunités. Le résultat est exposé et intégré à l'ERP/CRM d'une entreprise pour alimenter directement les équipes.",
     stack: ["Python", "Pandas", "Classification NLP", "Scoring", "API REST"],
+    image: "/assets/projects/intelligence-territoriale.svg",
     featured: true,
   },
   {
@@ -81,8 +82,7 @@ export const projects: Project[] = [
     details:
       "Les utilisateurs créent des tâches de scraping avec sélecteurs CSS/XPath, les testent en direct, planifient leur exécution et consultent les résultats dans un tableau de bord. Le moteur gère les sites rendus en JavaScript, conserve un historique d'exécution et expose une API tRPC typée de bout en bout. Authentification, rôles et tests Vitest.",
     stack: ["React", "TypeScript", "Node.js", "tRPC", "Puppeteer", "Drizzle ORM", "Tailwind CSS", "Vitest", "Web Scraping", "Python"],
-    image:
-      "https://files.manuscdn.com/user_upload_by_module/session_file/310519663420683623/mifdGIkLVxoACgHe.jpg",
+    image: "/assets/projects/ai-web-scraper.svg",
     code: "https://github.com/Badiane95/ai-web-scraper-falou",
   },
   {
@@ -95,8 +95,7 @@ export const projects: Project[] = [
     details:
       "Architecture Nunjucks pour les templates, Vite pour le front, Node.js et Express côté serveur, MongoDB pour un contenu flexible. Accent mis sur le back-end et le front-end avancés, les interactions riches et la qualité web : gestion des 404, accessibilité, validation des formulaires côté client et design responsive en Tailwind CSS.",
     stack: ["Node.js", "Express.js", "MongoDB", "Nunjucks", "Vite", "Tailwind CSS", "JavaScript"],
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/institutional-website-9DwxxMR5NQEZsez2UQYHor.webp",
+    image: "/assets/projects/sae-501.svg",
     code: "https://github.com/lucasl0/SAE501",
     featured: true,
   },
@@ -125,8 +124,7 @@ export const projects: Project[] = [
     details:
       "Intégration d'API de cartographie pour localiser les salles et explorer les données cinématographiques. Filtrage dynamique, regroupement des points (clustering) et visualisations interactives pour rendre un jeu de données volumineux lisible.",
     stack: ["JavaScript", "Google Maps API", "D3.js", "Data Visualization"],
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/Carte_b42b0aad.PNG",
+    image: "/assets/projects/data-visualization.svg",
     live: "https://baptistectldwbr.github.io/SAE303/",
     code: "https://github.com/BaptisteCtldWbr/SAE303",
     featured: true,
@@ -141,8 +139,7 @@ export const projects: Project[] = [
     details:
       "Interface de gestion des utilisateurs, des contenus et des flux d'informations. Architecture sécurisée avec contrôle d'accès basé sur les rôles et base de données SQL dimensionnée pour une centaine d'utilisateurs par mois.",
     stack: ["PHP", "SQL / MySQL", "JavaScript", "Bootstrap", "HTML/CSS"],
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/site_cb4eaf72.jpg",
+    image: "/assets/projects/back-office.svg",
     code: "https://github.com/BaptisteCtldWbr/SAE203",
   },
   {
@@ -155,8 +152,7 @@ export const projects: Project[] = [
     details:
       "Une expérience qui mêle vidéo et interactivité web : Klynt pour la structure et la navigation, DaVinci Resolve pour le montage et l'étalonnage.",
     stack: ["Klynt", "DaVinci Resolve", "HTML/CSS", "JavaScript"],
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/webdoc_d24d8df9.png",
+    image: "/assets/projects/webdocumentaire.svg",
     live: "https://badiane95.github.io/Webdocummentaire/",
     code: "https://github.com/Badiane95/Webdocummentaire",
   },

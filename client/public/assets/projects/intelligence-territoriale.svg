@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Schéma du pipeline : collecte, nettoyage, classification NLP, scoring, intégration ERP/CRM">
+  <defs>
+    <pattern id="grille" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#C9CEDA"/>
+    </pattern>
+    <marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0B1530"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="750" fill="#EEF0F4"/>
+  <rect width="1200" height="750" fill="url(#grille)"/>
+
+  <text x="72" y="92" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" letter-spacing="3" fill="#5B6478">PIPELINE · INTELLIGENCE TERRITORIALE</text>
+
+  <!-- Étapes -->
+  <g font-family="Helvetica Neue, Arial, sans-serif">
+    <g transform="translate(72 170)">
+      <rect width="176" height="120" rx="14" fill="#FFFFFF" stroke="#0B1530" stroke-width="2"/>
+      <text x="20" y="38" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#5B6478">01</text>
+      <text x="20" y="74" font-size="24" font-weight="600" fill="#0B1530">Collecte</text>
+      <text x="20" y="100" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="#5B6478">API · 60+ sources</text>
+    </g>
+    <g transform="translate(290 170)">
+      <rect width="176" height="120" rx="14" fill="#FFFFFF" stroke="#0B1530" stroke-width="2"/>
+      <text x="20" y="38" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#5B6478">02</text>
+      <text x="20" y="74" font-size="24" font-weight="600" fill="#0B1530">Nettoyage</text>
+      <text x="20" y="100" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="#5B6478">pandas</text>
+    </g>
+    <g transform="translate(508 170)">
+      <rect width="176" height="120" rx="14" fill="#FFFFFF" stroke="#0B1530" stroke-width="2"/>
+      <text x="20" y="38" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#5B6478">03</text>
+      <text x="20" y="74" font-size="24" font-weight="600" fill="#0B1530">NLP</text>
+      <text x="20" y="100" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="#5B6478">classification</text>
+    </g>
+    <g transform="translate(726 170)">
+      <rect width="176" height="120" rx="14" fill="#2B3FE0"/>
+      <text x="20" y="38" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#DDE2FB">04</text>
+      <text x="20" y="74" font-size="24" font-weight="600" fill="#FFFFFF">Scoring</text>
+      <text x="20" y="100" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="#DDE2FB">score 0 – 100</text>
+    </g>
+    <g transform="translate(944 170)">
+      <rect width="184" height="120" rx="14" fill="#0B1530"/>
+      <text x="20" y="38" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#9FABC6">05</text>
+      <text x="20" y="74" font-size="24" font-weight="600" fill="#FFFFFF">ERP / CRM</text>
+      <text x="20" y="100" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="#9FABC6">intégration</text>
+    </g>
+  </g>
+  <g stroke="#0B1530" stroke-width="2" marker-end="url(#fleche)">
+    <line x1="250" y1="230" x2="286" y2="230"/>
+    <line x1="468" y1="230" x2="504" y2="230"/>
+    <line x1="686" y1="230" x2="722" y2="230"/>
+    <line x1="904" y1="230" x2="940" y2="230"/>
+  </g>
+
+  <!-- Classement des opportunités -->
+  <g transform="translate(72 360)">
+    <rect width="1056" height="320" rx="16" fill="#FFFFFF" stroke="#C9CEDA" stroke-width="2"/>
+    <text x="32" y="50" font-family="ui-monospace, Menlo, monospace" font-size="15" letter-spacing="2" fill="#5B6478">OPPORTUNITÉS · CLASSÉES PAR SCORE</text>
+    <g font-family="ui-monospace, Menlo, monospace" font-size="16" fill="#0B1530">
+      <text x="32" y="102">#01</text>
+      <text x="32" y="146">#02</text>
+      <text x="32" y="190">#03</text>
+      <text x="32" y="234">#04</text>
+      <text x="32" y="278">#05</text>
+    </g>
+    <g>
+      <rect x="96" y="86" width="760" height="20" rx="4" fill="#EEF0F4"/>
+      <rect x="96" y="86" width="699" height="20" rx="4" fill="#2B3FE0"/>
+      <rect x="96" y="130" width="760" height="20" rx="4" fill="#EEF0F4"/>
+      <rect x="96" y="130" width="616" height="20" rx="4" fill="#2B3FE0" opacity="0.85"/>
+      <rect x="96" y="174" width="760" height="20" rx="4" fill="#EEF0F4"/>
+      <rect x="96" y="174" width="585" height="20" rx="4" fill="#2B3FE0" opacity="0.7"/>
+      <rect x="96" y="218" width="760" height="20" rx="4" fill="#EEF0F4"/>
+      <rect x="96" y="218" width="486" height="20" rx="4" fill="#2B3FE0" opacity="0.5"/>
+      <rect x="96" y="262" width="760" height="20" rx="4" fill="#EEF0F4"/>
+      <rect x="96" y="262" width="365" height="20" rx="4" fill="#2B3FE0" opacity="0.35"/>
+    </g>
+    <g font-family="ui-monospace, Menlo, monospace" font-size="18" font-weight="600" fill="#0B1530" text-anchor="end">
+      <text x="930" y="102">92</text>
+      <text x="930" y="146">81</text>
+      <text x="930" y="190">77</text>
+      <text x="930" y="234">64</text>
+      <text x="930" y="278">48</text>
+    </g>
+    <g transform="translate(962 84)">
+      <rect width="66" height="26" rx="13" fill="#F2A93B"/>
+      <text x="33" y="18" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="600" fill="#0B1530" text-anchor="middle">TOP</text>
+    </g>
+  </g>
+</svg>
