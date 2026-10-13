@@ -31,7 +31,7 @@ function Routes() {
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider defaultTheme="light">
+      <ThemeProvider>
         {/* Toutes les animations respectent « réduire les animations » du système */}
         <MotionConfig reducedMotion="user">
           <TooltipProvider>

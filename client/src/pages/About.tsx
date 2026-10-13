@@ -1,6 +1,6 @@
 import { FadeIn } from "@/components/motion/Reveal";
 import { SectionHeader } from "@/components/SectionHeader";
-import { education, experience, profile } from "@/data/portfolio";
+import { education, experience, languages, profile, qualities } from "@/data/portfolio";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { motion } from "framer-motion";
 import { Download } from "lucide-react";
@@ -46,7 +46,11 @@ export default function About() {
         as="h1"
         label="Parcours"
         title="Entre code et données"
-        intro={profile.pitch}
+        intro={
+          <>
+            {profile.pitch} {profile.interests}
+          </>
+        }
         aside={
           <a
             href={profile.cv}
@@ -63,7 +67,8 @@ export default function About() {
           <h2 className="eyebrow mb-8">Expérience</h2>
           <Timeline>
             {experience.map(e => (
-              <Entry key={e.title} period={e.period} title={e.title} place={e.place}>
+              <Entry key={e.period} period={e.period} title={e.title} place={e.place}>
+                <p className="mt-1 text-sm text-muted-foreground">{e.location}</p>
                 <ul className="mt-4 space-y-2 text-muted-foreground">
                   {e.points.map(point => (
                     <li key={point} className="flex gap-3">
@@ -82,16 +87,33 @@ export default function About() {
             <h2 className="eyebrow mb-8">Formation</h2>
             <Timeline>
               {education.map(e => (
-                <Entry key={e.title} period={e.period} title={e.title} place={e.place} />
+                <Entry key={e.title} period={e.period} title={e.title} place={e.place}>
+                  {e.note && <p className="mt-2 text-sm text-muted-foreground">{e.note}</p>}
+                </Entry>
               ))}
             </Timeline>
           </div>
 
           <FadeIn>
             <h2 className="eyebrow mb-4">Langues</h2>
-            <p className="text-lg">
-              Anglais <span className="text-muted-foreground">— niveau avancé</span>
-            </p>
+            <ul className="space-y-1 text-lg">
+              {languages.map(l => (
+                <li key={l.name}>
+                  {l.name} <span className="text-muted-foreground">— {l.level}</span>
+                </li>
+              ))}
+            </ul>
+          </FadeIn>
+
+          <FadeIn>
+            <h2 className="eyebrow mb-4">Qualités</h2>
+            <ul className="flex flex-wrap gap-1.5">
+              {qualities.map(q => (
+                <li key={q} className="rounded-md border border-border bg-card px-2.5 py-1 text-sm">
+                  {q}
+                </li>
+              ))}
+            </ul>
           </FadeIn>
         </div>
       </div>

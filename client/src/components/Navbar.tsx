@@ -1,4 +1,5 @@
 import { NAV_LINKS, useCommandPalette } from "@/components/CommandPalette";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { profile } from "@/data/portfolio";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -72,6 +73,7 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeSwitcher />
           <button
             type="button"
             onClick={openPalette}

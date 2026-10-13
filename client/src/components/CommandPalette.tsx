@@ -7,8 +7,10 @@ import {
   CommandList,
   CommandShortcut,
 } from "@/components/ui/command";
+import { useTheme } from "@/contexts/ThemeContext";
 import { profile, projects } from "@/data/portfolio";
-import { ArrowUpRight, Copy, CornerDownLeft, Download, FileCode2, Github, Linkedin } from "lucide-react";
+import { THEMES } from "@/lib/themes";
+import { ArrowUpRight, Check, Copy, CornerDownLeft, Download, FileCode2, Github, Linkedin, Palette } from "lucide-react";
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
@@ -38,6 +40,7 @@ export async function copyEmail() {
 export function CommandPaletteProvider({ children }: { children: ReactNode }) {
   const [isOpen, setOpen] = useState(false);
   const [, navigate] = useLocation();
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -88,6 +91,23 @@ export function CommandPaletteProvider({ children }: { children: ReactNode }) {
                 <FileCode2 />
                 {p.title}
                 <CommandShortcut>{p.year}</CommandShortcut>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+          <CommandGroup heading="Thème">
+            {THEMES.map(t => (
+              <CommandItem
+                key={t.id}
+                value={`thème couleur ${t.label}`}
+                onSelect={() => run(() => setTheme(t.id, { x: window.innerWidth / 2, y: window.innerHeight / 2 }))}
+              >
+                <Palette />
+                Thème {t.label.toLowerCase()}
+                {theme === t.id && (
+                  <CommandShortcut>
+                    <Check className="size-3.5" />
+                  </CommandShortcut>
+                )}
               </CommandItem>
             ))}
           </CommandGroup>

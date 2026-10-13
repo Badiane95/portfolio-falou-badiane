@@ -4,15 +4,40 @@
 
 export const profile = {
   name: "Falou Badiane",
-  role: "Développeur web & automatisation",
-  location: "Cergy-Pontoise, France",
+  role: "Ingénieur IA & data",
+  location: "Île-de-France",
   email: "badiane.falou95@gmail.com",
   cv: "/CV-Falou-Badiane.pdf",
   github: "https://github.com/Badiane95",
   linkedin: "https://linkedin.com/in/falou-badiane",
   pitch:
-    "Étudiant en BUT MMI et développeur full-stack. Je conçois des interfaces soignées et j'automatise les processus métiers par la donnée : workflows IA, web scraping, back-offices.",
+    "Étudiant en Master Informatique et Ingénierie des Données, en alternance comme Forward Deployed Engineer – Ingénieur IA chez Randstad Digital. Je produis des indicateurs, j'automatise des reportings et je mets en production des cas d'usage IA.",
+  interests:
+    "Les agents IA appliqués au cycle de vie logiciel, la conformité de l'IA et le pilotage par la donnée.",
+  current: {
+    title: "Forward Deployed Engineer – Ingénieur IA",
+    company: "Randstad Digital",
+    since: "octobre 2026",
+  },
 };
+
+export const services = [
+  {
+    title: "IA appliquée",
+    text: "Cas d'usage IA mis en production : classification NLP, scoring, agents IA sur le cycle de vie logiciel, conformité AI Act.",
+    stack: "IA générative · Agents IA · NLP · AI Act",
+  },
+  {
+    title: "Data & automatisation",
+    text: "Données fiabilisées, KPI et tableaux de bord, reportings automatisés et workflows sans tâches répétitives.",
+    stack: "Python · SQL · n8n · Make · Pandas",
+  },
+  {
+    title: "Full-stack",
+    text: "Applications web et outils métier complets, de la base de données à l'interface, typés de bout en bout.",
+    stack: "React · TypeScript · Node.js · MySQL",
+  },
+];
 
 export type ProjectVideo = { id: string; title: string };
 
@@ -25,7 +50,7 @@ export type Project = {
   summary: string;
   details: string;
   stack: string[];
-  image: string;
+  image?: string;
   live?: string;
   code?: string;
   videos?: ProjectVideo[];
@@ -33,6 +58,18 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    slug: "intelligence-territoriale",
+    title: "Intelligence territoriale automatisée",
+    year: "2025 – 2026",
+    context: "Projet académique — IUT de Cergy-Pontoise",
+    summary:
+      "Pipeline IA complet : collecte via API, nettoyage, classification NLP et scoring d'opportunités, intégré à un ERP/CRM d'entreprise.",
+    details:
+      "Collecte de données via API, nettoyage et normalisation, classification NLP puis scoring des opportunités. Le résultat est exposé et intégré à l'ERP/CRM d'une entreprise pour alimenter directement les équipes.",
+    stack: ["Python", "Pandas", "Classification NLP", "Scoring", "API REST"],
+    featured: true,
+  },
   {
     slug: "ai-web-scraper",
     title: "AI Web Scraper & Data Analyzer",
@@ -43,11 +80,10 @@ export const projects: Project[] = [
       "Plateforme d'extraction de données web : tâches de scraping, test des sélecteurs en temps réel, planification et tableau de bord.",
     details:
       "Les utilisateurs créent des tâches de scraping avec sélecteurs CSS/XPath, les testent en direct, planifient leur exécution et consultent les résultats dans un tableau de bord. Le moteur gère les sites rendus en JavaScript, conserve un historique d'exécution et expose une API tRPC typée de bout en bout. Authentification, rôles et tests Vitest.",
-    stack: ["React", "TypeScript", "Node.js", "tRPC", "Puppeteer", "Drizzle ORM", "Tailwind CSS", "Vitest", "Web Scraping"],
+    stack: ["React", "TypeScript", "Node.js", "tRPC", "Puppeteer", "Drizzle ORM", "Tailwind CSS", "Vitest", "Web Scraping", "Python"],
     image:
       "https://files.manuscdn.com/user_upload_by_module/session_file/310519663420683623/mifdGIkLVxoACgHe.jpg",
     code: "https://github.com/Badiane95/ai-web-scraper-falou",
-    featured: true,
   },
   {
     slug: "sae-501",
@@ -104,7 +140,7 @@ export const projects: Project[] = [
       "Back-office sur mesure pour gérer les flux d'informations de l'IUT, avec contrôle d'accès par rôles.",
     details:
       "Interface de gestion des utilisateurs, des contenus et des flux d'informations. Architecture sécurisée avec contrôle d'accès basé sur les rôles et base de données SQL dimensionnée pour une centaine d'utilisateurs par mois.",
-    stack: ["PHP", "MySQL", "JavaScript", "Bootstrap", "HTML/CSS"],
+    stack: ["PHP", "SQL / MySQL", "JavaScript", "Bootstrap", "HTML/CSS"],
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663323740600/eyEgUk4eTR46b2byXPoV73/site_cb4eaf72.jpg",
     code: "https://github.com/BaptisteCtldWbr/SAE203",
@@ -148,34 +184,34 @@ export type SkillGroup = { id: string; title: string; skills: string[] };
 
 export const skillGroups: SkillGroup[] = [
   {
-    id: "front",
-    title: "Front-end",
-    skills: ["React", "TypeScript", "JavaScript", "HTML/CSS", "Tailwind CSS", "Bootstrap", "Vite", "Nunjucks"],
+    id: "ia",
+    title: "IA & automatisation",
+    skills: ["IA générative", "Agents IA", "Classification NLP", "Scoring", "Conformité IA (AI Act)", "n8n", "Make", "Web Scraping", "Puppeteer"],
   },
   {
-    id: "back",
-    title: "Back-end & données",
-    skills: ["Node.js", "Express.js", "tRPC", "PHP", "MySQL", "MongoDB", "Drizzle ORM", "Vitest"],
+    id: "data",
+    title: "Data & analyse",
+    skills: ["Python", "Pandas", "NumPy", "SQL / MySQL", "Scikit-Learn (notions)", "Analyse de KPI"],
   },
   {
-    id: "automation",
-    title: "Automatisation & data",
-    skills: ["Python", "Web Scraping", "Puppeteer", "Workflows IA", "Data Visualization", "D3.js", "Google Maps API"],
+    id: "reporting",
+    title: "Dataviz & reporting",
+    skills: ["Tableaux de bord", "Automatisation de rapports", "Data Visualization", "D3.js", "Google Maps API", "Power BI (en cours)", "Tableau / Qlik (découverte)", "Documentation technique"],
   },
   {
-    id: "game",
-    title: "Jeu vidéo",
-    skills: ["Unity", "C#", "Game Design", "Physics Engine"],
+    id: "web",
+    title: "Développement web",
+    skills: ["React", "TypeScript", "JavaScript", "Node.js", "Express.js", "tRPC", "API REST", "PHP", "MongoDB", "Drizzle ORM", "HTML/CSS", "Tailwind CSS", "Bootstrap", "Vite", "Nunjucks", "Vitest"],
   },
   {
-    id: "design",
-    title: "Design & vidéo",
-    skills: ["Figma", "UI/UX Design", "Responsive Design", "Adobe Suite", "DaVinci Resolve", "Klynt", "Tournage vidéo"],
+    id: "creatif",
+    title: "Jeu vidéo, design & vidéo",
+    skills: ["Unity", "C#", "Game Design", "Physics Engine", "Figma", "Klynt", "DaVinci Resolve", "Tournage vidéo"],
   },
   {
     id: "tools",
-    title: "Outils & méthodes",
-    skills: ["Git", "GitHub", "CI/CD", "Agile / Scrum", "REST APIs"],
+    title: "Outils",
+    skills: ["Git", "GitHub"],
   },
 ];
 
@@ -183,39 +219,90 @@ export function projectsUsing(skill: string): Project[] {
   return projects.filter(p => p.stack.includes(skill));
 }
 
-// Compétences mises en œuvre en entreprise (voir `experience`).
-export const skillsUsedAtWork = ["Workflows IA", "Web Scraping", "Figma", "MySQL", "Responsive Design", "UI/UX Design"];
+// Compétences mises en œuvre en entreprise (voir `experience`), avec l'employeur.
+export const skillsAtWork: Record<string, string[]> = {
+  "IA générative": ["Randstad Digital", "Unitee"],
+  "Agents IA": ["Randstad Digital"],
+  "Conformité IA (AI Act)": ["Randstad Digital"],
+  "Classification NLP": ["Unitee"],
+  Scoring: ["Unitee"],
+  n8n: ["Unitee"],
+  Make: ["Unitee"],
+  Python: ["Unitee"],
+  "SQL / MySQL": ["Unitee"],
+  "Analyse de KPI": ["Unitee"],
+  "Tableaux de bord": ["Unitee"],
+  "Automatisation de rapports": ["Unitee"],
+  "Documentation technique": ["Unitee"],
+  React: ["Unitee"],
+  "Node.js": ["Unitee"],
+};
 
 export const experience = [
   {
-    period: "09/2025 — aujourd'hui",
-    title: "Développeur web & automatisation",
-    place: "Unitee — Station Numixs",
+    period: "10/2026 — aujourd'hui",
+    title: "Forward Deployed Engineer – Ingénieur IA",
+    place: "Randstad Digital — alternance",
+    location: "Issy-les-Moulineaux (92), sur site, équipe AI-SDLC",
     points: [
-      "Conception et déploiement de 5 workflows automatisés par IA, réduisant de 20 % le temps opérationnel.",
-      "Architecture complète d'un site full-stack avec base SQL, pour environ 100 utilisateurs par mois.",
-      "7 maquettes interactives sur Figma et intégration responsive.",
-      "Développement et maintenance de 10 scripts de web scraping pour l'analyse concurrentielle sur 3 marchés.",
+      "Équipe AI-SDLC : une offre qui associe plateforme, agents IA et expertise humaine sur tout le cycle de vie logiciel, de la rétro-documentation à l'exploitation.",
+      "Participation à un outil d'automatisation de la classification des systèmes d'IA selon l'AI Act et de la tenue du registre IA, avec la direction qualité opérationnelle.",
+    ],
+  },
+  {
+    period: "10/2025 — 09/2026",
+    title: "Développeur full-stack & data",
+    place: "Unitee — alternance",
+    location: "Gonesse (95), entreprise du BTP",
+    points: [
+      "Collecte, consolidation et fiabilisation de données issues d'un ERP/CRM (React, Node.js, MySQL) : contrôles de cohérence et traçabilité.",
+      "Production et analyse de KPI : tableaux de bord de pilotage pour les équipes opérationnelles et le management.",
+      "Automatisation des rapports périodiques avec des scripts Python et SQL.",
+      "IA appliquée : classification NLP et scoring de pertinence sur plus de 60 sources externes, intégrés à un outil métier.",
+      "Documentation technique, bonnes pratiques et accompagnement des utilisateurs.",
+    ],
+  },
+  {
+    period: "04/2025 — 06/2025",
+    title: "Développeur full-stack",
+    place: "Unitee — stage",
+    location: "Gonesse (95)",
+    points: [
+      "Automatisation de 5 workflows par IA générative (n8n, Make), soit environ 20 % de temps gagné sur les tâches répétitives.",
+      "Conception d'une base de données SQL et d'un site web utilisé par environ 100 personnes par mois.",
     ],
   },
 ];
 
 export const education = [
   {
+    period: "09/2026 — 06/2028",
+    title: "Master Informatique et Ingénierie des Données (IID)",
+    place: "Université Paris 8 — Saint-Denis",
+    note: "En alternance : 3 jours à l'école, 2 jours en entreprise en M1.",
+  },
+  {
     period: "09/2023 — 06/2026",
-    title: "BUT Métiers du Multimédia et de l'Internet (MMI)",
+    title: "BUT Métiers du Multimédia et de l'Internet (MMI), parcours développement web",
     place: "IUT de Cergy-Pontoise",
   },
   {
     period: "09/2021 — 06/2023",
-    title: "Baccalauréat STMG — Systèmes d'Information de Gestion",
-    place: "Lycée, France",
+    title: "Baccalauréat STMG — management et gestion",
+    place: "Lycée Léonard de Vinci — Saint-Witz",
   },
 ];
 
+export const languages = [
+  { name: "Français", level: "langue maternelle" },
+  { name: "Anglais", level: "B1, en progression" },
+];
+
+export const qualities = ["Analyse et synthèse", "Rigueur", "Curiosité data et IA", "Vulgarisation"];
+
 export const metrics = [
-  { value: 5, suffix: "", label: "workflows IA déployés en entreprise" },
-  { value: 20, suffix: " %", label: "de temps opérationnel gagné" },
-  { value: 10, suffix: "", label: "scripts de scraping maintenus" },
-  { value: projects.length, suffix: "", label: "projets présentés ici" },
+  { value: 60, suffix: "+", label: "sources externes classées et scorées par NLP" },
+  { value: 5, suffix: "", label: "workflows automatisés par IA générative" },
+  { value: 20, suffix: " %", label: "de temps gagné sur les tâches répétitives" },
+  { value: 100, suffix: "", label: "utilisateurs par mois sur le site livré" },
 ];

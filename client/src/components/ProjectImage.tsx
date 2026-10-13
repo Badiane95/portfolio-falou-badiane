@@ -11,7 +11,7 @@ export function ProjectImage({
   className,
   eager = false,
 }: {
-  src: string;
+  src?: string;
   title: string;
   index: number;
   className?: string;
@@ -19,7 +19,7 @@ export function ProjectImage({
 }) {
   const [failed, setFailed] = useState(false);
 
-  if (failed) {
+  if (failed || !src) {
     return (
       <div
         role="img"

@@ -26,6 +26,8 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -44,41 +46,110 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-:root {
-  /* Papier, encre et un seul accent bleu électrique */
-  --background: #f6f6f3;
-  --foreground: #111110;
+/*
+ * Thèmes de couleur. Un bloc par thème, mêmes tokens partout.
+ * Le thème actif est posé sur <html data-theme="…"> (script en ligne de
+ * index.html, puis ThemeContext). Mode d'emploi : .claude/skills/theme-system.
+ */
+:root,
+[data-theme="clair"] {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #0f1115;
   --card: #ffffff;
-  --card-foreground: #111110;
+  --card-foreground: #0f1115;
   --popover: #ffffff;
-  --popover-foreground: #111110;
+  --popover-foreground: #0f1115;
   --primary: #2b3fe0;
   --primary-foreground: #ffffff;
-  --secondary: #ecece7;
-  --secondary-foreground: #111110;
-  --muted: #ecece7;
-  --muted-foreground: #5d5d58;
-  --accent: #ecece7;
-  --accent-foreground: #111110;
+  --secondary: #f1f2f4;
+  --secondary-foreground: #0f1115;
+  --muted: #f1f2f4;
+  --muted-foreground: #5b606b;
+  --accent: #f1f2f4;
+  --accent-foreground: #0f1115;
   --destructive: #c4321f;
   --destructive-foreground: #ffffff;
-  --border: #deded8;
-  --input: #deded8;
+  --success: #1f7a4d;
+  --success-foreground: #ffffff;
+  --border: #e2e4e9;
+  --input: #e2e4e9;
   --ring: #2b3fe0;
+}
+
+[data-theme="nuit"] {
+  color-scheme: dark;
+  --background: #0b1530;
+  --foreground: #e8edf7;
+  --card: #111d3d;
+  --card-foreground: #e8edf7;
+  --popover: #111d3d;
+  --popover-foreground: #e8edf7;
+  --primary: #8aa0ff;
+  --primary-foreground: #0b1530;
+  --secondary: #172449;
+  --secondary-foreground: #e8edf7;
+  --muted: #172449;
+  --muted-foreground: #9fabc6;
+  --accent: #172449;
+  --accent-foreground: #e8edf7;
+  --destructive: #ff8f80;
+  --destructive-foreground: #0b1530;
+  --success: #5fd49a;
+  --success-foreground: #0b1530;
+  --border: #24345e;
+  --input: #24345e;
+  --ring: #8aa0ff;
+}
+
+[data-theme="noir"] {
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --foreground: #ededea;
+  --card: #141414;
+  --card-foreground: #ededea;
+  --popover: #141414;
+  --popover-foreground: #ededea;
+  --primary: #8c9bff;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1c1c1c;
+  --secondary-foreground: #ededea;
+  --muted: #1c1c1c;
+  --muted-foreground: #a3a39d;
+  --accent: #1c1c1c;
+  --accent-foreground: #ededea;
+  --destructive: #ff8a7a;
+  --destructive-foreground: #0a0a0a;
+  --success: #5fd49a;
+  --success-foreground: #0a0a0a;
+  --border: #2a2a2a;
+  --input: #2a2a2a;
+  --ring: #8c9bff;
+}
+
+/* Tokens dérivés, identiques pour tous les thèmes */
+:root {
   --radius: 0.625rem;
-  --chart-1: #2b3fe0;
-  --chart-2: #111110;
-  --chart-3: #5d5d58;
-  --chart-4: #9a9a93;
-  --chart-5: #deded8;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #111110;
-  --sidebar-primary: #2b3fe0;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #ecece7;
-  --sidebar-accent-foreground: #111110;
-  --sidebar-border: #deded8;
-  --sidebar-ring: #2b3fe0;
+  --chart-1: var(--primary);
+  --chart-2: var(--foreground);
+  --chart-3: var(--muted-foreground);
+  --chart-4: var(--border);
+  --chart-5: var(--secondary);
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--secondary);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+/* Changement de thème : le nouveau thème se dévoile en cercle (ThemeContext) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 @layer base {

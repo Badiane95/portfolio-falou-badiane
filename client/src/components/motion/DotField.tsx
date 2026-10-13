@@ -1,3 +1,4 @@
+import { useTheme } from "@/contexts/ThemeContext";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
@@ -17,6 +18,8 @@ const DAMPING = 0.78;
 export function DotField({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduce = useReducedMotion();
+  // Les couleurs sont lues dans les variables CSS : on redessine à chaque thème.
+  const { theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,8 +28,8 @@ export function DotField({ className }: { className?: string }) {
     if (!canvas || !host || !ctx) return;
 
     const styles = getComputedStyle(document.documentElement);
-    const ink = styles.getPropertyValue("--foreground").trim() || "#111110";
-    const accent = styles.getPropertyValue("--primary").trim() || "#2b3fe0";
+    const ink = styles.getPropertyValue("--foreground").trim() || "black";
+    const accent = styles.getPropertyValue("--primary").trim() || "blue";
 
     let width = 0;
     let height = 0;
@@ -129,7 +132,7 @@ export function DotField({ className }: { className?: string }) {
       host.removeEventListener("pointerleave", onLeave);
       if (frame !== null) cancelAnimationFrame(frame);
     };
-  }, [reduce]);
+  }, [reduce, theme]);
 
   return <canvas ref={canvasRef} aria-hidden="true" className={`pointer-events-none absolute inset-0 ${className ?? ""}`} />;
 }

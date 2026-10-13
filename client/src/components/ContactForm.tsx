@@ -93,8 +93,10 @@ export function ContactForm() {
           type="submit"
           layout
           disabled={state === "pending"}
-          className={`relative inline-flex h-12 items-center justify-center gap-2 overflow-hidden rounded-md px-6 text-sm font-medium text-background transition-colors disabled:cursor-wait ${
-            state === "sent" ? "bg-[#1f7a4d]" : "bg-foreground hover:bg-primary"
+          className={`relative inline-flex h-12 items-center justify-center gap-2 overflow-hidden rounded-md px-6 text-sm font-medium transition-colors disabled:cursor-wait ${
+            state === "sent"
+              ? "bg-success text-success-foreground"
+              : "bg-foreground text-background hover:bg-primary hover:text-primary-foreground"
           }`}
           transition={{ duration: 0.35, ease: EASE_OUT }}
         >

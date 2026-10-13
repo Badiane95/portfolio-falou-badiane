@@ -5,28 +5,10 @@ import { FadeIn, SplitLetters } from "@/components/motion/Reveal";
 import { ScrambleText } from "@/components/motion/ScrambleText";
 import { ProjectList } from "@/components/ProjectList";
 import { SectionHeader } from "@/components/SectionHeader";
-import { metrics, profile, projects } from "@/data/portfolio";
+import { metrics, profile, projects, services } from "@/data/portfolio";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { ArrowRight, ArrowUpRight, Copy, Download } from "lucide-react";
 import { Link } from "wouter";
-
-const services = [
-  {
-    title: "Full-stack",
-    text: "Applications React typées de bout en bout : API tRPC ou REST, base SQL ou NoSQL, tests.",
-    stack: "React · TypeScript · Node.js · tRPC · MySQL",
-  },
-  {
-    title: "Automatisation & IA",
-    text: "Workflows IA et scripts de web scraping qui transforment des données brutes en décisions.",
-    stack: "Workflows IA · Puppeteer · Python · Data viz",
-  },
-  {
-    title: "Interfaces",
-    text: "Maquettes Figma intégrées au pixel près, responsive, accessibles et animées avec retenue.",
-    stack: "Figma · Tailwind CSS · Framer Motion",
-  },
-];
 
 export default function Home() {
   usePageTitle();
@@ -74,13 +56,14 @@ export default function Home() {
               >
                 <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                   <span className="relative flex size-2">
-                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#1f7a4d] opacity-60" />
-                    <span className="relative inline-flex size-2 rounded-full bg-[#1f7a4d]" />
+                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-60" />
+                    <span className="relative inline-flex size-2 rounded-full bg-success" />
                   </span>
                   En poste
                 </span>
                 <span className="mt-2 block text-sm">
-                  Développeur web & automatisation chez <strong className="font-medium">Unitee</strong>, depuis septembre 2025.
+                  {profile.current.title} chez <strong className="font-medium">{profile.current.company}</strong>, depuis{" "}
+                  {profile.current.since}.
                 </span>
               </Link>
             </FadeIn>
@@ -129,7 +112,7 @@ export default function Home() {
           index="03"
           label="En entreprise"
           title="Des résultats mesurés"
-          intro="Chez Unitee (Station Numixs), depuis septembre 2025 : automatisation, scraping et développement full-stack."
+          intro="Chez Unitee, en stage puis en alternance (2025 – 2026) : données fiabilisées, IA appliquée et automatisation."
         />
         <dl className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
           {metrics.map(m => (

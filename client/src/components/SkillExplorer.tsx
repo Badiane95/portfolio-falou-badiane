@@ -1,4 +1,4 @@
-import { projectsUsing, skillGroups, skillsUsedAtWork } from "@/data/portfolio";
+import { projectsUsing, skillGroups, skillsAtWork } from "@/data/portfolio";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { ArrowUpRight, Briefcase } from "lucide-react";
 import { useState } from "react";
@@ -12,7 +12,8 @@ import { EASE_OUT } from "./motion/Reveal";
 export function SkillExplorer({ initial = "React" }: { initial?: string }) {
   const [selected, setSelected] = useState(initial);
   const related = projectsUsing(selected);
-  const atWork = skillsUsedAtWork.includes(selected);
+  const employers = skillsAtWork[selected] ?? [];
+  const atWork = employers.length > 0;
 
   return (
     <LayoutGroup>
@@ -20,7 +21,7 @@ export function SkillExplorer({ initial = "React" }: { initial?: string }) {
         <div className="space-y-8">
           {skillGroups.map(group => (
             <div key={group.id} className="grid gap-3 sm:grid-cols-[11rem_1fr]">
-              <h3 className="eyebrow pt-2">{group.title}</h3>
+              <h2 className="eyebrow pt-2">{group.title}</h2>
               <ul className="flex flex-wrap gap-1.5">
                 {group.skills.map(skill => {
                   const active = skill === selected;
@@ -95,7 +96,7 @@ export function SkillExplorer({ initial = "React" }: { initial?: string }) {
                     className="flex items-center gap-3 rounded-lg border border-primary/25 bg-primary/5 px-3 py-2.5 text-sm"
                   >
                     <Briefcase className="size-4 text-primary" />
-                    En entreprise chez Unitee
+                    En entreprise : {employers.join(", ")}
                   </Link>
                 </motion.li>
               )}
