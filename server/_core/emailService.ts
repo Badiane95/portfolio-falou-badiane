@@ -1,4 +1,4 @@
-import { ENV } from "./env";
+import { ENV } from "./env.js";
 import { TRPCError } from "@trpc/server";
 
 export interface EmailPayload {
