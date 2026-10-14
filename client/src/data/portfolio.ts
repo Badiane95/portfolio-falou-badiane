@@ -6,7 +6,7 @@ export const profile = {
   name: "Falou Badiane",
   role: "Ingénieur IA & data",
   location: "Île-de-France",
-  email: "badiane.falou95@gmail.com",
+  email: "pro.badiane4@gmail.com",
   cv: "/CV-Falou-Badiane.pdf",
   github: "https://github.com/Badiane95",
   linkedin: "https://www.linkedin.com/in/falou-badiane-b555422a9/",
@@ -62,11 +62,11 @@ export const projects: Project[] = [
     slug: "intelligence-territoriale",
     title: "Intelligence territoriale automatisée",
     year: "2025 – 2026",
-    context: "Projet académique — IUT de Cergy-Pontoise",
+    context: "Projet en entreprise — Unitee (alternance)",
     summary:
       "Pipeline IA complet : collecte via API, nettoyage, classification NLP et scoring d'opportunités, intégré à un ERP/CRM d'entreprise.",
     details:
-      "Collecte de données via API, nettoyage et normalisation, classification NLP puis scoring des opportunités. Le résultat est exposé et intégré à l'ERP/CRM d'une entreprise pour alimenter directement les équipes.",
+      "Collecte de données via API, nettoyage et normalisation, classification NLP puis scoring des opportunités. Le résultat est exposé et intégré à l'ERP/CRM d'Unitee pour alimenter directement les équipes.",
     stack: ["Python", "Pandas", "Classification NLP", "Scoring", "API REST"],
     image: "/assets/projects/intelligence-territoriale.svg",
     featured: true,

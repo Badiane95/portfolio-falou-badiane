@@ -5,7 +5,7 @@
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index" },
     {
-      "source": "/((?!assets|api|__manus__|Falou-Badiane-CV\\.pdf).*)",
+      "source": "/((?!assets|api|__manus__).*)",
       "destination": "/index.html"
     }
   ],

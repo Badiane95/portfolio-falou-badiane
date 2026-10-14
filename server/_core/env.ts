@@ -8,7 +8,7 @@ export const ENV = {
   forgeApiUrl: process.env.BUILT_IN_FORGE_API_URL ?? "",
   forgeApiKey: process.env.BUILT_IN_FORGE_API_KEY ?? "",
   // Destinataire des messages du formulaire de contact (l'adresse publique du site par défaut).
-  ownerEmail: process.env.OWNER_EMAIL || "badiane.falou95@gmail.com",
+  ownerEmail: process.env.OWNER_EMAIL || "pro.badiane4@gmail.com",
   // Resend (https://resend.com) : fournisseur d'e-mail utilisé en production sur Vercel.
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   resendApiUrl: process.env.RESEND_API_URL || "https://api.resend.com",

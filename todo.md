@@ -107,3 +107,6 @@
 - [x] Ajouter une section "Aperçu des Projets" avec 3 projets en vedette et CTA vers /projects
 - [x] Ajouter une section "À Propos" avec statistiques et CTA vers /about
 - [x] Ajouter des animations AOS sur les nouvelles sections (fade-up, fade-right, fade-left, zoom-in)
+- [x] Projet « Intelligence territoriale automatisée » rattaché à Unitee (alternance), et non à l'IUT
+- [x] Adresse e-mail publique remplacée par pro.badiane4@gmail.com
+- [x] Skill d'inspection avant déploiement (inspecteur + correcteurs en sous-agents)
