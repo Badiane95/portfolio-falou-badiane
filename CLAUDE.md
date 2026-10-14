@@ -71,6 +71,8 @@ L'e-mail part par **Resend** (`RESEND_API_KEY`, à définir dans les variables d
 - `vite.config.ts` ne garde que deux plugins Manus, limités au serveur de dev (`apply: "serve"`) : jsx-loc et un collecteur de debug qui écrit les logs du navigateur dans `.manus-logs/`. Le runtime Manus a été retiré : il ouvrait une faille XSS par `postMessage`. N'ajoute aucun script tiers qui écoute `message` sans vérifier `event.origin`.
 
 ### Déploiement
+**Avant toute mise en production** (fusion dans `main`), lance une inspection du code avec le skill `.claude/skills/inspection-predeploiement` : un sous-agent inspecteur lance `scripts/verifier.mjs` (types, tests, thèmes, imports ESM, chargement réel de la fonction Vercel, cohérence des données, secrets, build), relit le diff, puis délègue chaque anomalie prouvée à un sous-agent correcteur et revérifie sa correction.
+
 Vercel est la cible active (`vercel.json` ; dossier de sortie `dist/public`, API dans `api/index.ts`). `vercel.json` pose sur toutes les pages des en-têtes de sécurité (`frame-ancestors 'none'`, `X-Frame-Options`, `Cross-Origin-Opener-Policy`, `nosniff`, `Referrer-Policy`) ; ils ne s'appliquent pas à `pnpm start`. La CSP ne contient que `frame-ancestors` : une CSP de scripts devra autoriser le script de thème en ligne de `index.html` par son hash. Le workflow GitHub Pages se trouve dans `github/workflows/deploy.yml`, **et non** dans `.github/`, donc GitHub Actions ne l'exécute jamais. De toute façon, un déploiement statique sur GitHub Pages ne pourrait pas servir l'API tRPC.
 
 `todo.md` contient la liste des fonctionnalités (en français).

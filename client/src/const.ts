@@ -17,7 +17,7 @@ export const getLoginUrl = () => {
 };
 
 // Contact information
-export const CONTACT_EMAIL = "badiane.falou95@gmail.com";
+export const CONTACT_EMAIL = "pro.badiane4@gmail.com";
 export const CONTACT_PHONE = "+33 (à ajouter si nécessaire)";
 export const SOCIAL_LINKS = {
   github: "https://github.com/Badiane95",
