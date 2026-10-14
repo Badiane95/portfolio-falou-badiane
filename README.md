@@ -133,7 +133,7 @@ portfolio-falou-badiane/
 
 ## 📄 CV
 
-Téléchargez mon CV complet depuis le portfolio : [Falou-Badiane-CV.pdf](./client/public/Falou-Badiane-CV.pdf)
+Téléchargez mon CV complet depuis le portfolio : [CV-Falou-Badiane.pdf](./client/public/CV-Falou-Badiane.pdf)
 
 ## 📝 Licence
 
