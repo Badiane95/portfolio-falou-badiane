@@ -151,8 +151,10 @@ async function contentData() {
   const envTs = fs.readFileSync(path.join(ROOT, "server/_core/env.ts"), "utf8");
   const constEmail = constTs.match(/CONTACT_EMAIL\s*=\s*"([^"]+)"/)?.[1];
   const ownerDefault = envTs.match(/OWNER_EMAIL\s*\|\|\s*"([^"]+)"/)?.[1];
-  for (const [where, value] of [["client/src/const.ts CONTACT_EMAIL", constEmail], ["server/_core/env.ts OWNER_EMAIL par défaut", ownerDefault]]) {
-    if (value && value !== data.profile.email) problems.push(`${where} = ${value}, différent de profile.email (${data.profile.email})`);
+  for (const [file, name, value] of [["client/src/const.ts", "CONTACT_EMAIL", constEmail], ["server/_core/env.ts", "OWNER_EMAIL par défaut", ownerDefault]]) {
+    // Une adresse non trouvée ne doit pas faire passer le contrôle en silence.
+    if (!value) problems.push(`${name} : adresse introuvable dans ${file} (format inattendu)`);
+    else if (value !== data.profile.email) problems.push(`${file} ${name} = ${value}, différent de profile.email (${data.profile.email})`);
   }
   return {
     ok: problems.length === 0,
@@ -160,11 +162,15 @@ async function contentData() {
   };
 }
 
-/** Secrets ou fichiers d'environnement suivis par git. */
+/**
+ * Secrets ou fichiers d'environnement suivis par git, ou pas encore ajoutés mais
+ * non ignorés : un `git add -A` les enverrait. Les fichiers ignorés par .gitignore
+ * (node_modules, .env, …) ne sont pas examinés.
+ */
 function secrets() {
   const problems = [];
-  const tracked = run("git", ["ls-files"]).output.split("\n");
-  for (const f of tracked) if (/(^|\/)\.env(\.|$)/.test(f) && !f.endsWith(".example")) problems.push(`fichier d'environnement suivi : ${f}`);
+  const files = run("git", ["ls-files", "--cached", "--others", "--exclude-standard"]).output.split("\n");
+  for (const f of files) if (/(^|\/)\.env(\.|$)/.test(f) && !f.endsWith(".example")) problems.push(`fichier d'environnement suivi ou à ajouter : ${f}`);
   const patterns = [
     "re_[A-Za-z0-9_]{20,}", // clé Resend
     "sk-[A-Za-z0-9_-]{20,}",
@@ -172,9 +178,12 @@ function secrets() {
     "AKIA[0-9A-Z]{16}",
     "-----BEGIN [A-Z ]*PRIVATE KEY-----",
   ];
-  const r = run("git", ["grep", "-nIE", patterns.join("|"), "--", ".", ":!pnpm-lock.yaml", ":!dist", ":!.claude/skills/inspection-predeploiement"]);
-  if (r.output) problems.push(...r.output.split("\n").map(l => `secret possible : ${l.slice(0, 160)}`));
-  return { ok: problems.length === 0, detail: problems.length ? problems.join("\n") : "aucun secret ni .env suivi" };
+  const grep = extra => run("git", ["grep", ...extra, "-nIE", patterns.join("|"), "--", ".", ":!pnpm-lock.yaml", ":!dist", ":!.claude/skills/inspection-predeploiement"]).output;
+  // Deux passes : tous les fichiers suivis (même ajoutés de force malgré .gitignore),
+  // puis avec --untracked les fichiers non suivis, en respectant .gitignore.
+  const hits = new Set([grep([]), grep(["--untracked"])].flatMap(out => (out ? out.split("\n") : [])));
+  problems.push(...[...hits].map(l => `secret possible : ${l.slice(0, 160)}`));
+  return { ok: problems.length === 0, detail: problems.length ? problems.join("\n") : "aucun secret ni .env suivi ou à ajouter" };
 }
 
 // --- Exécution -----------------------------------------------------------------
