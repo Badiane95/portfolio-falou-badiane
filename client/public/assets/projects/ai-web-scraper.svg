@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Une page web dont un sélecteur CSS extrait les prix vers un tableau de résultats planifié">
+  <defs>
+    <pattern id="grille" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#C9CEDA"/>
+    </pattern>
+    <marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2B3FE0"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="750" fill="#EEF0F4"/>
+  <rect width="1200" height="750" fill="url(#grille)"/>
+
+  <!-- Navigateur : source de la page -->
+  <g transform="translate(64 96)">
+    <rect width="560" height="560" rx="16" fill="#FFFFFF" stroke="#0B1530" stroke-width="2"/>
+    <path d="M0 16 a16 16 0 0 1 16 -16 h528 a16 16 0 0 1 16 16 v40 h-560 z" fill="#0B1530"/>
+    <circle cx="26" cy="28" r="6" fill="#5B6478"/>
+    <circle cx="46" cy="28" r="6" fill="#5B6478"/>
+    <circle cx="66" cy="28" r="6" fill="#5B6478"/>
+    <rect x="96" y="16" width="440" height="24" rx="12" fill="#1C2A4D"/>
+    <text x="112" y="33" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#9FABC6">https://boutique.exemple.fr/produits</text>
+
+    <g font-family="ui-monospace, Menlo, monospace" font-size="17" fill="#0B1530">
+      <text x="32" y="110"><tspan fill="#5B6478">&lt;</tspan>article <tspan fill="#2B3FE0">class</tspan>=<tspan fill="#B26A00">"card"</tspan><tspan fill="#5B6478">&gt;</tspan></text>
+      <text x="56" y="144"><tspan fill="#5B6478">&lt;</tspan>h3<tspan fill="#5B6478">&gt;</tspan>Casque audio<tspan fill="#5B6478">&lt;/</tspan>h3<tspan fill="#5B6478">&gt;</tspan></text>
+      <text x="56" y="178"><tspan fill="#5B6478">&lt;</tspan>span <tspan fill="#2B3FE0">class</tspan>=<tspan fill="#B26A00">"price"</tspan><tspan fill="#5B6478">&gt;</tspan>89,90 €<tspan fill="#5B6478">&lt;/</tspan>span<tspan fill="#5B6478">&gt;</tspan></text>
+      <text x="32" y="212"><tspan fill="#5B6478">&lt;/</tspan>article<tspan fill="#5B6478">&gt;</tspan></text>
+
+      <text x="32" y="268"><tspan fill="#5B6478">&lt;</tspan>article <tspan fill="#2B3FE0">class</tspan>=<tspan fill="#B26A00">"card"</tspan><tspan fill="#5B6478">&gt;</tspan></text>
+      <text x="56" y="302"><tspan fill="#5B6478">&lt;</tspan>h3<tspan fill="#5B6478">&gt;</tspan>Enceinte nomade<tspan fill="#5B6478">&lt;/</tspan>h3<tspan fill="#5B6478">&gt;</tspan></text>
+      <text x="56" y="336"><tspan fill="#5B6478">&lt;</tspan>span <tspan fill="#2B3FE0">class</tspan>=<tspan fill="#B26A00">"price"</tspan><tspan fill="#5B6478">&gt;</tspan>54,00 €<tspan fill="#5B6478">&lt;/</tspan>span<tspan fill="#5B6478">&gt;</tspan></text>
+      <text x="32" y="370"><tspan fill="#5B6478">&lt;/</tspan>article<tspan fill="#5B6478">&gt;</tspan></text>
+
+      <text x="32" y="426"><tspan fill="#5B6478">&lt;</tspan>article <tspan fill="#2B3FE0">class</tspan>=<tspan fill="#B26A00">"card"</tspan><tspan fill="#5B6478">&gt;</tspan></text>
+      <text x="56" y="460"><tspan fill="#5B6478">&lt;</tspan>h3<tspan fill="#5B6478">&gt;</tspan>Clavier sans fil<tspan fill="#5B6478">&lt;/</tspan>h3<tspan fill="#5B6478">&gt;</tspan></text>
+      <text x="56" y="494"><tspan fill="#5B6478">&lt;</tspan>span <tspan fill="#2B3FE0">class</tspan>=<tspan fill="#B26A00">"price"</tspan><tspan fill="#5B6478">&gt;</tspan>39,99 €<tspan fill="#5B6478">&lt;/</tspan>span<tspan fill="#5B6478">&gt;</tspan></text>
+      <text x="32" y="528"><tspan fill="#5B6478">&lt;/</tspan>article<tspan fill="#5B6478">&gt;</tspan></text>
+    </g>
+    <!-- Éléments repérés par le sélecteur -->
+    <g fill="none" stroke="#2B3FE0" stroke-width="2.5">
+      <rect x="46" y="156" width="476" height="32" rx="6"/>
+      <rect x="46" y="314" width="476" height="32" rx="6"/>
+      <rect x="46" y="472" width="476" height="32" rx="6"/>
+    </g>
+  </g>
+
+  <!-- Sélecteur -->
+  <g transform="translate(64 40)">
+    <rect width="300" height="36" rx="18" fill="#2B3FE0"/>
+    <text x="20" y="24" font-family="ui-monospace, Menlo, monospace" font-size="16" fill="#FFFFFF">article.card &gt; .price</text>
+  </g>
+
+  <line x1="640" y1="376" x2="704" y2="376" stroke="#2B3FE0" stroke-width="3" marker-end="url(#fleche)"/>
+
+  <!-- Résultats extraits -->
+  <g transform="translate(720 176)">
+    <rect width="416" height="400" rx="16" fill="#FFFFFF" stroke="#0B1530" stroke-width="2"/>
+    <text x="28" y="48" font-family="ui-monospace, Menlo, monospace" font-size="15" letter-spacing="2" fill="#5B6478">RÉSULTATS · 3 LIGNES</text>
+    <g font-family="ui-monospace, Menlo, monospace" font-size="15">
+      <text x="28" y="96" fill="#5B6478">produit</text>
+      <text x="388" y="96" fill="#5B6478" text-anchor="end">prix</text>
+      <line x1="28" y1="110" x2="388" y2="110" stroke="#C9CEDA" stroke-width="2"/>
+      <text x="28" y="148" fill="#0B1530">Casque audio</text>
+      <text x="388" y="148" fill="#2B3FE0" text-anchor="end" font-weight="600">89,90</text>
+      <line x1="28" y1="168" x2="388" y2="168" stroke="#EEF0F4" stroke-width="2"/>
+      <text x="28" y="204" fill="#0B1530">Enceinte nomade</text>
+      <text x="388" y="204" fill="#2B3FE0" text-anchor="end" font-weight="600">54,00</text>
+      <line x1="28" y1="224" x2="388" y2="224" stroke="#EEF0F4" stroke-width="2"/>
+      <text x="28" y="260" fill="#0B1530">Clavier sans fil</text>
+      <text x="388" y="260" fill="#2B3FE0" text-anchor="end" font-weight="600">39,99</text>
+    </g>
+    <g transform="translate(28 312)">
+      <rect width="360" height="56" rx="12" fill="#EEF0F4"/>
+      <circle cx="30" cy="28" r="13" fill="none" stroke="#0B1530" stroke-width="2.5"/>
+      <path d="M30 20 V28 L36 32" fill="none" stroke="#0B1530" stroke-width="2.5" stroke-linecap="round"/>
+      <text x="56" y="34" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#0B1530">planifié · chaque jour 06:00</text>
+    </g>
+  </g>
+</svg>

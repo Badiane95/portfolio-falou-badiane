@@ -4,6 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -24,6 +26,8 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -42,76 +46,110 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-:root {
-  /* Palette Minimalisme Moderne Technologique */
-  --primary: #0052CC;
-  --primary-foreground: #FFFFFF;
-  --sidebar-primary: #0052CC;
-  --sidebar-primary-foreground: #FFFFFF;
-  --chart-1: #06B6D4;
-  --chart-2: #0052CC;
-  --chart-3: #003A99;
-  --chart-4: #0052CC;
-  --chart-5: #003A99;
-  --radius: 0.75rem;
-  --background: #FFFFFF;
-  --foreground: #1A1A1A;
-  --card: #FFFFFF;
-  --card-foreground: #1A1A1A;
-  --popover: #FFFFFF;
-  --popover-foreground: #1A1A1A;
-  --secondary: #F3F4F6;
-  --secondary-foreground: #4B5563;
-  --muted: #E5E7EB;
-  --muted-foreground: #6B7280;
-  --accent: #06B6D4;
-  --accent-foreground: #FFFFFF;
-  --destructive: #EF4444;
-  --destructive-foreground: #FFFFFF;
-  --border: #E5E7EB;
-  --input: #F3F4F6;
-  --ring: #0052CC;
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #1A1A1A;
-  --sidebar-accent: #F3F4F6;
-  --sidebar-accent-foreground: #0052CC;
-  --sidebar-border: #E5E7EB;
-  --sidebar-ring: #0052CC;
+/*
+ * Thèmes de couleur. Un bloc par thème, mêmes tokens partout.
+ * Le thème actif est posé sur <html data-theme="…"> (script en ligne de
+ * index.html, puis ThemeContext). Mode d'emploi : .claude/skills/theme-system.
+ */
+:root,
+[data-theme="clair"] {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #0f1115;
+  --card: #ffffff;
+  --card-foreground: #0f1115;
+  --popover: #ffffff;
+  --popover-foreground: #0f1115;
+  --primary: #2b3fe0;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f2f4;
+  --secondary-foreground: #0f1115;
+  --muted: #f1f2f4;
+  --muted-foreground: #5b606b;
+  --accent: #f1f2f4;
+  --accent-foreground: #0f1115;
+  --destructive: #c4321f;
+  --destructive-foreground: #ffffff;
+  --success: #1f7a4d;
+  --success-foreground: #ffffff;
+  --border: #e2e4e9;
+  --input: #e2e4e9;
+  --ring: #2b3fe0;
 }
 
-.dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
+[data-theme="nuit"] {
+  color-scheme: dark;
+  --background: #0b1530;
+  --foreground: #e8edf7;
+  --card: #111d3d;
+  --card-foreground: #e8edf7;
+  --popover: #111d3d;
+  --popover-foreground: #e8edf7;
+  --primary: #8aa0ff;
+  --primary-foreground: #0b1530;
+  --secondary: #172449;
+  --secondary-foreground: #e8edf7;
+  --muted: #172449;
+  --muted-foreground: #9fabc6;
+  --accent: #172449;
+  --accent-foreground: #e8edf7;
+  --destructive: #ff8f80;
+  --destructive-foreground: #0b1530;
+  --success: #5fd49a;
+  --success-foreground: #0b1530;
+  --border: #24345e;
+  --input: #24345e;
+  --ring: #8aa0ff;
+}
+
+[data-theme="noir"] {
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --foreground: #ededea;
+  --card: #141414;
+  --card-foreground: #ededea;
+  --popover: #141414;
+  --popover-foreground: #ededea;
+  --primary: #8c9bff;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1c1c1c;
+  --secondary-foreground: #ededea;
+  --muted: #1c1c1c;
+  --muted-foreground: #a3a39d;
+  --accent: #1c1c1c;
+  --accent-foreground: #ededea;
+  --destructive: #ff8a7a;
+  --destructive-foreground: #0a0a0a;
+  --success: #5fd49a;
+  --success-foreground: #0a0a0a;
+  --border: #2a2a2a;
+  --input: #2a2a2a;
+  --ring: #8c9bff;
+}
+
+/* Tokens dérivés, identiques pour tous les thèmes */
+:root {
+  --radius: 0.625rem;
+  --chart-1: var(--primary);
+  --chart-2: var(--foreground);
+  --chart-3: var(--muted-foreground);
+  --chart-4: var(--border);
+  --chart-5: var(--secondary);
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--secondary);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+/* Changement de thème : le nouveau thème se dévoile en cercle (ThemeContext) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 @layer base {
@@ -119,15 +157,23 @@
     @apply border-border outline-ring/50;
   }
   html {
-    font-family: 'Rubik', sans-serif;
+    @apply font-sans antialiased;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Rubik', sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    overflow-x: clip;
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 700;
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -143,44 +189,50 @@
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
+    max-width: 72rem;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
-    padding-right: 1rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 
-  .flex {
-    min-height: 0;
-    min-width: 0;
-  }
-
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
-      padding-right: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
     }
+  }
+
+  /* Petit libellé monospace qui précède les titres : "01 / Projets" */
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground;
+  }
+
+  /* Lien souligné qui se dessine de gauche à droite au survol */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

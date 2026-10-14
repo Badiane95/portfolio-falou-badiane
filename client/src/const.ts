@@ -21,6 +21,6 @@ export const CONTACT_EMAIL = "badiane.falou95@gmail.com";
 export const CONTACT_PHONE = "+33 (à ajouter si nécessaire)";
 export const SOCIAL_LINKS = {
   github: "https://github.com/Badiane95",
-  linkedin: "https://linkedin.com/in/falou-badiane",
+  linkedin: "https://www.linkedin.com/in/falou-badiane-b555422a9/",
   email: `mailto:${CONTACT_EMAIL}`
 };

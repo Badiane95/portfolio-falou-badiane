@@ -3,11 +3,10 @@ import express from "express";
 import { createServer } from "http";
 import net from "net";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { registerOAuthRoutes } from "./oauth";
-import { registerChatRoutes } from "./chat";
-import { appRouter } from "../routers";
-import { createContext } from "./context";
-import { serveStatic, setupVite } from "./vite";
+import { registerOAuthRoutes } from "./oauth.js";
+import { appRouter } from "../routers.js";
+import { createContext } from "./context.js";
+import { serveStatic, setupVite } from "./vite.js";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -31,19 +30,21 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
-  // Configure body parser with larger size limit for file uploads
-  app.use(express.json({ limit: "50mb" }));
-  app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  // Corps limité à 100 ko : le formulaire de contact n'a pas besoin de plus
+  // (au-delà, Express répond 413).
+  app.use(express.json({ limit: "100kb" }));
+  app.use(express.urlencoded({ limit: "100kb", extended: true }));
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
-  // Chat API with streaming and tool calling
-  registerChatRoutes(app);
   // tRPC API
   app.use(
     "/api/trpc",
     createExpressMiddleware({
       router: appRouter,
       createContext,
+      // Pas de lots : une requête HTTP = un appel, sinon un seul POST pourrait
+      // déclencher des dizaines d'envois (le client utilise httpLink).
+      allowBatching: false,
     })
   );
   // development mode uses Vite, production mode uses static files

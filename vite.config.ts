@@ -3,8 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
-import { defineConfig, type Plugin, type ViteDevServer } from "vite";
-import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
+import { defineConfig, type Plugin, type PluginOption, type ViteDevServer } from "vite";
 
 // =============================================================================
 // Manus Debug Collector - Vite Plugin
@@ -77,6 +76,8 @@ function writeToLogFile(source: LogSource, entries: unknown[]) {
 function vitePluginManusDebugCollector(): Plugin {
   return {
     name: "manus-debug-collector",
+    // Outil de développement uniquement : jamais exécuté par `vite build`.
+    apply: "serve",
 
     transformIndexHtml(html) {
       if (process.env.NODE_ENV === "production") {
@@ -150,7 +151,21 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+// Le runtime Manus (vite-plugin-manus-runtime) a été retiré : il injectait dans
+// index.html un script qui exécutait les ordres reçus par postMessage sans
+// vérifier leur origine (navigation vers une URL `javascript:`, écriture de
+// cookies), donc une XSS exploitable depuis n'importe quel site. Il ne servait
+// qu'à l'éditeur Manus et rien dans client/src n'en dépend. Ne pas le remettre.
+//
+// jsx-loc ajoute des attributs `data-loc="client/src/…"` à chaque élément JSX :
+// utile en développement, mais il ne doit pas exposer l'arborescence du code
+// dans le JS de production, d'où `apply: "serve"`.
+const plugins: PluginOption[] = [
+  react(),
+  tailwindcss(),
+  { ...jsxLocPlugin(), apply: "serve" },
+  vitePluginManusDebugCollector(),
+];
 
 export default defineConfig({
   base: '/',

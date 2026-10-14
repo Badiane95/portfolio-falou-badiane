@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Carte de l'Île-de-France avec des groupes de salles de cinéma et un panneau de filtres">
+  <defs>
+    <pattern id="grille" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#C9CEDA"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="750" fill="#EEF0F4"/>
+  <rect width="1200" height="750" fill="url(#grille)"/>
+
+  <!-- Carte -->
+  <g transform="translate(56 56)">
+    <rect width="740" height="638" rx="16" fill="#FFFFFF" stroke="#0B1530" stroke-width="2"/>
+    <!-- Contour régional simplifié -->
+    <path d="M118 210 L196 132 L322 118 L408 72 L520 104 L602 96 L660 182 L640 286 L690 366 L648 470 L560 520 L470 580 L352 560 L250 588 L160 520 L108 430 L72 330 Z" fill="#EEF0F4" stroke="#C9CEDA" stroke-width="2"/>
+    <!-- Paris -->
+    <path d="M330 300 C345 285 385 282 402 296 C418 312 410 340 388 348 C362 356 336 346 328 330 C322 318 324 308 330 300 Z" fill="#DDE2FB" stroke="#2B3FE0" stroke-width="1.5"/>
+    <!-- Seine -->
+    <path d="M90 350 C170 390 230 300 300 320 C350 334 380 300 430 318 C500 344 520 420 600 410 C640 404 660 380 700 392" fill="none" stroke="#9FB4E8" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Groupes de salles -->
+    <g font-family="ui-monospace, Menlo, monospace" font-weight="700" text-anchor="middle">
+      <circle cx="366" cy="318" r="44" fill="#2B3FE0" opacity="0.92"/>
+      <text x="366" y="326" font-size="24" fill="#FFFFFF">41</text>
+      <circle cx="472" cy="232" r="27" fill="#2B3FE0" opacity="0.8"/>
+      <text x="472" y="239" font-size="18" fill="#FFFFFF">12</text>
+      <circle cx="252" cy="248" r="24" fill="#2B3FE0" opacity="0.8"/>
+      <text x="252" y="255" font-size="17" fill="#FFFFFF">9</text>
+      <circle cx="520" cy="430" r="22" fill="#2B3FE0" opacity="0.75"/>
+      <text x="520" y="437" font-size="16" fill="#FFFFFF">7</text>
+      <circle cx="210" cy="420" r="19" fill="#2B3FE0" opacity="0.7"/>
+      <text x="210" y="426" font-size="15" fill="#FFFFFF">5</text>
+    </g>
+    <g fill="#0B1530">
+      <circle cx="160" cy="300" r="5"/>
+      <circle cx="600" cy="230" r="5"/>
+      <circle cx="560" cy="330" r="5"/>
+      <circle cx="420" cy="500" r="5"/>
+      <circle cx="300" cy="510" r="5"/>
+      <circle cx="400" cy="160" r="5"/>
+      <circle cx="140" cy="230" r="5"/>
+    </g>
+    <!-- Salle sélectionnée -->
+    <g transform="translate(560 330)">
+      <circle r="11" fill="none" stroke="#F2A93B" stroke-width="4"/>
+      <line x1="10" y1="-10" x2="40" y2="-48" stroke="#0B1530" stroke-width="1.5"/>
+      <rect x="40" y="-86" width="120" height="44" rx="8" fill="#0B1530"/>
+      <text x="56" y="-66" font-family="Helvetica Neue, Arial, sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Cinéma</text>
+      <text x="56" y="-50" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#9FABC6">6 écrans</text>
+    </g>
+    <text x="32" y="604" font-family="ui-monospace, Menlo, monospace" font-size="14" letter-spacing="2" fill="#5B6478">ÎLE-DE-FRANCE · SALLES DE CINÉMA</text>
+  </g>
+
+  <!-- Panneau latéral -->
+  <g transform="translate(828 56)" font-family="Helvetica Neue, Arial, sans-serif">
+    <rect width="316" height="638" rx="16" fill="#0B1530"/>
+    <text x="28" y="52" font-family="ui-monospace, Menlo, monospace" font-size="14" letter-spacing="2" fill="#9FABC6">FILTRES</text>
+    <rect x="28" y="72" width="120" height="34" rx="17" fill="#2B3FE0"/>
+    <text x="88" y="94" font-size="14" fill="#FFFFFF" text-anchor="middle">Art et essai</text>
+    <rect x="156" y="72" width="132" height="34" rx="17" fill="none" stroke="#5B6478" stroke-width="1.5"/>
+    <text x="222" y="94" font-size="14" fill="#E8EDF7" text-anchor="middle">Multiplexes</text>
+
+    <text x="28" y="160" font-family="ui-monospace, Menlo, monospace" font-size="14" letter-spacing="2" fill="#9FABC6">SALLES PAR ZONE</text>
+    <g font-size="15" fill="#E8EDF7">
+      <text x="28" y="200">Paris</text>
+      <rect x="128" y="188" width="160" height="14" rx="4" fill="#2B3FE0"/>
+      <text x="28" y="238">Hauts-de-Seine</text>
+      <rect x="152" y="226" width="64" height="14" rx="4" fill="#2B3FE0" opacity="0.8"/>
+      <text x="28" y="276">Val-d'Oise</text>
+      <rect x="128" y="264" width="44" height="14" rx="4" fill="#2B3FE0" opacity="0.7"/>
+      <text x="28" y="314">Essonne</text>
+      <rect x="128" y="302" width="36" height="14" rx="4" fill="#2B3FE0" opacity="0.6"/>
+    </g>
+
+    <text x="28" y="380" font-family="ui-monospace, Menlo, monospace" font-size="14" letter-spacing="2" fill="#9FABC6">LÉGENDE</text>
+    <circle cx="44" cy="420" r="16" fill="#2B3FE0"/>
+    <text x="72" y="425" font-size="15" fill="#E8EDF7">groupe de salles</text>
+    <circle cx="44" cy="462" r="5" fill="#E8EDF7"/>
+    <text x="72" y="467" font-size="15" fill="#E8EDF7">salle isolée</text>
+    <circle cx="44" cy="504" r="9" fill="none" stroke="#F2A93B" stroke-width="3"/>
+    <text x="72" y="509" font-size="15" fill="#E8EDF7">salle sélectionnée</text>
+    <text x="28" y="604" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#5B6478">Google Maps API · D3.js</text>
+  </g>
+</svg>
