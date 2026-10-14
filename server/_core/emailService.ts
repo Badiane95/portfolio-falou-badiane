@@ -1,40 +1,73 @@
 import { ENV } from "./env.js";
-import { TRPCError } from "@trpc/server";
 
 export interface EmailPayload {
   to: string;
   subject: string;
   html: string;
+  /** Adresse utilisée quand le destinataire clique sur « Répondre ». */
+  replyTo?: string;
+}
+
+const SEND_TIMEOUT_MS = 8000;
+
+/** L'API Manus Forge n'existe que sur l'hébergement Manus (ancien déploiement). */
+export function isForgeConfigured(): boolean {
+  return Boolean(ENV.forgeApiUrl && ENV.forgeApiKey);
+}
+
+/** Fournisseur d'e-mail disponible : Resend en priorité, Forge en repli, sinon aucun. */
+export function emailProvider(): "resend" | "forge" | null {
+  if (ENV.resendApiKey) return "resend";
+  if (isForgeConfigured()) return "forge";
+  return null;
 }
 
 /**
- * Envoie un email via l'API Manus Forge
+ * Envoie un e-mail via Resend (ou l'API Manus Forge à défaut). Renvoie false,
+ * sans lever d'erreur, si aucun fournisseur n'est configuré ou si l'envoi échoue.
  */
 export async function sendEmail(payload: EmailPayload): Promise<boolean> {
-  if (!ENV.forgeApiUrl || !ENV.forgeApiKey) {
-    console.warn("[Email] Forge API not configured");
+  const provider = emailProvider();
+  if (!provider) {
+    console.warn("[Email] Aucun service d'e-mail configuré (RESEND_API_KEY ou Forge).");
     return false;
   }
 
+  const subject = toSingleLine(payload.subject);
+
   try {
-    const response = await fetch(`${ENV.forgeApiUrl}/email/send`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${ENV.forgeApiKey}`,
-      },
-      body: JSON.stringify({
-        to: payload.to,
-        subject: toSingleLine(payload.subject),
-        html: payload.html,
-      }),
-    });
+    const response =
+      provider === "resend"
+        ? await fetch(`${ENV.resendApiUrl}/emails`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${ENV.resendApiKey}`,
+            },
+            body: JSON.stringify({
+              from: ENV.contactFromEmail,
+              to: [payload.to],
+              subject,
+              html: payload.html,
+              ...(payload.replyTo ? { reply_to: payload.replyTo } : {}),
+            }),
+            signal: AbortSignal.timeout(SEND_TIMEOUT_MS),
+          })
+        : await fetch(`${ENV.forgeApiUrl}/email/send`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${ENV.forgeApiKey}`,
+            },
+            body: JSON.stringify({ to: payload.to, subject, html: payload.html }),
+            signal: AbortSignal.timeout(SEND_TIMEOUT_MS),
+          });
 
     if (!response.ok) {
       const error = await response.text().catch(() => "");
       console.warn(
-        `[Email] Failed to send email (${response.status} ${response.statusText})${
-          error ? `: ${error}` : ""
+        `[Email] Échec de l'envoi via ${provider} (${response.status} ${response.statusText})${
+          error ? `: ${error.slice(0, 300)}` : ""
         }`
       );
       return false;

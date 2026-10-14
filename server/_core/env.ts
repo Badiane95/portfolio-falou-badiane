@@ -7,5 +7,11 @@ export const ENV = {
   isProduction: process.env.NODE_ENV === "production",
   forgeApiUrl: process.env.BUILT_IN_FORGE_API_URL ?? "",
   forgeApiKey: process.env.BUILT_IN_FORGE_API_KEY ?? "",
-  ownerEmail: process.env.OWNER_EMAIL ?? "",
+  // Destinataire des messages du formulaire de contact (l'adresse publique du site par défaut).
+  ownerEmail: process.env.OWNER_EMAIL || "badiane.falou95@gmail.com",
+  // Resend (https://resend.com) : fournisseur d'e-mail utilisé en production sur Vercel.
+  resendApiKey: process.env.RESEND_API_KEY ?? "",
+  resendApiUrl: process.env.RESEND_API_URL || "https://api.resend.com",
+  // L'expéditeur de test de Resend peut écrire à l'adresse du compte Resend sans domaine vérifié.
+  contactFromEmail: process.env.CONTACT_FROM_EMAIL || "Portfolio Falou Badiane <onboarding@resend.dev>",
 };

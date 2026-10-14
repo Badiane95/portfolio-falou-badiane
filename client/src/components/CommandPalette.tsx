@@ -44,7 +44,8 @@ export function CommandPaletteProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key.toLowerCase() === "k" && (e.metaKey || e.ctrlKey)) {
+      // Le remplissage automatique de Chrome émet des keydown sans `key` : on les ignore.
+      if (typeof e.key === "string" && e.key.toLowerCase() === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen(o => !o);
       }

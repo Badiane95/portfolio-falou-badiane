@@ -2,6 +2,7 @@ import { TRPCError } from "@trpc/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { appRouter, contactRateLimiter, CONTACT_RATE_LIMIT } from "./routers.js";
 import type { TrpcContext } from "./_core/context.js";
+import { ENV } from "./_core/env.js";
 
 // Aucun appel réseau : la notification et l'envoi d'e-mail sont simulés.
 const { notifyOwner, sendEmail, OWNER_EMAIL } = vi.hoisted(() => ({
@@ -57,9 +58,18 @@ async function expectRejection(promise: Promise<unknown>, text: string) {
   expect(sendEmail).not.toHaveBeenCalled();
 }
 
+/** Canaux d'envoi configurés par défaut dans les tests : Resend et Forge. */
+function configureChannels({ resend = true, forge = true } = {}) {
+  ENV.resendApiKey = resend ? "re_test" : "";
+  ENV.forgeApiUrl = forge ? "https://forge.example.test" : "";
+  ENV.forgeApiKey = forge ? "forge-test" : "";
+}
+
 beforeEach(() => {
   contactRateLimiter.reset();
+  vi.restoreAllMocks();
   vi.clearAllMocks();
+  configureChannels();
   notifyOwner.mockResolvedValue(true);
   sendEmail.mockResolvedValue(true);
 });
@@ -224,15 +234,65 @@ describe("contact.send", () => {
     );
   });
 
-  it("renvoie une erreur en français si la notification échoue", async () => {
+  it("indique au propriétaire de répondre au visiteur (reply-to)", async () => {
+    const caller = appRouter.createCaller(createPublicContext().ctx);
+
+    await caller.contact.send(VALID);
+
+    expect(sendEmail.mock.calls[0][0].replyTo).toBe("john@example.com");
+  });
+});
+
+describe("contact.send — canaux d'envoi", () => {
+  const FAILURE = {
+    code: "INTERNAL_SERVER_ERROR",
+    message: "Le message n'a pas pu être envoyé. Écrivez-moi directement par e-mail.",
+  };
+
+  it("Resend seul (cas Vercel) : envoie l'e-mail sans appeler la notification Manus", async () => {
+    configureChannels({ resend: true, forge: false });
+    const caller = appRouter.createCaller(createPublicContext().ctx);
+
+    await expect(caller.contact.send(VALID)).resolves.toEqual(SUCCESS);
+
+    expect(notifyOwner).not.toHaveBeenCalled();
+    expect(sendEmail).toHaveBeenCalledTimes(1);
+  });
+
+  it("aucun canal configuré : erreur explicite au lieu d'un faux succès", async () => {
+    configureChannels({ resend: false, forge: false });
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const caller = appRouter.createCaller(createPublicContext().ctx);
+
+    await expect(caller.contact.send(VALID)).rejects.toMatchObject(FAILURE);
+
+    expect(notifyOwner).not.toHaveBeenCalled();
+    expect(sendEmail).not.toHaveBeenCalled();
+    expect(error.mock.calls.flat().join(" ")).toContain("RESEND_API_KEY");
+  });
+
+  it("tous les canaux échouent : erreur en français", async () => {
+    notifyOwner.mockRejectedValueOnce(new Error("Forge indisponible"));
+    sendEmail.mockResolvedValueOnce(false);
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const caller = appRouter.createCaller(createPublicContext().ctx);
+
+    await expect(caller.contact.send(VALID)).rejects.toMatchObject(FAILURE);
+  });
+
+  it("la notification échoue mais l'e-mail part : succès", async () => {
     notifyOwner.mockRejectedValueOnce(new Error("Forge indisponible"));
     vi.spyOn(console, "error").mockImplementation(() => {});
     const caller = appRouter.createCaller(createPublicContext().ctx);
 
-    await expect(caller.contact.send(VALID)).rejects.toMatchObject({
-      code: "INTERNAL_SERVER_ERROR",
-      message: "Erreur lors de l'envoi du message. Veuillez réessayer.",
-    });
+    await expect(caller.contact.send(VALID)).resolves.toEqual(SUCCESS);
+  });
+
+  it("l'e-mail échoue mais la notification part : succès", async () => {
+    sendEmail.mockResolvedValueOnce(false);
+    const caller = appRouter.createCaller(createPublicContext().ctx);
+
+    await expect(caller.contact.send(VALID)).resolves.toEqual(SUCCESS);
   });
 });
 

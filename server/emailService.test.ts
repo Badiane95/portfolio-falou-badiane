@@ -1,13 +1,16 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import * as emailService from "./_core/emailService.js";
 import {
+  emailProvider,
   escapeHtml,
   generateOwnerEmailHTML,
   sendEmail,
   toSingleLine,
 } from "./_core/emailService.js";
+import { ENV } from "./_core/env.js";
 
-// Service Forge factice : fetch est remplacé, aucun appel réseau.
+// Services Forge et Resend factices : fetch est remplacé, aucun appel réseau.
+// Resend est désactivé par défaut ; les tests qui en ont besoin posent la clé.
 vi.mock("./_core/env.js", async importOriginal => {
   const mod = await importOriginal<typeof import("./_core/env.js")>();
   return {
@@ -15,12 +18,19 @@ vi.mock("./_core/env.js", async importOriginal => {
       ...mod.ENV,
       forgeApiUrl: "http://forge.invalid",
       forgeApiKey: "cle-factice",
+      resendApiKey: "",
+      resendApiUrl: "http://resend.invalid",
+      contactFromEmail: "Portfolio <onboarding@resend.dev>",
     },
   };
 });
 
 afterEach(() => {
   vi.unstubAllGlobals();
+  vi.restoreAllMocks();
+  ENV.resendApiKey = "";
+  ENV.forgeApiUrl = "http://forge.invalid";
+  ENV.forgeApiKey = "cle-factice";
 });
 
 describe("escapeHtml", () => {
@@ -89,5 +99,59 @@ describe("sendEmail", () => {
 
   it("toSingleLine remplace chaque suite de retours à la ligne par une espace", () => {
     expect(toSingleLine("a\r\n\r\nb\rc\nd")).toBe("a b c d");
+  });
+
+  it("passe par Resend quand RESEND_API_KEY est définie, avec reply-to", async () => {
+    ENV.resendApiKey = "re_factice";
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(new Response('{"id":"x"}', { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const ok = await sendEmail({
+      to: "proprietaire@example.test",
+      subject: "Objet",
+      html: "<p>x</p>",
+      replyTo: "visiteur@example.test",
+    });
+
+    expect(ok).toBe(true);
+    const [url, init] = fetchMock.mock.calls[0];
+    expect(url).toBe("http://resend.invalid/emails");
+    expect(init.headers.Authorization).toBe("Bearer re_factice");
+    expect(JSON.parse(init.body)).toEqual({
+      from: "Portfolio <onboarding@resend.dev>",
+      to: ["proprietaire@example.test"],
+      subject: "Objet",
+      html: "<p>x</p>",
+      reply_to: "visiteur@example.test",
+    });
+  });
+
+  it("renvoie false si le fournisseur répond une erreur", async () => {
+    ENV.resendApiKey = "re_factice";
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(new Response("refusé", { status: 403 }))
+    );
+
+    await expect(
+      sendEmail({ to: "proprietaire@example.test", subject: "Objet", html: "x" })
+    ).resolves.toBe(false);
+  });
+
+  it("sans aucun fournisseur : renvoie false sans appel réseau", async () => {
+    ENV.forgeApiUrl = "";
+    ENV.forgeApiKey = "";
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    expect(emailProvider()).toBeNull();
+    await expect(
+      sendEmail({ to: "proprietaire@example.test", subject: "Objet", html: "x" })
+    ).resolves.toBe(false);
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

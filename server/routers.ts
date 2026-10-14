@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter.js";
 import { publicProcedure, router } from "./_core/trpc.js";
 import { TRPCError } from "@trpc/server";
 import { notifyOwner } from "./_core/notification.js";
-import { sendEmail, generateOwnerEmailHTML } from "./_core/emailService.js";
+import { emailProvider, generateOwnerEmailHTML, isForgeConfigured, sendEmail } from "./_core/emailService.js";
 import { ENV } from "./_core/env.js";
 import { CONTACT_MIN_FILL_MS, contactInputSchema, type ContactInput } from "../shared/contact.js";
 import { createRateLimiter, getClientIp } from "./rateLimit.js";
@@ -72,46 +72,47 @@ export const appRouter = router({
           return CONTACT_SUCCESS;
         }
 
-        try {
-          // Envoyer une notification au propriétaire du portfolio
-          const notificationSent = await notifyOwner({
-            title: `Nouveau message de contact de ${input.name}`,
-            content: `Email: ${input.email}\n\nSujet: ${input.subject}\n\nMessage:\n${input.message}`
-          });
+        // Canaux d'envoi vers le propriétaire, lancés en parallèle. La notification Manus
+        // n'existe que si Forge est configuré ; l'e-mail passe par Resend (ou Forge).
+        const notification = isForgeConfigured()
+          ? notifyOwner({
+              title: `Nouveau message de contact de ${input.name}`,
+              content: `Email: ${input.email}\n\nSujet: ${input.subject}\n\nMessage:\n${input.message}`,
+            }).catch(error => {
+              console.error("[Contact] Échec de la notification :", error);
+              return false;
+            })
+          : Promise.resolve(false);
 
-          if (!notificationSent) {
-            console.warn("[Contact] Notification service unavailable, but message was received");
-          }
-
-          // Pas d'e-mail de confirmation au visiteur : l'adresse saisie n'est pas
-          // vérifiée, le formulaire servirait sinon de relais vers n'importe qui.
-          // Le propriétaire reçoit le message et répond lui-même.
-          if (ENV.ownerEmail) {
-            const ownerHTML = generateOwnerEmailHTML(
-              input.name,
-              input.email,
-              input.subject,
-              input.message
-            );
-            const ownerEmailSent = await sendEmail({
+        // Pas d'e-mail de confirmation au visiteur : l'adresse saisie n'est pas
+        // vérifiée, le formulaire servirait sinon de relais vers n'importe qui.
+        // Le propriétaire reçoit le message et répond lui-même (reply-to).
+        const email = emailProvider()
+          ? sendEmail({
               to: ENV.ownerEmail,
               // sendEmail retire aussi les CR/LF de l'objet (défense en profondeur).
               subject: `Nouveau message de contact : ${input.subject}`,
-              html: ownerHTML
-            });
-            if (!ownerEmailSent) {
-              console.warn("[Contact] Failed to send email to owner");
-            }
-          }
+              html: generateOwnerEmailHTML(input.name, input.email, input.subject, input.message),
+              replyTo: input.email,
+            })
+          : Promise.resolve(false);
 
-          return CONTACT_SUCCESS;
-        } catch (error) {
-          console.error("[Contact] Error sending notification:", error);
+        const [notified, emailed] = await Promise.all([notification, email]);
+
+        // Un succès n'est renvoyé que si le message est réellement parti quelque part.
+        if (!notified && !emailed) {
+          if (!emailProvider() && !isForgeConfigured()) {
+            console.error(
+              "[Contact] Aucun canal d'envoi configuré : définissez RESEND_API_KEY (et OWNER_EMAIL) dans les variables d'environnement."
+            );
+          }
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
-            message: "Erreur lors de l'envoi du message. Veuillez réessayer.",
+            message: "Le message n'a pas pu être envoyé. Écrivez-moi directement par e-mail.",
           });
         }
+
+        return CONTACT_SUCCESS;
       })
   }),
 });

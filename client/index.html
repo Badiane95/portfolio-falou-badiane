@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-theme="nuit" class="dark">
 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Falou Badiane — Ingénieur IA & data</title>
     <meta name="description" content="Portfolio de Falou Badiane, Forward Deployed Engineer – Ingénieur IA en alternance chez Randstad Digital (Master IID, Paris 8) : IA appliquée, data, automatisation et développement full-stack." />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#0b1530" />
     <script>
       // Pose le thème avant le premier rendu pour éviter un flash de couleur.
       // Identifiants à garder synchronisés avec client/src/lib/themes.ts.
@@ -14,12 +14,11 @@
         var colors = { clair: "#ffffff", nuit: "#0b1530", noir: "#0a0a0a" };
         var theme;
         try { theme = localStorage.getItem("theme"); } catch (e) {}
-        if (!colors[theme]) {
-          theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "nuit" : "clair";
-        }
+        // Sans choix enregistré, le site s'ouvre en bleu nuit (thème par défaut).
+        if (!colors[theme]) theme = "nuit";
         var root = document.documentElement;
         root.setAttribute("data-theme", theme);
-        if (theme !== "clair") root.classList.add("dark");
+        root.classList.toggle("dark", theme !== "clair");
         document.querySelector('meta[name="theme-color"]').setAttribute("content", colors[theme]);
       })();
     </script>
@@ -36,10 +35,6 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
   </body>
 
 </html>

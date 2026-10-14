@@ -1,4 +1,4 @@
-import { applyThemeToDocument, isThemeId, THEME_STORAGE_KEY, type ThemeId } from "@/lib/themes";
+import { applyThemeToDocument, DEFAULT_THEME, isThemeId, THEME_STORAGE_KEY, type ThemeId } from "@/lib/themes";
 import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
 import { flushSync } from "react-dom";
 
@@ -15,7 +15,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 // Le script en ligne de index.html a déjà posé data-theme avant le premier rendu.
 function initialTheme(): ThemeId {
   const current = document.documentElement.dataset.theme;
-  return isThemeId(current) ? current : "clair";
+  return isThemeId(current) ? current : DEFAULT_THEME;
 }
 
 type DocumentWithTransition = Document & {

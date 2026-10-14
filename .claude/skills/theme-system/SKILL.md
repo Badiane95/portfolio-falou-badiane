@@ -5,7 +5,7 @@ description: Système de thèmes de couleur du portfolio (clair, bleu nuit, noir
 
 # Système de thèmes de couleur
 
-Le site propose trois thèmes : **clair** (blanc), **nuit** (bleu foncé) et **noir**. Le visiteur choisit avec les trois pastilles de la barre de navigation ou avec la palette ⌘K ; le choix est mémorisé dans `localStorage["theme"]`. Sans choix enregistré, le site suit le réglage du système : `nuit` si l'appareil est en mode sombre, sinon `clair`.
+Le site propose trois thèmes : **clair** (blanc), **nuit** (bleu foncé) et **noir**. Le visiteur choisit avec les trois pastilles de la barre de navigation ou avec la palette ⌘K ; le choix est mémorisé dans `localStorage["theme"]`. Sans choix enregistré, le site s'ouvre en **bleu nuit** (`nuit`), le thème par défaut, quel que soit le réglage clair/sombre du système.
 
 ## Comment ça marche
 
@@ -30,7 +30,7 @@ Quatre endroits doivent rester d'accord ; le script de vérification détecte to
 
 1. **`index.css`** : copie un bloc `[data-theme="…"]` existant et ajuste chaque valeur. Garde exactement les mêmes tokens, avec `color-scheme: light` ou `dark`. Écris les couleurs en hexadécimal (`#rrggbb`), seul format que le script sait contrôler.
 2. **`lib/themes.ts`** : ajoute l'entrée dans `THEMES`. `themeColor` doit être égal à `--background` ; `dark` doit correspondre à `color-scheme`.
-3. **`client/index.html`** : ajoute l'identifiant et sa couleur de fond dans l'objet `colors` du script en ligne. Si le thème par défaut change, adapte aussi la ligne `prefers-color-scheme`.
+3. **`client/index.html`** : ajoute l'identifiant et sa couleur de fond dans l'objet `colors` du script en ligne. Le thème par défaut apparaît à quatre endroits, à garder identiques : `DEFAULT_THEME` dans `lib/themes.ts`, la valeur de repli du script en ligne, les attributs `data-theme` / `class="dark"` de `<html>` (utilisés si JavaScript est désactivé) et la balise `meta name="theme-color"`.
 4. **Vérifie** (voir plus bas). Le sélecteur, la palette et les toasts lisent `THEMES` : rien d'autre à modifier.
 
 Pour retirer un thème, fais l'inverse aux trois endroits. Un visiteur qui l'avait choisi retombera sur le thème par défaut, car le script ignore une valeur inconnue.

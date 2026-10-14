@@ -1,7 +1,8 @@
+import { profile } from "@/data/portfolio";
 import { trpc } from "@/lib/trpc";
 import { CONTACT_LIMITS, contactFieldsSchema, type ContactField } from "@shared/contact";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { EASE_OUT } from "./motion/Reveal";
 
@@ -12,7 +13,7 @@ type FieldErrors = Partial<Record<Field, string>>;
 const FIELDS: Field[] = ["name", "email", "subject", "message"];
 const LABELS: Record<Field, string> = { name: "Nom", email: "E-mail", subject: "Sujet", message: "Message" };
 const EMPTY: Values = { name: "", email: "", subject: "", message: "" };
-const GENERIC_ERROR = "L'envoi a échoué. Réessayez dans un instant.";
+const SEND_FAILED = "Le message n'a pas pu partir depuis le site. Il est prêt à être envoyé depuis votre messagerie :";
 
 // Même schéma zod que le serveur (shared/contact.ts) : mêmes règles, mêmes messages.
 function validate(field: Field, value: string): string | null {
@@ -30,10 +31,12 @@ const isField = (value: unknown): value is Field => FIELDS.includes(value as Fie
 function readServerError(error: { message: string; data?: { code?: string } | null }): {
   message: string;
   fields: FieldErrors;
+  /** Proposer l'envoi par la messagerie du visiteur (panne d'envoi, réseau…). */
+  mailto: boolean;
 } {
   const code = error.data?.code;
   if (code === "TOO_MANY_REQUESTS") {
-    return { message: error.message || "Trop de messages envoyés. Réessayez plus tard.", fields: {} };
+    return { message: error.message || "Trop de messages envoyés. Réessayez plus tard.", fields: {}, mailto: true };
   }
   if (code === "BAD_REQUEST") {
     const fields: FieldErrors = {};
@@ -48,15 +51,21 @@ function readServerError(error: { message: string; data?: { code?: string } | nu
     } catch {
       // Pas du JSON : on garde le message générique ci-dessous.
     }
-    return { message: "Certains champs ne sont pas valides. Corrigez-les puis renvoyez le message.", fields };
+    return { message: "Certains champs ne sont pas valides. Corrigez-les puis renvoyez le message.", fields, mailto: false };
   }
-  return { message: GENERIC_ERROR, fields: {} };
+  return { message: SEND_FAILED, fields: {}, mailto: true };
+}
+
+/** Lien mailto pré-rempli avec le contenu du formulaire, en solution de secours. */
+function mailtoHref(values: Values): string {
+  const body = `${values.message.trim()}\n\n${values.name.trim()}\n${values.email.trim()}`;
+  return `mailto:${profile.email}?subject=${encodeURIComponent(values.subject.trim())}&body=${encodeURIComponent(body)}`;
 }
 
 export function ContactForm() {
   const [values, setValues] = useState<Values>(EMPTY);
   const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({});
-  const [serverError, setServerError] = useState<string | null>(null);
+  const [serverError, setServerError] = useState<{ message: string; mailto: boolean } | null>(null);
   const [serverFieldErrors, setServerFieldErrors] = useState<FieldErrors>({});
   const [sent, setSent] = useState(false);
   // Champ piège : invisible pour un humain, rempli par les robots naïfs.
@@ -78,8 +87,8 @@ export function ContactForm() {
       setTimeout(() => setSent(false), 4000);
     },
     onError: error => {
-      const { message, fields } = readServerError(error);
-      setServerError(message);
+      const { message, fields, mailto } = readServerError(error);
+      setServerError({ message, mailto });
       setServerFieldErrors(fields);
     },
   });
@@ -139,9 +148,17 @@ export function ContactForm() {
       </div>
 
       {serverError && (
-        <p role="alert" className="rounded-md border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive">
-          {serverError}
-        </p>
+        <div role="alert" className="rounded-md border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive">
+          <p>{serverError.message}</p>
+          {serverError.mailto && (
+            <a
+              href={mailtoHref(values)}
+              className="mt-1 inline-flex items-center gap-1 font-medium underline underline-offset-4"
+            >
+              Envoyer à {profile.email} <ArrowUpRight className="size-3.5" />
+            </a>
+          )}
+        </div>
       )}
 
       <div className="flex flex-wrap items-center gap-4">

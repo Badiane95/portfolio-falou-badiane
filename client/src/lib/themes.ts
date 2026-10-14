@@ -14,6 +14,9 @@ export type ThemeId = (typeof THEMES)[number]["id"];
 
 export const THEME_STORAGE_KEY = "theme";
 
+/** Thème d'un nouveau visiteur. À garder identique dans le script en ligne et sur <html> dans client/index.html. */
+export const DEFAULT_THEME: ThemeId = "nuit";
+
 export const isThemeId = (value: unknown): value is ThemeId =>
   THEMES.some(t => t.id === value);
 
