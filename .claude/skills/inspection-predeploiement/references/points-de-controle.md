@@ -25,7 +25,7 @@ Ne parcours que les sections touchées par le diff. Chaque point dit **ce qui ca
 - Pas de `dangerouslySetInnerHTML` alimenté par une donnée non maîtrisée.
 - Les liens externes ouverts dans un nouvel onglet portent `rel="noopener noreferrer"`.
 - Les en-têtes de `vercel.json` (`frame-ancestors 'none'`, `X-Frame-Options`, `COOP`, `nosniff`, `Referrer-Policy`) ne doivent pas disparaître. Une CSP de scripts ajoutée doit autoriser le script de thème en ligne de `index.html` par son hash, sinon le thème n'est plus posé avant le rendu.
-- Aucun `.env` ni secret suivi par git (détecté par `verifier.mjs`).
+- Aucun `.env*` ni secret suivi par git ou présent dans un nouveau fichier non ignoré (détecté par `verifier.mjs`). `.gitignore` ignore tous les `.env*` sauf `.env.example`.
 
 ## Contenu et données personnelles
 

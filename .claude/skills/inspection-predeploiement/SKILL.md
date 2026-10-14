@@ -34,7 +34,7 @@ Le script n'écrit rien dans le dépôt. Le build et la transpilation se font da
 | Imports serveur ESM | import relatif sans `.js` ou alias `@shared` / `@/` dans `api/`, `server/`, `shared/`, `drizzle/` |
 | Chargement de la fonction Vercel | transpile l'API fichier par fichier comme @vercel/node, puis l'importe en ESM natif. C'est la seule façon de voir un `ERR_MODULE_NOT_FOUND`, que `tsc` et `vitest` laissent passer. |
 | Données du portfolio | noms de `stack` et de `skillsAtWork` absents de `skillGroups`, employeur inconnu, `start` mal formé, image ou CV introuvable, adresse e-mail différente entre `profile.email`, `CONTACT_EMAIL` et le `OWNER_EMAIL` par défaut |
-| Secrets | `.env` suivi par git, clés d'API (Resend, OpenAI, GitHub, AWS) ou clés privées dans le code |
+| Secrets | `.env*` suivi ou non ignoré (un `git add -A` l'enverrait), clés d'API (Resend, OpenAI, GitHub, AWS) ou clés privées, dans les fichiers suivis comme dans les nouveaux fichiers |
 | Build client | `vite build` |
 
 Chaque ✗ est une anomalie, et la sortie du script en est la preuve.
